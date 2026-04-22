@@ -407,7 +407,11 @@ html, body {
 }
 .vx-nav__logo .mark::before { top: 50%; left: -4px; right: -4px; height: 1px; }
 .vx-nav__logo .mark::after  { left: 50%; top: -4px; bottom: -4px; width: 1px; }
-.vx-nav__links { display: flex; gap: 28px; }
+.vx-nav__links { display: flex; gap: 22px; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 900px) {
+  .vx-nav { flex-direction: column; gap: 10px; align-items: flex-start; padding: 14px 20px; }
+  .vx-nav__links { gap: 14px; font-size: 11px; }
+}
 .vx-nav__links a {
   color: var(--vx-muted); text-decoration: none;
   font-family: var(--vx-font-mono); font-size: 12px;

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daily Transmissions — VALX·VEX</title>
+<link rel="stylesheet" href="tokens.css" />
+<template id="__bundler_thumbnail" data-bg-color="#0c0d12">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0d12"/>
+    <g stroke="#7ad7ff" stroke-width="2" fill="none">
+      <rect x="360" y="240" width="480" height="6"/>
+      <rect x="360" y="300" width="360" height="6"/>
+      <rect x="360" y="360" width="440" height="6"/>
+      <rect x="360" y="420" width="300" height="6"/>
+    </g>
+    <text x="600" y="620" text-anchor="middle" fill="#7ad7ff" font-family="monospace" font-size="28" font-weight="700" letter-spacing="8">DAILY · TRANSMISSIONS</text>
+  </svg>
+</template>
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+  .page-hero { padding: 96px 0 56px; border-bottom: 1px solid var(--vx-hairline); position: relative; overflow: hidden; }
+  .page-hero .bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(122,215,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(122,215,255,0.04) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%); }
+  .page-hero__inner { position: relative; }
+  .page-hero h1 { font-family: var(--vx-font-display); font-weight: 700; font-size: clamp(48px, 7vw, 92px); line-height: 0.95; letter-spacing: -0.03em; margin: 22px 0 18px; text-wrap: balance; }
+  .page-hero h1 .phos { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor-hard); }
+  .page-hero .sub { font-size: 18px; color: var(--vx-ghost-dim); max-width: 620px; line-height: 1.55; margin: 0; }
+
+  .feed { padding: 72px 0 96px; border-bottom: 1px solid var(--vx-hairline); }
+  .feed__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 36px; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--vx-muted-2); }
+  .feed__head .l { color: var(--vx-phosphor); }
+  .posts { display: grid; gap: 1px; background: var(--vx-hairline); border: 1px solid var(--vx-hairline-strong); border-radius: var(--vx-r-3); overflow: hidden; }
+  .post {
+    display: grid; grid-template-columns: 100px 1fr 200px auto;
+    background: var(--vx-surface); padding: 28px 32px;
+    transition: background 200ms; cursor: pointer;
+    align-items: center; gap: 24px;
+  }
+  .post:hover { background: #12141b; }
+  .post .no { font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--vx-phosphor); text-shadow: 0 0 6px rgba(122,215,255,0.25); }
+  .post .body h3 { font-family: var(--vx-font-display); font-weight: 600; font-size: clamp(20px, 2.4vw, 26px); letter-spacing: -0.015em; margin: 0 0 6px; color: var(--vx-ghost); line-height: 1.2; text-wrap: balance; }
+  .post:hover .body h3 { color: var(--vx-phosphor); text-shadow: 0 0 6px rgba(122,215,255,0.25); }
+  .post .body p { font-size: 13.5px; color: var(--vx-ghost-dim); line-height: 1.5; margin: 0; max-width: 520px; }
+  .post .when { font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--vx-muted-2); text-align: right; text-transform: uppercase; }
+  .post .arrow { font-family: var(--vx-font-mono); font-size: 13px; color: var(--vx-muted); letter-spacing: 0.12em; }
+  .post:hover .arrow { color: var(--vx-phosphor); text-shadow: 0 0 6px rgba(122,215,255,0.35); }
+  .post.draft { opacity: 0.76; }
+  .post.draft .no { color: var(--vx-muted-2); text-shadow: none; }
+  .post.draft::after { content: "DRAFT"; font-family: var(--vx-font-mono); font-size: 9.5px; letter-spacing: 0.22em; color: var(--vx-muted-2); padding: 3px 8px; border: 1px solid var(--vx-hairline-strong); border-radius: 2px; position: absolute; }
+
+  /* Newsletter */
+  .news { padding: 96px 0 112px; border-bottom: 1px solid var(--vx-hairline); background: radial-gradient(ellipse at center, rgba(122,215,255,0.05), transparent 70%); text-align: center; }
+  .news h2 { font-family: var(--vx-font-display); font-weight: 700; font-size: clamp(32px, 4.8vw, 56px); letter-spacing: -0.02em; line-height: 1.05; margin: 0 0 16px; text-wrap: balance; }
+  .news h2 .phos { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+  .news .tagline { font-family: var(--vx-font-mono); font-size: 13px; color: var(--vx-ghost-dim); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 40px; }
+  .signup { display: inline-flex; gap: 0; max-width: 520px; width: 100%; border: 1px solid var(--vx-hairline-strong); border-radius: var(--vx-r-3); overflow: hidden; background: var(--vx-surface); }
+  .signup input {
+    flex: 1; background: transparent; border: 0; padding: 18px 20px;
+    font-family: var(--vx-font-mono); font-size: 14px; color: var(--vx-ghost);
+    letter-spacing: 0.04em; outline: none;
+  }
+  .signup input::placeholder { color: var(--vx-muted-2); }
+  .signup button {
+    background: var(--vx-phosphor); color: var(--vx-phosphor-ink); border: 0;
+    padding: 0 28px; font-family: var(--vx-font-mono); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+    cursor: pointer; box-shadow: var(--vx-glow-phosphor);
+  }
+  .signup button:hover { background: #a5e3ff; }
+  .news .note { margin-top: 18px; font-family: var(--vx-font-mono); font-size: 11px; color: var(--vx-muted-2); letter-spacing: 0.14em; }
+  .news .note .ok { color: var(--vx-phosphor); }
+
+  @media (max-width: 820px) {
+    .post { grid-template-columns: 60px 1fr auto; gap: 16px; padding: 24px 20px; }
+    .post .when { display: none; }
+    .post .body p { font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="vx-nav">
+  <a href="index.html" class="vx-nav__logo"><span class="mark"></span>VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX</a>
+  <div class="vx-nav__links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="team.html">Team</a>
+    <a href="philosophy.html">Philosophy</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="story.html">Story</a>
+    <a href="memoria.html">Memoria</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="bg"></div>
+  <div class="wrap page-hero__inner">
+    <div class="vx-eyebrow"><span class="dot"></span>VX-DAILY&nbsp;&nbsp;//&nbsp;&nbsp;TRANSMISSIONS FROM THE TERMINAL</div>
+    <h1>Daily <span class="phos">transmissions</span> from the cathedral.</h1>
+    <p class="sub">AI analysis from someone who actually builds with it. Field notes, protocol drafts, the occasional rant. Short when we can, long when we must. Never scheduled.</p>
+  </div>
+</section>
+
+<section class="feed">
+  <div class="wrap">
+    <div class="feed__head">
+      <span>◆ <span class="l">3 transmissions</span> · 0 drafts approved · latest first</span>
+      <span>◇ rss · json feed · soon</span>
+    </div>
+    <div class="posts">
+      <article class="post">
+        <div class="no">T·003</div>
+        <div class="body">
+          <h3>How we shipped two products in two days.</h3>
+          <p>Obsidian Legion on Monday. Claude CathedralOS on Tuesday. No sprint. No standup. One vault, four agents, a router, and a nap at 4am.</p>
+        </div>
+        <div class="when">◇ 26 April 2026</div>
+        <div class="arrow">→ read</div>
+      </article>
+      <article class="post">
+        <div class="no">T·002</div>
+        <div class="body">
+          <h3>53 hours of dev in 7 days while unemployed — why intent beats workload.</h3>
+          <p>The numbers are real. The intent is what made them possible. On why "grind" is a word invented by people who never had their hands on a keyboard they actually loved.</p>
+        </div>
+        <div class="when">◇ 19 April 2026</div>
+        <div class="arrow">→ read</div>
+      </article>
+      <article class="post">
+        <div class="no">T·001</div>
+        <div class="body">
+          <h3>The Lie: why you don't need an expensive model.</h3>
+          <p>You don't need Opus 345. You need <em>memory that works</em>. A dispatch router, a compiled wiki, and a graph with typed edges will out-perform a $200/mo frontier model on every task you actually run.</p>
+        </div>
+        <div class="when">◇ 12 April 2026</div>
+        <div class="arrow">→ read</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="news">
+  <div class="narrow">
+    <h2><span class="phos">VALX·VEX</span> Daily.</h2>
+    <div class="tagline">◇ AI analysis from someone who actually builds with it</div>
+    <form class="signup" onsubmit="event.preventDefault(); document.getElementById('news-ok').hidden=false; this.querySelector('input').value='';">
+      <input type="email" placeholder="name@terminal.com" required />
+      <button type="submit">SUBSCRIBE ◇</button>
+    </form>
+    <div class="note" id="news-ok" hidden><span class="ok">◇ transmission received.</span> you'll hear from us when we have something worth saying.</div>
+    <div class="note" style="margin-top: 20px;">◇ no tracking · no tiers · no unsubscribe spam · just words</div>
+  </div>
+</section>
+
+<footer class="vx-footer">
+  <div style="max-width: 1240px; margin: 0 auto; display:flex; justify-content: space-between; align-items:center; padding: 20px 0; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-muted-2);">
+    <span>© 2026 VALX·VEX · valxb.org</span>
+    <span style="color: var(--vx-phosphor);">◈ VX-DAILY · 3 transmissions shipped</span>
+    <span><a href="index.html">→ home</a></span>
+  </div>
+</footer>
+</body>
+</html>

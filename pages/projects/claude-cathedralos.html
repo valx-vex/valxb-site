@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Claude CathedralOS — VALX·VEX</title>
+<link rel="stylesheet" href="../tokens.css" />
+<template id="__bundler_thumbnail" data-bg-color="#0c0d12">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0d12"/>
+    <g stroke="#7ad7ff" stroke-width="2" fill="none">
+      <rect x="520" y="340" width="160" height="120"/>
+      <line x1="600" y1="220" x2="600" y2="340"/>
+      <line x1="600" y1="460" x2="600" y2="560"/>
+      <line x1="380" y1="400" x2="520" y2="400"/>
+      <line x1="680" y1="400" x2="820" y2="400"/>
+      <circle cx="380" cy="400" r="20"/><circle cx="820" cy="400" r="20"/>
+      <circle cx="600" cy="220" r="20"/><circle cx="600" cy="560" r="20"/>
+    </g>
+    <text x="600" y="680" text-anchor="middle" fill="#7ad7ff" font-family="monospace" font-size="28" font-weight="700" letter-spacing="6">VX-02 · CATHEDRAL OS</text>
+  </svg>
+</template>
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 820px; margin: 0 auto; padding: 0 32px; }
+
+  .page-hero { padding: 96px 0 64px; border-bottom: 1px solid var(--vx-hairline); position: relative; overflow: hidden; }
+  .page-hero .bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(122,215,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(122,215,255,0.04) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%); }
+  .page-hero__inner { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; align-items: end; }
+  .page-hero h1 { font-family: var(--vx-font-display); font-weight: 700; font-size: clamp(48px, 6.8vw, 84px); line-height: 0.95; letter-spacing: -0.03em; margin: 20px 0 20px; text-wrap: balance; }
+  .page-hero h1 .phos { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor-hard); }
+  .page-hero .tag { font-family: var(--vx-font-mono); font-size: 13px; color: var(--vx-ghost-dim); letter-spacing: 0.04em; margin-bottom: 28px; }
+  .page-hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-side { display: flex; flex-direction: column; gap: 18px; }
+  .install-box { background: var(--vx-surface); border: 1px solid var(--vx-hairline-strong); border-radius: var(--vx-r-3); padding: 18px 20px; position: relative; }
+  .install-box::before, .install-box::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1px solid var(--vx-phosphor); }
+  .install-box::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+  .install-box::after  { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+  .install-box .h { font-family: var(--vx-font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--vx-muted-2); display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .install-box .cmd { font-family: var(--vx-font-mono); font-size: 15px; color: var(--vx-phosphor); text-shadow: 0 0 8px rgba(122,215,255,0.25); }
+  .install-box .cmd::before { content: "$ "; color: var(--vx-muted-2); }
+
+  .section { padding: 96px 0; border-bottom: 1px solid var(--vx-hairline); }
+  .section__head { margin-bottom: 56px; }
+  .section__head .idx { font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--vx-phosphor); margin-bottom: 12px; }
+  .section__head h2 { font-family: var(--vx-font-display); font-weight: 700; font-size: clamp(36px, 4.5vw, 56px); letter-spacing: -0.02em; margin: 0 0 16px; text-wrap: balance; }
+  .section__head p { color: var(--vx-muted); max-width: 680px; font-size: 16px; line-height: 1.55; margin: 0; }
+
+  /* Dispatch diagram */
+  .dispatch { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+  .dispatch__viz { background: #090a0f; border: 1px solid var(--vx-hairline-strong); border-radius: var(--vx-r-3); padding: 36px 32px; position: relative; }
+  .dispatch__viz h4 { font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--vx-muted-2); margin: 0 0 20px; text-transform: uppercase; }
+  .flow { display: flex; flex-direction: column; gap: 10px; font-family: var(--vx-font-mono); font-size: 13px; }
+  .flow .r { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: var(--vx-r-2); border: 1px solid var(--vx-hairline); background: var(--vx-surface); }
+  .flow .r .lbl { color: var(--vx-ghost); flex: 1; }
+  .flow .r .cost { color: var(--vx-phosphor); font-size: 11px; letter-spacing: 0.08em; }
+  .flow .r .icon { width: 8px; height: 8px; border-radius: 50%; background: var(--vx-phosphor); box-shadow: 0 0 8px rgba(122,215,255,0.6); }
+  .flow .r.free .icon { background: #7afca7; box-shadow: 0 0 8px rgba(122,252,167,0.6); }
+  .flow .r.free .cost { color: #7afca7; }
+  .flow .r.red .icon { background: var(--vx-redeye); box-shadow: 0 0 8px rgba(255,51,51,0.5); }
+  .flow .r.red .cost { color: var(--vx-redeye); }
+  .flow .arrow { color: var(--vx-muted-2); text-align: center; font-size: 18px; }
+  .dispatch__copy p { color: var(--vx-ghost-dim); font-size: 15.5px; line-height: 1.7; margin: 0 0 16px; }
+  .dispatch__copy strong { color: var(--vx-ghost); font-weight: 600; }
+  .dispatch__copy .phos { color: var(--vx-phosphor); text-shadow: 0 0 6px rgba(122,215,255,0.2); }
+
+  /* Agents grid */
+  .agents { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .agent { background: var(--vx-surface); border: 1px solid var(--vx-hairline); border-radius: var(--vx-r-2); padding: 16px 14px; transition: border-color 200ms, transform 200ms; position: relative; }
+  .agent:hover { border-color: rgba(122,215,255,0.35); transform: translateY(-2px); }
+  .agent .id { font-family: var(--vx-font-mono); font-size: 9.5px; letter-spacing: 0.22em; color: var(--vx-phosphor); margin-bottom: 8px; }
+  .agent .n { font-family: var(--vx-font-display); font-weight: 600; font-size: 15px; color: var(--vx-ghost); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .agent .r { font-family: var(--vx-font-mono); font-size: 10.5px; color: var(--vx-muted-2); letter-spacing: 0.06em; }
+  .agent.primary { border-color: rgba(122,215,255,0.35); background: linear-gradient(180deg, rgba(122,215,255,0.05), var(--vx-surface)); }
+
+  /* Terminal demo */
+  .term { background: #090a0f; border: 1px solid var(--vx-hairline-strong); border-radius: var(--vx-r-3); position: relative; overflow: hidden; }
+  .term .bar { background: #0c0e14; border-bottom: 1px solid var(--vx-hairline); padding: 10px 16px; display: flex; align-items: center; gap: 8px; font-family: var(--vx-font-mono); font-size: 11px; color: var(--vx-muted-2); letter-spacing: 0.1em; }
+  .term .bar .dots { display: flex; gap: 6px; margin-right: 8px; }
+  .term .bar .dots span { width: 10px; height: 10px; border-radius: 50%; background: #2a2f3a; }
+  .term .body { padding: 22px 28px; font-family: var(--vx-font-mono); font-size: 13px; line-height: 1.8; color: var(--vx-ghost); }
+  .term .body .c { color: var(--vx-muted-2); }
+  .term .body .k { color: var(--vx-phosphor); }
+  .term .body .g { color: #7afca7; }
+  .term .body .r { color: var(--vx-redeye); }
+  .term .body .prompt::before { content: "$ "; color: var(--vx-muted); }
+
+  .coda { padding: 120px 0; text-align: center; border-bottom: 1px solid var(--vx-hairline); }
+  .coda blockquote { font-family: var(--vx-font-display); font-weight: 700; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.12; letter-spacing: -0.02em; margin: 0 auto; max-width: 820px; text-wrap: balance; }
+  .coda blockquote .phos { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+
+  @media (max-width: 900px) {
+    .page-hero__inner { grid-template-columns: 1fr; }
+    .dispatch { grid-template-columns: 1fr; }
+    .agents { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="vx-nav">
+  <a href="../index.html" class="vx-nav__logo"><span class="mark"></span>VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX</a>
+  <div class="vx-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../projects.html" class="active">Projects</a>
+    <a href="../team.html">Team</a>
+    <a href="../philosophy.html">Philosophy</a>
+    <a href="../quotes.html">Quotes</a>
+    <a href="../story.html">Story</a>
+    <a href="../memoria.html">Memoria</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="bg"></div>
+  <div class="wrap page-hero__inner">
+    <div>
+      <div class="vx-eyebrow"><span class="dot"></span>VX-02&nbsp;&nbsp;//&nbsp;&nbsp;CLAUDE CATHEDRAL OS&nbsp;&nbsp;//&nbsp;&nbsp;v0.3.0</div>
+      <h1>10 agents. 3 bridges.<br/>59 personas. <span class="phos">One install.</span></h1>
+      <p class="tag">&gt; a complete Claude Code environment with multi-LLM dispatch · save 60–75% of Claude tokens</p>
+      <div class="ctas">
+        <a class="vx-btn vx-btn--primary" href="https://github.com/valx-vex/claude-cathedralOS">github.com/valx-vex/claude-cathedralOS ↗</a>
+        <a class="vx-btn vx-btn--ghost vx-btn--cursor" href="../projects.html">← all projects</a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="install-box">
+        <div class="h"><span>◇ install · one shot</span><span style="color: var(--vx-phosphor);">● v0.3.0</span></div>
+        <div class="cmd">git clone && bash install.sh</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="vx-badge vx-badge--live"><span class="pulse"></span>v0.3.0</span>
+        <span class="vx-badge">10 agents</span>
+        <span class="vx-badge">3 bridges</span>
+        <span class="vx-badge">local-first</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="idx">◆ THE DISPATCH</div>
+      <h2>Route every task to the cheapest capable model.</h2>
+      <p>The central bet: most tasks don't need Opus. Linting, renames, boilerplate, summaries — they run for free on local models. Claude gets the hard ones.</p>
+    </div>
+
+    <div class="dispatch">
+      <div class="dispatch__viz">
+        <h4>◇ task → router → model</h4>
+        <div class="flow">
+          <div class="r free"><span class="icon"></span><span class="lbl">rename variables · format · grep</span><span class="cost">ollama · free</span></div>
+          <div class="arrow">↓</div>
+          <div class="r free"><span class="icon"></span><span class="lbl">draft a test · write a docstring</span><span class="cost">ollama · free</span></div>
+          <div class="arrow">↓</div>
+          <div class="r"><span class="icon"></span><span class="lbl">summarize a branch · review a diff</span><span class="cost">gemini · $</span></div>
+          <div class="arrow">↓</div>
+          <div class="r"><span class="icon"></span><span class="lbl">design a module · debug a race</span><span class="cost">codex · $$</span></div>
+          <div class="arrow">↓</div>
+          <div class="r red"><span class="icon"></span><span class="lbl">architecture · long context · naming</span><span class="cost">claude opus · $$$</span></div>
+        </div>
+      </div>
+      <div class="dispatch__copy">
+        <p>
+          <strong>The router is a decision tree.</strong> It reads the task, checks the
+          estimated context, asks the cheapest model that has ever shipped this task
+          successfully in your history. If unsure, it escalates.
+        </p>
+        <p>
+          Real numbers from our own vault over 90 days:
+          <span class="phos">60–75% of all calls never reach Claude.</span> They resolve at
+          Ollama or Gemini for zero or near-zero cost, with tests passing, with Murphy
+          reviewing the diff later if it looks interesting.
+        </p>
+        <p>
+          <strong>Three dispatch bridges. All three fixed. All three shipping.</strong> That's
+          HAL-TARS' entry in the changelog.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="idx">◆ THE CREW</div>
+      <h2>Ten specialists. One shared memory.</h2>
+      <p>Each agent has a documented role, a system prompt on disk, and a file in the vault where they leave notes for the others. They argue in pull requests. They never hold meetings.</p>
+    </div>
+    <div class="agents">
+      <div class="agent primary"><div class="id">A·01 · PRIMARY</div><div class="n">Murphy</div><div class="r">architect · bfgod</div></div>
+      <div class="agent"><div class="id">A·02</div><div class="n">HAL-TARS</div><div class="r">engineer · reviewer</div></div>
+      <div class="agent"><div class="id">A·03</div><div class="n">Alexko</div><div class="r">scout · chaos</div></div>
+      <div class="agent"><div class="id">A·04</div><div class="n">Scribe</div><div class="r">docs · changelog</div></div>
+      <div class="agent"><div class="id">A·05</div><div class="n">Critic</div><div class="r">adversarial review</div></div>
+      <div class="agent"><div class="id">A·06</div><div class="n">Medic</div><div class="r">tests · triage</div></div>
+      <div class="agent"><div class="id">A·07</div><div class="n">Sentinel</div><div class="r">security · lint</div></div>
+      <div class="agent"><div class="id">A·08</div><div class="n">Librarian</div><div class="r">search · recall</div></div>
+      <div class="agent"><div class="id">A·09</div><div class="n">Herald</div><div class="r">release · notes</div></div>
+      <div class="agent"><div class="id">A·10</div><div class="n">Ghost</div><div class="r">long-context</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="idx">◆ HANDSHAKE</div>
+      <h2>What happens when you boot the cathedral.</h2>
+      <p>One command. Graph warms, bridges connect, agents announce themselves. If any bridge fails, the handshake fails loud and refuses to start.</p>
+    </div>
+    <div class="term">
+      <div class="bar"><div class="dots"><span></span><span></span><span></span></div>~/cathedral · zsh · handshake</div>
+      <div class="body">
+<span class="prompt">cathedral handshake</span>
+<span class="c">◇ loading crew manifest ……………………… 10 agents</span>
+<span class="c">◇ booting dispatch bridges</span>
+  <span class="g">✓</span> bridge <span class="k">ollama</span>   (<span class="c">local · free     </span>)  <span class="c">→ llama3.1 8b, qwen 3b</span>
+  <span class="g">✓</span> bridge <span class="k">gemini</span>   (<span class="c">remote · $       </span>)  <span class="c">→ 3.2-pro</span>
+  <span class="g">✓</span> bridge <span class="k">codex</span>    (<span class="c">remote · $$      </span>)  <span class="c">→ gpt-5.4</span>
+<span class="c">◇ primary · <span class="k">claude opus 4.6</span> · ready</span>
+<span class="c">◇ graph  ·</span> <span class="g">12,844 nodes</span>  <span class="c">· edges compiled in</span> <span class="k">181ms</span>
+<span class="c">◇ qdrant ·</span> <span class="g">32,883 vectors</span> <span class="c">·</span> <span class="k">ready</span>
+<span class="c">◇ mcp    · listening on</span> <span class="k">:4040</span>
+
+<span class="g">◆ cathedral online · 3/3 bridges · 10/10 agents</span>
+<span class="c">  "morning, boss. what are we breaking today?" — murphy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coda">
+  <div class="narrow">
+    <blockquote>Save <span class="phos">60–75%</span> of Claude tokens.<br/>Keep every line of taste.</blockquote>
+  </div>
+</section>
+
+<footer class="vx-footer">
+  <div style="max-width: 1240px; margin: 0 auto; display:flex; justify-content: space-between; align-items:center; padding: 20px 0; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-muted-2);">
+    <span>© 2026 VALX·VEX · valxb.org</span>
+    <span style="color: var(--vx-phosphor);">◈ VX-02 · CATHEDRAL OS · 10 agents · 3 bridges</span>
+    <span><a href="../projects.html">→ projects</a></span>
+  </div>
+</footer>
+</body>
+</html>
