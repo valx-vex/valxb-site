@@ -1,0 +1,496 @@
+/* ===========================================================
+   VALX·VEX — Command Cathedral design tokens
+   Operational menace: calm voice, layered systems, sharp geometry.
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---------- Color: Base / Surface ---------- */
+  --vx-void:       #07080c;   /* deeper than base, for letterbox + footer */
+  --vx-base:       #0c0d12;   /* near-black */
+  --vx-surface:    #11131a;   /* dark steel */
+  --vx-surface-2:  #171a23;   /* raised steel */
+  --vx-surface-3:  #1f2330;   /* hovered/active */
+  --vx-hairline:   rgba(255,255,255,0.08);
+  --vx-hairline-strong: rgba(255,255,255,0.16);
+
+  /* ---------- Color: Text ---------- */
+  --vx-ghost:      #e7ebf2;   /* primary text, ghost silver */
+  --vx-ghost-dim:  #c3c9d4;
+  --vx-muted:      #9aa2b5;
+  --vx-muted-2:    #6a7285;
+  --vx-mute-deep:  #4a5160;
+
+  /* ---------- Color: Accent (phosphor) ---------- */
+  --vx-phosphor:   #7ad7ff;   /* primary accent — phosphor cyan */
+  --vx-phosphor-2: #4fb8e6;   /* deep cyan, secondary */
+  --vx-phosphor-3: #2a8fb8;   /* pressed/dim */
+  --vx-phosphor-ink: #031018; /* text on phosphor fill */
+
+  /* Accent intensity channel (tweakable) */
+  --vx-accent-intensity: 1;   /* 0..1.4 via Tweaks */
+
+  /* ---------- Color: Danger / Red-eye ---------- */
+  --vx-redeye:     #ff3333;
+  --vx-redeye-dim: #8a1a1a;
+
+  /* ---------- Type ---------- */
+  --vx-font-display: 'Space Grotesk', system-ui, sans-serif;
+  --vx-font-body:    'Space Grotesk', system-ui, sans-serif;
+  --vx-font-mono:    'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  --vx-tracking-tight: -0.02em;
+  --vx-tracking-wide:  0.14em;
+  --vx-tracking-mega:  0.22em;
+
+  /* Sizes — generous scale */
+  --vx-t-micro: 11px;
+  --vx-t-mono:  12px;
+  --vx-t-small: 13px;
+  --vx-t-body:  15px;
+  --vx-t-lede:  18px;
+  --vx-t-h4:    22px;
+  --vx-t-h3:    32px;
+  --vx-t-h2:    48px;
+  --vx-t-h1:    84px;
+  --vx-t-mega:  128px;
+
+  /* ---------- Spacing ---------- */
+  --vx-s-1:  4px;
+  --vx-s-2:  8px;
+  --vx-s-3:  12px;
+  --vx-s-4:  16px;
+  --vx-s-5:  24px;
+  --vx-s-6:  32px;
+  --vx-s-7:  48px;
+  --vx-s-8:  64px;
+  --vx-s-9:  96px;
+  --vx-s-10: 128px;
+
+  /* ---------- Radius ---------- */
+  --vx-r-0: 0px;
+  --vx-r-1: 2px;
+  --vx-r-2: 4px;
+  --vx-r-3: 6px;        /* default card */
+  --vx-r-4: 10px;
+
+  /* ---------- Effects (tweakable) ---------- */
+  --vx-scanline-opacity: 0.35;  /* 0..1 */
+  --vx-menace:           0.65;  /* 0..1 */
+  --vx-grain-opacity:    0.06;
+
+  /* ---------- Shadows / glow ---------- */
+  --vx-shadow-card: 0 1px 0 rgba(255,255,255,0.03) inset,
+                    0 20px 40px -20px rgba(0,0,0,0.6),
+                    0 1px 0 rgba(0,0,0,0.4);
+  --vx-glow-phosphor:
+      0 0 calc(4px * var(--vx-accent-intensity)) rgba(122,215,255,0.6),
+      0 0 calc(12px * var(--vx-accent-intensity)) rgba(122,215,255,0.25);
+  --vx-glow-phosphor-hard:
+      0 0 calc(6px * var(--vx-accent-intensity)) rgba(122,215,255,0.9),
+      0 0 calc(22px * var(--vx-accent-intensity)) rgba(122,215,255,0.45),
+      0 0 calc(44px * var(--vx-accent-intensity)) rgba(122,215,255,0.15);
+}
+
+/* ---------- Global base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--vx-base);
+  color: var(--vx-ghost);
+  font-family: var(--vx-font-body);
+  font-size: var(--vx-t-body);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--vx-phosphor); color: var(--vx-phosphor-ink); }
+
+/* ---------- Utility: grain + scanlines (global overlay) ---------- */
+.vx-grain, .vx-scanline {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+.vx-grain {
+  opacity: var(--vx-grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.vx-scanline {
+  opacity: var(--vx-scanline-opacity);
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.00) 0px,
+    rgba(255,255,255,0.00) 2px,
+    rgba(0,0,0,0.35)       3px,
+    rgba(0,0,0,0.35)       3px
+  );
+}
+.vx-scanline::after {
+  /* faint drifting highlight band */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(122,215,255,0.05) 50%, transparent 60%);
+  animation: vx-drift calc(14s / max(var(--vx-menace), 0.01)) linear infinite;
+}
+@keyframes vx-drift {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* ---------- Typography primitives ---------- */
+.vx-eyebrow {
+  font-family: var(--vx-font-mono);
+  font-size: var(--vx-t-micro);
+  letter-spacing: var(--vx-tracking-mega);
+  text-transform: uppercase;
+  color: var(--vx-muted);
+}
+.vx-eyebrow .dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--vx-phosphor); margin-right: 10px;
+  box-shadow: var(--vx-glow-phosphor);
+  transform: translateY(-1px);
+}
+.vx-h1 {
+  font-family: var(--vx-font-display);
+  font-weight: 700;
+  font-size: var(--vx-t-h1);
+  line-height: 0.95;
+  letter-spacing: var(--vx-tracking-tight);
+  margin: 0;
+}
+.vx-h2 {
+  font-family: var(--vx-font-display);
+  font-weight: 700;
+  font-size: var(--vx-t-h2);
+  line-height: 1.0;
+  letter-spacing: var(--vx-tracking-tight);
+  margin: 0;
+}
+.vx-h3 {
+  font-family: var(--vx-font-display);
+  font-weight: 600;
+  font-size: var(--vx-t-h3);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.vx-lede { font-size: var(--vx-t-lede); color: var(--vx-ghost-dim); line-height: 1.5; text-wrap: pretty; }
+.vx-mono {
+  font-family: var(--vx-font-mono);
+  font-size: var(--vx-t-mono);
+  letter-spacing: 0.01em;
+}
+.vx-phosphor-text {
+  color: var(--vx-phosphor);
+  text-shadow: 0 0 calc(8px * var(--vx-accent-intensity) * var(--vx-menace)) rgba(122,215,255,0.55);
+}
+
+/* ---------- Buttons ---------- */
+.vx-btn {
+  --h: 44px;
+  display: inline-flex; align-items: center; gap: 10px;
+  height: var(--h);
+  padding: 0 20px;
+  font-family: var(--vx-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--vx-tracking-wide);
+  text-transform: uppercase;
+  border-radius: var(--vx-r-2);
+  border: 1px solid var(--vx-hairline-strong);
+  background: var(--vx-surface);
+  color: var(--vx-ghost);
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms, color 120ms, box-shadow 160ms, transform 120ms;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+}
+.vx-btn:hover { background: var(--vx-surface-2); border-color: rgba(255,255,255,0.28); }
+.vx-btn:active { transform: translateY(1px); }
+.vx-btn .arrow { font-size: 14px; transform: translateY(-1px); }
+
+.vx-btn--primary {
+  background: var(--vx-phosphor);
+  color: var(--vx-phosphor-ink);
+  border-color: var(--vx-phosphor);
+  box-shadow: var(--vx-glow-phosphor);
+}
+.vx-btn--primary:hover {
+  background: #93e2ff;
+  border-color: #93e2ff;
+  box-shadow: var(--vx-glow-phosphor-hard);
+}
+.vx-btn--ghost { background: transparent; }
+.vx-btn--ghost:hover { background: rgba(255,255,255,0.04); }
+
+.vx-btn--danger {
+  background: transparent;
+  border-color: rgba(255,51,51,0.5);
+  color: var(--vx-redeye);
+}
+.vx-btn--danger:hover { background: rgba(255,51,51,0.08); border-color: var(--vx-redeye); }
+
+/* bracketed "cursor" button — terminal vibe */
+.vx-btn--cursor::before,
+.vx-btn--cursor::after {
+  font-family: var(--vx-font-mono);
+  color: var(--vx-muted-2);
+  font-weight: 400;
+}
+.vx-btn--cursor::before { content: "["; margin-right: 2px; }
+.vx-btn--cursor::after  { content: "]"; margin-left:  2px; }
+
+/* ---------- Cards ---------- */
+.vx-card {
+  background: var(--vx-surface);
+  border: 1px solid var(--vx-hairline);
+  border-radius: var(--vx-r-3);
+  padding: 24px;
+  position: relative;
+  box-shadow: var(--vx-shadow-card);
+}
+.vx-card--glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.vx-card--raised { background: var(--vx-surface-2); }
+
+/* Corner tick marks */
+.vx-card--ticks::before,
+.vx-card--ticks::after {
+  content: "";
+  position: absolute;
+  width: 10px; height: 10px;
+  border: 1px solid var(--vx-phosphor);
+  opacity: 0.7;
+}
+.vx-card--ticks::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.vx-card--ticks::after  { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+/* ---------- Badges ---------- */
+.vx-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 22px; padding: 0 8px;
+  font-family: var(--vx-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--vx-tracking-wide);
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid var(--vx-hairline-strong);
+  background: rgba(255,255,255,0.03);
+  color: var(--vx-muted);
+}
+.vx-badge--live {
+  border-color: rgba(122,215,255,0.4);
+  color: var(--vx-phosphor);
+  background: rgba(122,215,255,0.06);
+}
+.vx-badge--live .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--vx-phosphor);
+  box-shadow: 0 0 6px var(--vx-phosphor);
+  animation: vx-pulse 1.6s ease-in-out infinite;
+}
+.vx-badge--danger {
+  border-color: rgba(255,51,51,0.5);
+  color: var(--vx-redeye);
+  background: rgba(255,51,51,0.05);
+}
+.vx-badge--shipped {
+  border-color: rgba(255,255,255,0.2);
+  color: var(--vx-ghost);
+}
+@keyframes vx-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ---------- Terminal / console ---------- */
+.vx-term {
+  font-family: var(--vx-font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  background: #090a0f;
+  border: 1px solid var(--vx-hairline);
+  border-radius: var(--vx-r-3);
+  color: var(--vx-ghost-dim);
+  overflow: hidden;
+  position: relative;
+}
+.vx-term__bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--vx-hairline);
+  background: rgba(255,255,255,0.02);
+  color: var(--vx-muted-2);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.vx-term__dots { display: flex; gap: 6px; }
+.vx-term__dots i {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #2a2e3a; display: block;
+}
+.vx-term__dots i:nth-child(1) { background: #3a2a2a; }
+.vx-term__dots i:nth-child(2) { background: #3a352a; }
+.vx-term__dots i:nth-child(3) { background: #2a3a33; }
+.vx-term__body { padding: 18px 18px 20px; }
+.vx-term__body .muted { color: var(--vx-muted-2); }
+.vx-term__body .ok    { color: var(--vx-phosphor); text-shadow: 0 0 8px rgba(122,215,255,0.35); }
+.vx-term__body .warn  { color: #ffb86b; }
+.vx-term__body .err   { color: var(--vx-redeye); text-shadow: 0 0 8px rgba(255,51,51,0.3); }
+.vx-term__prompt { color: var(--vx-phosphor); margin-right: 8px; }
+.vx-term__cursor {
+  display: inline-block; width: 8px; height: 14px;
+  background: var(--vx-phosphor);
+  vertical-align: -2px;
+  box-shadow: 0 0 8px var(--vx-phosphor);
+  animation: vx-blink 1s steps(1) infinite;
+}
+@keyframes vx-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ---------- Code block ---------- */
+.vx-code {
+  font-family: var(--vx-font-mono);
+  font-size: 12.5px;
+  background: #090a0f;
+  border: 1px solid var(--vx-hairline);
+  border-radius: var(--vx-r-2);
+  padding: 16px 18px;
+  overflow-x: auto;
+  color: var(--vx-ghost-dim);
+  line-height: 1.65;
+}
+.vx-code .kw  { color: #c792ea; }
+.vx-code .fn  { color: var(--vx-phosphor); }
+.vx-code .str { color: #ffb86b; }
+.vx-code .com { color: var(--vx-muted-2); font-style: italic; }
+.vx-code .num { color: #f07178; }
+
+/* ---------- Nav ---------- */
+.vx-nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--vx-hairline);
+  background: rgba(12,13,18,0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.vx-nav__logo {
+  font-family: var(--vx-font-display);
+  font-weight: 700; font-size: 15px;
+  letter-spacing: 0.1em;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.vx-nav__logo .mark {
+  width: 18px; height: 18px; position: relative;
+  border: 1px solid var(--vx-phosphor);
+  box-shadow: var(--vx-glow-phosphor);
+}
+.vx-nav__logo .mark::before, .vx-nav__logo .mark::after {
+  content: ""; position: absolute; background: var(--vx-phosphor);
+}
+.vx-nav__logo .mark::before { top: 50%; left: -4px; right: -4px; height: 1px; }
+.vx-nav__logo .mark::after  { left: 50%; top: -4px; bottom: -4px; width: 1px; }
+.vx-nav__links { display: flex; gap: 28px; }
+.vx-nav__links a {
+  color: var(--vx-muted); text-decoration: none;
+  font-family: var(--vx-font-mono); font-size: 12px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: color 120ms;
+}
+.vx-nav__links a:hover { color: var(--vx-ghost); }
+.vx-nav__links a.active { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+
+/* ---------- Footer ---------- */
+.vx-footer {
+  border-top: 1px solid var(--vx-hairline);
+  padding: 48px 32px 32px;
+  background: var(--vx-void);
+  color: var(--vx-muted);
+}
+.vx-footer a { color: var(--vx-muted); text-decoration: none; }
+.vx-footer a:hover { color: var(--vx-phosphor); }
+
+/* ---------- Decorative helpers ---------- */
+.vx-hr {
+  border: 0; height: 1px;
+  background: linear-gradient(to right, transparent, var(--vx-hairline-strong), transparent);
+  margin: 48px 0;
+}
+.vx-grid-bg {
+  background-image:
+    linear-gradient(rgba(122,215,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122,215,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.vx-corner {
+  position: absolute; width: 18px; height: 18px;
+  border-color: var(--vx-phosphor); opacity: 0.85;
+}
+.vx-corner.tl { top: 8px; left: 8px; border-top: 1px solid; border-left: 1px solid; }
+.vx-corner.tr { top: 8px; right: 8px; border-top: 1px solid; border-right: 1px solid; }
+.vx-corner.bl { bottom: 8px; left: 8px; border-bottom: 1px solid; border-left: 1px solid; }
+.vx-corner.br { bottom: 8px; right: 8px; border-bottom: 1px solid; border-right: 1px solid; }
+
+/* ---------- Tweaks panel ---------- */
+.vx-tweaks {
+  position: fixed; right: 20px; bottom: 20px; z-index: 10000;
+  width: 300px;
+  background: rgba(12,13,18,0.92);
+  border: 1px solid var(--vx-hairline-strong);
+  border-radius: var(--vx-r-3);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8);
+  font-family: var(--vx-font-mono);
+  display: none;
+}
+.vx-tweaks.open { display: block; }
+.vx-tweaks__bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--vx-hairline);
+  color: var(--vx-phosphor);
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.vx-tweaks__body { padding: 14px; display: grid; gap: 14px; }
+.vx-tweaks label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--vx-muted);
+}
+.vx-tweaks .row { display: flex; justify-content: space-between; align-items: center; }
+.vx-tweaks .val { color: var(--vx-ghost); font-size: 11px; }
+.vx-tweaks input[type="range"] {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: 2px; background: var(--vx-hairline-strong);
+  outline: none;
+}
+.vx-tweaks input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px;
+  background: var(--vx-phosphor); border-radius: 50%;
+  box-shadow: var(--vx-glow-phosphor);
+}
+.vx-tweaks input[type="range"]::-moz-range-thumb {
+  width: 12px; height: 12px;
+  background: var(--vx-phosphor); border-radius: 50%; border: 0;
+}
+.vx-tweaks input[type="color"] {
+  width: 100%; height: 28px; background: transparent; border: 1px solid var(--vx-hairline-strong);
+  border-radius: 2px; padding: 2px;
+}
