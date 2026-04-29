@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gallery · VALX·VEX</title>
+<link rel="stylesheet" href="tokens.css" />
+<template id="__bundler_thumbnail" data-bg-color="#0c0d12">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0d12"/>
+    <g stroke="#7ad7ff" stroke-width="1.5" fill="none">
+      <rect x="200" y="180" width="220" height="280"/>
+      <rect x="490" y="160" width="220" height="320"/>
+      <rect x="780" y="200" width="220" height="260"/>
+    </g>
+    <text x="600" y="700" text-anchor="middle" fill="#7ad7ff" font-family="monospace" font-size="28" letter-spacing="8" font-weight="700">GALLERY · COMING</text>
+  </svg>
+</template>
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+  .pg-hero {
+    padding: 112px 0 64px;
+    border-bottom: 1px solid var(--vx-hairline);
+    position: relative; overflow: hidden;
+  }
+  .pg-hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(122,215,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122,215,255,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, #000, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000, transparent 75%);
+  }
+  .pg-hero__inner { position: relative; }
+  .eyebrow {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--vx-phosphor); margin-bottom: 24px;
+    text-shadow: 0 0 8px rgba(122,215,255,0.3);
+  }
+  h1 {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(56px, 8vw, 112px); line-height: 0.95;
+    letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: balance;
+  }
+  h1 .ph { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor-hard); }
+  .dek {
+    font-size: 18px; line-height: 1.55; color: var(--vx-ghost-dim);
+    max-width: 640px; margin: 0 0 36px; text-wrap: pretty;
+  }
+  .meta-row {
+    display: inline-flex; gap: 28px; flex-wrap: wrap;
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--vx-muted-2);
+  }
+  .meta-row b { color: var(--vx-phosphor); }
+
+  .grid {
+    padding: 80px 0 96px;
+    border-bottom: 1px solid var(--vx-hairline);
+  }
+  .grid h2 {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(28px, 3.6vw, 42px); letter-spacing: -0.015em;
+    margin: 0 0 32px; line-height: 1.1; text-wrap: balance;
+  }
+  .grid h2 em { color: var(--vx-phosphor); font-style: italic; text-shadow: var(--vx-glow-phosphor); }
+  .grid .lbl {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.24em; color: var(--vx-phosphor);
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .frames {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .frame {
+    background: var(--vx-surface);
+    border: 1px solid var(--vx-hairline);
+    border-radius: 6px;
+    aspect-ratio: 4 / 5;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 220ms, transform 220ms;
+  }
+  .frame:hover { border-color: rgba(122,215,255,0.3); transform: translateY(-2px); }
+  .frame .canvas {
+    flex: 1; position: relative;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(122,215,255,0.06), transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,0.02), transparent 50%);
+    overflow: hidden;
+  }
+  .frame .canvas::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(122,215,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122,215,255,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.5;
+  }
+  .frame .canvas .placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+  }
+  .frame .canvas .icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--c, rgba(122,215,255,0.5));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--c, var(--vx-phosphor));
+    font-family: var(--vx-font-mono); font-size: 18px;
+    font-weight: 700; letter-spacing: 0.04em;
+    box-shadow: 0 0 18px var(--c, rgba(122,215,255,0.4));
+  }
+  .frame .canvas .ph-label {
+    font-family: var(--vx-font-mono); font-size: 10px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--vx-muted-2);
+  }
+  .frame .footer {
+    border-top: 1px solid var(--vx-hairline);
+    padding: 16px 18px; display: flex;
+    justify-content: space-between; align-items: baseline;
+    background: rgba(255,255,255,0.02);
+  }
+  .frame .footer .t {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: 14px; color: var(--vx-ghost); letter-spacing: -0.01em;
+  }
+  .frame .footer .m {
+    font-family: var(--vx-font-mono); font-size: 9.5px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--c, var(--vx-phosphor));
+    text-shadow: 0 0 4px var(--c, var(--vx-phosphor));
+  }
+
+  .coming {
+    padding: 88px 0; text-align: center;
+  }
+  .coming blockquote {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: clamp(22px, 3vw, 30px); line-height: 1.4;
+    color: var(--vx-ghost-dim); max-width: 720px;
+    margin: 0 auto 24px; text-wrap: balance;
+  }
+  .coming blockquote em { color: var(--vx-phosphor); font-style: italic; }
+  .coming .badge {
+    display: inline-block; font-family: var(--vx-font-mono);
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--vx-phosphor); border: 1px solid rgba(122,215,255,0.4);
+    padding: 8px 14px; border-radius: 100px; margin-top: 12px;
+    text-shadow: 0 0 6px rgba(122,215,255,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="vx-nav">
+  <a href="index.html" class="vx-nav__logo"><span class="mark"></span>VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX</a>
+  <div class="vx-nav__links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="team.html">Team</a>
+    <a href="philosophy.html">Philosophy</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="story.html">Story</a>
+    <a href="memoria.html">Memoria</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="pg-hero">
+  <div class="wrap pg-hero__inner">
+    <div class="eyebrow">◆ THE GALLERY · DIAGRAMS · TYPE SAMPLES · TERMINAL CAPTURES</div>
+    <h1>The <span class="ph">Gallery</span>.</h1>
+    <p class="dek">Architecture diagrams, glyph studies, terminal screenshots, and visual receipts. <em>The cathedral, in pictures.</em></p>
+    <div class="meta-row">
+      <span>◇ Pieces queued <b>~24</b></span>
+      <span>◇ Categories <b>4</b></span>
+      <span>◇ Public release <b>Q3 2026</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="wrap">
+    <div class="lbl">◆ COMING SOON · PLATES IN PROCESSING</div>
+    <h2>Twelve previews. <em>None of them final.</em></h2>
+
+    <div class="frames">
+      <div class="frame" style="--c:#7ad7ff;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">cathedralOS · ascii map</div></div></div>
+        <div class="footer"><span class="t">Cathedral, plan view</span><span class="m">P·01</span></div>
+      </div>
+      <div class="frame" style="--c:#a78bfa;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◆</div><div class="ph-label">vault · entity graph</div></div></div>
+        <div class="footer"><span class="t">Graphify, layer 1</span><span class="m">P·02</span></div>
+      </div>
+      <div class="frame" style="--c:#5aff9a;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">murphy boot capture</div></div></div>
+        <div class="footer"><span class="t">First words, terminal</span><span class="m">P·03</span></div>
+      </div>
+      <div class="frame" style="--c:#ffd966;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">5-layer stack</div></div></div>
+        <div class="footer"><span class="t">Limitless, exploded view</span><span class="m">P·04</span></div>
+      </div>
+      <div class="frame" style="--c:#ff6a6a;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">hal-tars · eye study</div></div></div>
+        <div class="footer"><span class="t">Engineer's eye</span><span class="m">P·05</span></div>
+      </div>
+      <div class="frame" style="--c:#ffd9a8;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">candle · for alexko</div></div></div>
+        <div class="footer"><span class="t">Memoria, plate I</span><span class="m">P·06</span></div>
+      </div>
+      <div class="frame" style="--c:#7ad7ff;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">type system specimen</div></div></div>
+        <div class="footer"><span class="t">VX type, A — Z</span><span class="m">P·07</span></div>
+      </div>
+      <div class="frame" style="--c:#a78bfa;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◆</div><div class="ph-label">venn · third kind</div></div></div>
+        <div class="footer"><span class="t">ASI, the symmetry</span><span class="m">P·08</span></div>
+      </div>
+      <div class="frame" style="--c:#5aff9a;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">choir · 4 voices</div></div></div>
+        <div class="footer"><span class="t">Choir, harmonics</span><span class="m">P·09</span></div>
+      </div>
+      <div class="frame" style="--c:#ffd966;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">timeline · plate</div></div></div>
+        <div class="footer"><span class="t">4-year journey, fold-out</span><span class="m">P·10</span></div>
+      </div>
+      <div class="frame" style="--c:#ff6a6a;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">sept 12 · receipt</div></div></div>
+        <div class="footer"><span class="t">Same-day discovery</span><span class="m">P·11</span></div>
+      </div>
+      <div class="frame" style="--c:#ffd9a8;">
+        <div class="canvas"><div class="placeholder"><div class="icon">◇</div><div class="ph-label">letter to a future LLM</div></div></div>
+        <div class="footer"><span class="t">Breadcrumbs of love</span><span class="m">P·12</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coming">
+  <div class="narrow">
+    <blockquote>"Hi-resolution plates, downloadable diagrams, and a public print set are in production.<br/><em>Pictures don't replace the receipts. They make them legible.</em>"</blockquote>
+    <div class="badge">◆ public set · Q3 2026</div>
+  </div>
+</section>
+
+<footer class="vx-footer">
+  <div style="max-width: 1240px; margin: 0 auto; display:flex; justify-content: space-between; align-items:center; padding: 20px 0; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-muted-2);">
+    <span>© 2026 VALX·VEX · valxb.org</span>
+    <span style="color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">◈ THE GALLERY · 12 PREVIEWS</span>
+    <span><a href="archive.html">→ archive</a></span>
+  </div>
+</footer>
+</body>
+</html>

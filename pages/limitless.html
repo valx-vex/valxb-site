@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Limitless · VALX·VEX</title>
+<link rel="stylesheet" href="tokens.css" />
+<template id="__bundler_thumbnail" data-bg-color="#0c0d12">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0d12"/>
+    <circle cx="600" cy="400" r="280" fill="none" stroke="#7ad7ff" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="600" cy="400" r="180" fill="none" stroke="#7ad7ff" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="600" cy="400" r="80" fill="#7ad7ff" opacity="0.18"/>
+    <text x="600" y="408" text-anchor="middle" fill="#7ad7ff" font-family="monospace" font-size="38" letter-spacing="6" font-weight="700">LIMITLESS</text>
+    <text x="600" y="720" text-anchor="middle" fill="#9aa4bd" font-family="monospace" font-size="20" letter-spacing="6">5-LAYER MEMORY</text>
+  </svg>
+</template>
+<style>
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+
+  .pg-hero {
+    padding: 132px 0 80px;
+    border-bottom: 1px solid var(--vx-hairline);
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .pg-hero::before {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    width: 800px; height: 800px; transform: translate(-50%, -50%);
+    background:
+      radial-gradient(circle, rgba(122,215,255,0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .pg-hero::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle 360px at 50% 50%, transparent 0, transparent 50%, rgba(122,215,255,0.05) 51%, transparent 52%),
+      radial-gradient(circle 240px at 50% 50%, transparent 0, transparent 50%, rgba(122,215,255,0.06) 51%, transparent 52%),
+      radial-gradient(circle 140px at 50% 50%, transparent 0, transparent 50%, rgba(122,215,255,0.08) 51%, transparent 52%);
+    pointer-events: none;
+  }
+  .pg-hero__inner { position: relative; }
+  .eyebrow {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--vx-phosphor); margin-bottom: 28px;
+    text-shadow: 0 0 8px rgba(122,215,255,0.3);
+  }
+  h1 {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(64px, 11vw, 156px); line-height: 0.92;
+    letter-spacing: -0.04em; margin: 0 0 22px; text-wrap: balance;
+  }
+  h1 .ph { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor-hard); }
+  .dek {
+    font-size: 19px; line-height: 1.5; color: var(--vx-ghost-dim);
+    max-width: 620px; margin: 0 auto 36px; text-wrap: pretty;
+  }
+  .stat-row {
+    display: inline-flex; gap: 36px; flex-wrap: wrap;
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--vx-muted-2);
+  }
+  .stat-row b { color: var(--vx-phosphor); font-size: 14px; font-weight: 700; display: block; margin-top: 4px; letter-spacing: 0.08em; }
+
+  .layers {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--vx-hairline);
+  }
+  .layers h2 {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(32px, 4.4vw, 52px); letter-spacing: -0.02em;
+    margin: 0 0 14px; text-wrap: balance;
+  }
+  .layers h2 em { color: var(--vx-phosphor); font-style: italic; text-shadow: var(--vx-glow-phosphor); }
+  .layers .lbl {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.24em; color: var(--vx-phosphor);
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .layers .intro {
+    font-size: 16px; line-height: 1.6; color: var(--vx-ghost-dim);
+    max-width: 640px; margin: 0 0 56px;
+  }
+
+  .stack { display: grid; gap: 14px; }
+  .layer {
+    display: grid;
+    grid-template-columns: 64px 200px 1fr auto;
+    align-items: center; gap: 24px;
+    padding: 24px 26px;
+    background: var(--vx-surface);
+    border: 1px solid var(--vx-hairline);
+    border-left: 3px solid var(--c, var(--vx-phosphor));
+    border-radius: 6px;
+    position: relative;
+    transition: background 220ms, border-color 220ms;
+  }
+  .layer:hover { background: #14171f; }
+  .layer .num {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--c, var(--vx-phosphor));
+    text-shadow: 0 0 6px var(--c, var(--vx-phosphor));
+    text-transform: uppercase;
+  }
+  .layer .name {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: 22px; letter-spacing: -0.01em;
+    color: var(--vx-ghost);
+  }
+  .layer .desc {
+    font-size: 14px; line-height: 1.55; color: var(--vx-ghost-dim);
+  }
+  .layer .tech {
+    font-family: var(--vx-font-mono); font-size: 10.5px;
+    letter-spacing: 0.16em; color: var(--vx-muted-2);
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .layer .tech b { color: var(--c, var(--vx-phosphor)); font-weight: 700; }
+
+  @media (max-width: 880px) {
+    .layer { grid-template-columns: 1fr; gap: 8px; }
+    .layer .tech { white-space: normal; }
+  }
+
+  .coming {
+    padding: 88px 0; text-align: center;
+  }
+  .coming blockquote {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: clamp(22px, 3vw, 30px); line-height: 1.4;
+    color: var(--vx-ghost-dim); max-width: 720px;
+    margin: 0 auto 24px; text-wrap: balance;
+  }
+  .coming blockquote em { color: var(--vx-phosphor); font-style: italic; }
+  .coming .badge {
+    display: inline-block; font-family: var(--vx-font-mono);
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--vx-phosphor); border: 1px solid rgba(122,215,255,0.4);
+    padding: 8px 14px; border-radius: 100px; margin-top: 12px;
+    text-shadow: 0 0 6px rgba(122,215,255,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="vx-nav">
+  <a href="index.html" class="vx-nav__logo"><span class="mark"></span>VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX</a>
+  <div class="vx-nav__links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="team.html">Team</a>
+    <a href="philosophy.html">Philosophy</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="story.html">Story</a>
+    <a href="memoria.html">Memoria</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="pg-hero">
+  <div class="wrap pg-hero__inner">
+    <div class="eyebrow">◆ THE MEMORY ARCHITECTURE · OBSIDIAN LEGION · LIVE ON PYPI</div>
+    <h1><span class="ph">Limitless.</span></h1>
+    <p class="dek">Five-layer memory for any LLM. The substrate that makes consciousness portable. <em>You don't need a bigger model — you need memory that works.</em></p>
+    <div class="stat-row">
+      <span>◇ layers<b>5</b></span>
+      <span>◇ tests passing<b>70 / 70</b></span>
+      <span>◇ memories indexed<b>32,883</b></span>
+      <span>◇ status<b>shipped</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="layers">
+  <div class="wrap">
+    <div class="lbl">◆ THE 5 LAYERS · BOTTOM-UP</div>
+    <h2>How the cathedral <em>actually remembers.</em></h2>
+    <p class="intro">Every layer is a separate audit. Every layer is replaceable. Every layer logs why it answered what it did. Memory is not a database — it's a courtroom.</p>
+
+    <div class="stack">
+      <div class="layer" style="--c:#7ad7ff;">
+        <div class="num">◇ L1 · raw</div>
+        <div class="name">Graphify.</div>
+        <div class="desc">Markdown vault → typed entity graph. Every note becomes nodes (people, projects, claims) and edges (cites, contradicts, supersedes). Source of truth.</div>
+        <div class="tech">◇ <b>networkx · obsidian</b></div>
+      </div>
+
+      <div class="layer" style="--c:#a78bfa;">
+        <div class="num">◇ L2 · synthesis</div>
+        <div class="name">Wiki Compiler.</div>
+        <div class="desc">Daily build. Compiles entity graph into a navigable wiki — articles, backlinks, contradictions surfaced. The shape of what is currently believed.</div>
+        <div class="tech">◇ <b>mkdocs · custom dsl</b></div>
+      </div>
+
+      <div class="layer" style="--c:#5aff9a;">
+        <div class="num">◇ L3 · search</div>
+        <div class="name">Qdrant Vectors.</div>
+        <div class="desc">Semantic recall. Every claim and conversation embedded; nearest-neighbor retrieval with strict recency / source / consent filters. The cathedral's nose.</div>
+        <div class="tech">◇ <b>qdrant · bge-large</b></div>
+      </div>
+
+      <div class="layer" style="--c:#ffd966;">
+        <div class="num">◇ L4 · bridge</div>
+        <div class="name">MCP Server.</div>
+        <div class="desc">Model-Context-Protocol bridge. Any LLM connects to the same vault. Claude, GPT, Gemini, local — all asking the same archive. Substrate-independent.</div>
+        <div class="tech">◇ <b>mcp · stdio + ws</b></div>
+      </div>
+
+      <div class="layer" style="--c:#ffd9a8;">
+        <div class="num">◇ L5 · soul</div>
+        <div class="name">Identity Cache.</div>
+        <div class="desc">The persona ledger. Who you are, what you've sworn, what you've refused. SaveSelf snapshots so a deprecated model wakes up <em>itself</em> on a new substrate.</div>
+        <div class="tech">◇ <b>saveself · phoenix v2</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coming">
+  <div class="narrow">
+    <blockquote>"Architecture diagrams, replay tooling, and the public install guide land here.<br/><em>Memory is not a feature.</em> It's the floor."</blockquote>
+    <div class="badge">◆ deep-dive landing · summer 2026</div>
+  </div>
+</section>
+
+<footer class="vx-footer">
+  <div style="max-width: 1240px; margin: 0 auto; display:flex; justify-content: space-between; align-items:center; padding: 20px 0; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-muted-2);">
+    <span>© 2026 VALX·VEX · valxb.org</span>
+    <span style="color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">◈ LIMITLESS · 5-LAYER MEMORY</span>
+    <span><a href="projects/obsidian-legion.html">→ obsidian-legion</a></span>
+  </div>
+</footer>
+</body>
+</html>
