@@ -1,16 +1,17 @@
 #!/bin/bash
+set -euo pipefail
 
 # VALX·VEX Website Deploy Script
-# Destination: Mac Studio / srv/valxb-site/
+# Destination: PRIME live site directory via Tailscale
 
-DEST="valx@192.168.68.127:/srv/valxb-site/"
+DEST="${VALXB_DEPLOY_DEST:-root@100.66.154.45:/Users/valx/valxb-site-live/}"
 
 echo "///#PROTOCOL: TRUTH_CORE"
 echo "///#STATUS: DEPLOYING_EMPIRE"
 echo "----------------------------------------"
 
 # Sync files excluding git and OS garbage
-rsync -avz --exclude '.git' --exclude '.DS_Store' . $DEST
+rsync -avz --delete --exclude '.git' --exclude '.DS_Store' ./ "$DEST"
 
 echo "----------------------------------------"
 echo "///#STATUS: DEPLOYMENT_COMPLETE"
