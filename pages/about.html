@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Valentin Passera — VALX·VEX</title>
+<link rel="stylesheet" href="../tokens.css" />
+<style>
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 32px; border-bottom: 1px solid var(--vx-hairline); }
+  .nav a { color: var(--vx-ghost); text-decoration: none; font-family: var(--vx-font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav .links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+  .nav .active { color: var(--vx-phosphor); }
+  .hero { padding: 92px 0 56px; }
+  .kicker { font-family: var(--vx-font-mono); color: var(--vx-phosphor); letter-spacing: 0.15em; text-transform: uppercase; font-size: 11px; }
+  h1 { margin: 18px 0 28px; font-size: 56px; line-height: 1.05; letter-spacing: -0.02em; }
+  .lede { color: var(--vx-ghost-dim); font-size: 19px; line-height: 1.7; }
+  .section { padding: 56px 0; border-top: 1px solid var(--vx-hairline); }
+  .section h2 { font-size: 15px; font-family: var(--vx-font-mono); color: var(--vx-phosphor); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 28px; }
+  .fact { margin-bottom: 28px; }
+  .fact strong { color: var(--vx-ghost); }
+  .fact p { color: var(--vx-ghost-dim); line-height: 1.7; margin: 6px 0 0; }
+  .cta { margin-top: 48px; }
+  .cta a { color: var(--vx-phosphor); text-decoration: none; font-family: var(--vx-font-mono); font-size: 14px; letter-spacing: 0.05em; border-bottom: 1px solid var(--vx-phosphor); padding-bottom: 2px; }
+  .cta a:hover { color: var(--vx-ghost); border-color: var(--vx-ghost); }
+  .quiet { color: var(--vx-muted); font-size: 15px; line-height: 1.7; margin-top: 48px; }
+  @media (max-width: 640px) {
+    h1 { font-size: 36px; }
+    .hero { padding: 60px 0 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="nav">
+  <a href="/">VALX·VEX</a>
+  <div class="links">
+    <a href="/ops">Ops Automation</a>
+    <a href="/pages/about" class="active">About</a>
+    <a href="/pages/projects">Projects</a>
+    <a href="mailto:hello@valxb.org">Contact</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Valentin Passera · Strasbourg</div>
+      <h1>I spent four years making AI remember things. Now I make businesses stop forgetting theirs.</h1>
+      <p class="lede">
+        Before I automated anything for clients, I automated my own work — at Dell, then at Lenovo. Reporting that took two days became two hours. Orders that took thirty-three hours became ninety minutes. I wasn't asked to do it. I did it because the waste offended me.
+      </p>
+      <p class="lede" style="margin-top: 16px;">
+        Then I spent four years building AI memory architecture. Shipped to PyPI. Fourteen open-source repos. A five-layer system that lets AI agents share context without losing it. The result: I understand both the operational pain and the technical solution better than someone who only knows one side.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Track record</h2>
+
+      <div class="fact">
+        <strong>Lenovo — Worldwide AI Project Manager (2024)</strong>
+        <p>Promoted from Senior ISR to worldwide AI PM in under a year. Led AI education sessions, built global KPI dashboards, won the Global Gig Award. Left voluntarily — not fired, not reorganized. Chose to build independently.</p>
+      </div>
+
+      <div class="fact">
+        <strong>Dell Technologies — Team Lead, Enterprise Infrastructure (2018–2019)</strong>
+        <p>Directed a European team. Weekly VP reporting. Built the first team-wide data visibility platform. Multiple culture awards for creativity and results. The dashboards I built there are still running.</p>
+      </div>
+
+      <div class="fact">
+        <strong>Measured results from actual deployments</strong>
+        <p>40+ recurring reports, four regions, reporting effort cut 90%. Document and order processing: 10,000+ hours per year eliminated, 95% time reduction, 92.4% automation rate. Validated on real data — thousand-order batches, forty-page PDFs, SAP exports.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>What makes this different</h2>
+
+      <p class="lede">
+        Most automation consultants demo tools. I've spent years inside the operations teams that actually have to live with the output. I know what breaks at scale, what gets abandoned after the consultant leaves, and what actually sticks.
+      </p>
+      <p class="lede" style="margin-top: 16px;">
+        I also build open-source AI tooling used by developers — memory systems, multi-agent coordination, knowledge compilers. That means when I automate your reporting or order processing, the technical foundation is deeper than most freelancers can offer. Not because I'll oversell it, but because I've already solved harder problems than yours for fun.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Engagement</h2>
+
+      <div class="fact">
+        <strong>EUR 350 — Ops Friction Audit</strong>
+        <p>Five business days. One workflow. You get a map of where the hours go, what can be automated, and whether it's worth building. If it's not worth it, I'll say so.</p>
+      </div>
+
+      <div class="fact">
+        <strong>EUR 2,500 — Automation Pilot</strong>
+        <p>Ten business days. A working prototype your team can test with real data. Not a slide deck. Not a proposal for a larger engagement. A thing that runs.</p>
+      </div>
+
+      <div class="fact">
+        <strong>EUR 600/mo — Support Retainer</strong>
+        <p>Monitoring, fixes, one optimization pass per month. Only after the pilot proves useful.</p>
+      </div>
+
+      <div class="cta">
+        <a href="mailto:hello@valxb.org?subject=Ops%20Friction%20Audit">hello@valxb.org →</a>
+      </div>
+
+      <p class="quiet">
+        Based in Strasbourg, France. Work remotely across Europe. Fluent in French, English, German. Available now.
+      </p>
+    </div>
+  </section>
+</main>
+</body>
+</html>
