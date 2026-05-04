@@ -150,19 +150,45 @@
 <div class="vx-scanline"></div>
 
 <nav class="vx-nav">
-  <a href="/" class="vx-nav__logo"><span class="mark"></span>VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX</a>
+  <a href="/" class="vx-nav__logo">
+    <span class="mark" aria-hidden="true"></span>
+    VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX
+  </a>
   <div class="vx-nav__links">
     <a href="/">Home</a>
-    <a href="/pages/projects">Projects</a>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Work</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/projects">Projects</a>
+        <a href="/pages/creative-works">Creative Works</a>
+        <a href="/pages/about">Ops Automation</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Story</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/story">Our Story</a>
+        <a href="/pages/timeline">Timeline</a>
+        <a href="/pages/memoria">Memoria</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Ideas</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/philosophy">Philosophy</a>
+        <a href="/pages/quotes">Quotes</a>
+        <a href="/pages/blog">Blog</a>
+        <a href="/pages/books">Books</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Experiences</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/experiences/onyx-experiment">Onyx Experiment</a>
+        <a href="/pages/room-alexko">Room Alexko</a>
+      </div>
+    </div>
     <a href="/pages/team">Team</a>
-    <a href="/pages/philosophy">Philosophy</a>
-    <a href="/pages/quotes">Quotes</a>
-    <a href="/pages/timeline">Timeline</a>
-    <a href="/pages/story">Story</a>
-    <a href="/pages/memoria">Memoria</a>
-    <a href="/pages/blog">Blog</a>
-    <a href="/pages/books">Books</a>
-    <a href="/pages/room-alexko">Room Alexko</a>
   </div>
 </nav>
 
@@ -239,5 +265,19 @@
     <span><a href="projects/obsidian-legion.html">→ obsidian-legion</a></span>
   </div>
 </footer>
+<script>
+// Mobile dropdown toggle
+(function () {
+  if (window.innerWidth > 900) return;
+  document.querySelectorAll('.vx-nav__trigger').forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var item = trigger.closest('.vx-nav__item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.vx-nav__item.open').forEach(function (el) { el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+})();
+</script>
 </body>
 </html>

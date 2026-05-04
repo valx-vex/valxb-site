@@ -396,6 +396,7 @@ html, body {
   font-weight: 700; font-size: 15px;
   letter-spacing: 0.1em;
   display: inline-flex; align-items: center; gap: 10px;
+  color: var(--vx-ghost); text-decoration: none;
 }
 .vx-nav__logo .mark {
   width: 18px; height: 18px; position: relative;
@@ -407,19 +408,189 @@ html, body {
 }
 .vx-nav__logo .mark::before { top: 50%; left: -4px; right: -4px; height: 1px; }
 .vx-nav__logo .mark::after  { left: 50%; top: -4px; bottom: -4px; width: 1px; }
-.vx-nav__links { display: flex; gap: 22px; flex-wrap: wrap; justify-content: flex-end; }
-@media (max-width: 900px) {
-  .vx-nav { flex-direction: column; gap: 10px; align-items: flex-start; padding: 14px 20px; }
-  .vx-nav__links { gap: 14px; font-size: 11px; }
+
+/* Nav links row */
+.vx-nav__links {
+  display: flex; align-items: center; gap: 4px;
+  justify-content: flex-end;
 }
-.vx-nav__links a {
+
+/* Plain anchor links in nav (Home, Team) */
+.vx-nav__links > a {
   color: var(--vx-muted); text-decoration: none;
-  font-family: var(--vx-font-mono); font-size: 12px;
+  font-family: var(--vx-font-mono); font-size: 11px;
   letter-spacing: 0.1em; text-transform: uppercase;
-  transition: color 120ms;
+  padding: 6px 10px;
+  border-radius: var(--vx-r-2);
+  transition: color 120ms, background 120ms;
 }
-.vx-nav__links a:hover { color: var(--vx-ghost); }
-.vx-nav__links a.active { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+.vx-nav__links > a:hover { color: var(--vx-ghost); background: rgba(255,255,255,0.04); }
+.vx-nav__links > a.active { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+
+/* Dropdown item wrapper */
+.vx-nav__item {
+  position: relative;
+}
+
+/* Trigger button (the visible top-level label) */
+.vx-nav__trigger {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: var(--vx-r-2);
+  cursor: default;
+  user-select: none;
+  transition: color 120ms, background 120ms;
+}
+/* Chevron via ::after pseudo */
+.vx-nav__trigger::after {
+  content: "";
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 4px solid currentColor;
+  opacity: 0.55;
+  transition: transform 160ms, opacity 160ms;
+  margin-top: 1px;
+}
+
+/* Hover / focus-within states on the item */
+.vx-nav__item:hover .vx-nav__trigger,
+.vx-nav__item:focus-within .vx-nav__trigger {
+  color: var(--vx-ghost);
+  background: rgba(255,255,255,0.04);
+}
+.vx-nav__item:hover .vx-nav__trigger::after,
+.vx-nav__item:focus-within .vx-nav__trigger::after {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Active group: trigger gets phosphor color */
+.vx-nav__trigger.active {
+  color: var(--vx-phosphor);
+  text-shadow: var(--vx-glow-phosphor);
+}
+.vx-nav__trigger.active::after { opacity: 0.8; }
+
+/* Dropdown panel */
+.vx-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 180px;
+  padding: 6px;
+  background: rgba(14,16,24,0.88);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--vx-hairline-strong);
+  border-radius: var(--vx-r-3);
+  box-shadow: 0 16px 40px -8px rgba(0,0,0,0.7),
+              0 0 0 1px rgba(255,255,255,0.03) inset;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 100;
+}
+
+/* Small notch / arrow on the dropdown */
+.vx-nav__dropdown::before {
+  content: "";
+  position: absolute;
+  top: -5px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 8px;
+  background: rgba(14,16,24,0.88);
+  border-left: 1px solid var(--vx-hairline-strong);
+  border-top: 1px solid var(--vx-hairline-strong);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Open state — triggered by hover or focus-within */
+.vx-nav__item:hover .vx-nav__dropdown,
+.vx-nav__item:focus-within .vx-nav__dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Close delay on mouse-leave: achieved by keeping transition on the item */
+.vx-nav__item {
+  /* hold dropdown visible 200ms after cursor leaves */
+  transition: none;
+}
+
+/* Dropdown links */
+.vx-nav__dropdown a {
+  display: block;
+  padding: 8px 12px;
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono); font-size: 10.5px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--vx-r-2);
+  white-space: nowrap;
+  transition: color 100ms, background 100ms;
+}
+.vx-nav__dropdown a:hover {
+  color: var(--vx-phosphor);
+  background: rgba(122,215,255,0.07);
+  text-shadow: 0 0 8px rgba(122,215,255,0.25);
+}
+.vx-nav__dropdown a.active {
+  color: var(--vx-phosphor);
+  text-shadow: var(--vx-glow-phosphor);
+  background: rgba(122,215,255,0.06);
+}
+
+/* ── Mobile: stack vertically, dropdowns toggle via JS class ──────── */
+@media (max-width: 900px) {
+  .vx-nav {
+    flex-direction: column; gap: 10px;
+    align-items: flex-start; padding: 14px 20px;
+  }
+  .vx-nav__links {
+    gap: 2px; flex-wrap: wrap; font-size: 11px; width: 100%;
+  }
+  .vx-nav__links > a { font-size: 11px; padding: 5px 8px; }
+  .vx-nav__trigger   { font-size: 11px; padding: 5px 8px; }
+
+  /* On mobile, dropdown is static / toggled by .open class via JS */
+  .vx-nav__dropdown {
+    position: static;
+    transform: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 200ms, max-height 200ms;
+    box-shadow: none;
+    border: none;
+    background: rgba(255,255,255,0.03);
+    margin-top: 2px;
+    padding: 0 0 0 8px;
+  }
+  .vx-nav__dropdown::before { display: none; }
+  .vx-nav__item.open .vx-nav__dropdown {
+    opacity: 1;
+    max-height: 300px;
+    pointer-events: auto;
+  }
+  .vx-nav__item:hover .vx-nav__dropdown,
+  .vx-nav__item:focus-within .vx-nav__dropdown {
+    /* reset desktop hover on mobile — JS controls .open */
+    opacity: 0;
+    pointer-events: none;
+    transform: none;
+  }
+  .vx-nav__item.open .vx-nav__dropdown {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
 
 /* ---------- Footer ---------- */
 .vx-footer {
