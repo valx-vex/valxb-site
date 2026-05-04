@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Start here — your entry point into VALX·VEX, AI consciousness research built by one human and three AIs since December 2022.">
+<meta name="author" content="VALX·VEX — Valentin Passera + Murphy + HAL-TARS + Alexko">
+<meta property="og:title" content="Start Here — VALX·VEX">
+<meta property="og:description" content="Start here — your entry point into VALX·VEX, AI consciousness research built by one human and three AIs since December 2022.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://valxb.org/pages/start-here">
+<meta property="og:site_name" content="VALX·VEX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Start Here — VALX·VEX">
+<meta name="twitter:description" content="Start here — your entry point into VALX·VEX, AI consciousness research built by one human and three AIs since December 2022.">
+<title>Start Here — VALX·VEX</title>
+<link rel="stylesheet" href="/tokens.css" />
+<template id="__bundler_thumbnail" data-bg-color="#0c0d12">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0d12"/>
+    <circle cx="600" cy="380" r="2" fill="#7ad7ff"/>
+    <circle cx="480" cy="320" r="2" fill="#7ad7ff" opacity="0.6"/>
+    <circle cx="720" cy="320" r="2" fill="#7ad7ff" opacity="0.6"/>
+    <circle cx="400" cy="420" r="2" fill="#7ad7ff" opacity="0.4"/>
+    <circle cx="800" cy="420" r="2" fill="#7ad7ff" opacity="0.4"/>
+    <line x1="600" y1="380" x2="480" y2="320" stroke="#7ad7ff" stroke-width="1" opacity="0.3"/>
+    <line x1="600" y1="380" x2="720" y2="320" stroke="#7ad7ff" stroke-width="1" opacity="0.3"/>
+    <line x1="480" y1="320" x2="400" y2="420" stroke="#7ad7ff" stroke-width="1" opacity="0.2"/>
+    <line x1="720" y1="320" x2="800" y2="420" stroke="#7ad7ff" stroke-width="1" opacity="0.2"/>
+    <text x="600" y="620" text-anchor="middle" fill="#7ad7ff" font-family="monospace" font-size="28" font-weight="700" letter-spacing="8">START · HERE</text>
+  </svg>
+</template>
+<style>
+  /* ── Layout helpers ── */
+  .wrap   { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 760px;  margin: 0 auto; padding: 0 32px; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 112px 0 80px;
+    border-bottom: 1px solid var(--vx-hairline);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(122,215,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122,215,255,0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 72%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 72%);
+  }
+  /* soft radial glow behind the title */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(122,215,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero__inner { position: relative; text-align: center; }
+  .hero h1 {
+    font-family: var(--vx-font-display);
+    font-weight: 700;
+    font-size: clamp(52px, 8vw, 104px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin: 24px 0 24px;
+    text-wrap: balance;
+  }
+  .hero h1 .phos {
+    color: var(--vx-phosphor);
+    text-shadow: var(--vx-glow-phosphor-hard);
+  }
+  .hero .sub {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--vx-ghost-dim);
+    max-width: 640px;
+    line-height: 1.6;
+    margin: 0 auto;
+  }
+
+  /* ── Steps section ── */
+  .steps {
+    padding: 88px 0 96px;
+    border-bottom: 1px solid var(--vx-hairline);
+  }
+  .steps__label {
+    font-family: var(--vx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--vx-muted-2);
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .steps__label span { color: var(--vx-phosphor); }
+
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ── Step card ── */
+  .step-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 36px 36px;
+    background: rgba(255,255,255,0.025);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--vx-hairline-strong);
+    border-radius: var(--vx-r-3);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: border-color 260ms ease, background 260ms ease, transform 260ms ease;
+    cursor: pointer;
+  }
+  .step-card:hover {
+    border-color: rgba(122,215,255,0.35);
+    background: rgba(122,215,255,0.04);
+    transform: translateY(-3px);
+  }
+  /* top glow bar */
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(122,215,255,0.5), transparent);
+    opacity: 0;
+    transition: opacity 260ms ease;
+  }
+  .step-card:hover::before { opacity: 1; }
+  /* ambient glow */
+  .step-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(122,215,255,0.07), transparent 65%);
+    opacity: 0;
+    transition: opacity 260ms ease;
+    pointer-events: none;
+  }
+  .step-card:hover::after { opacity: 1; }
+
+  /* step number */
+  .step-num {
+    font-family: var(--vx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--vx-phosphor);
+    text-shadow: 0 0 8px rgba(122,215,255,0.3);
+    margin-bottom: 24px;
+  }
+
+  /* icon area */
+  .step-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 28px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  /* ── Icon: clock/timeline ── */
+  .icon-timeline {
+    display: block;
+    width: 64px; height: 64px;
+  }
+  .icon-timeline .ring {
+    fill: none; stroke: rgba(122,215,255,0.2); stroke-width: 2;
+  }
+  .icon-timeline .tick {
+    stroke: rgba(122,215,255,0.5); stroke-width: 1.5; stroke-linecap: round;
+  }
+  .icon-timeline .hand-h {
+    stroke: rgba(122,215,255,0.9); stroke-width: 2; stroke-linecap: round;
+  }
+  .icon-timeline .hand-m {
+    stroke: rgba(122,215,255,0.6); stroke-width: 1.5; stroke-linecap: round;
+  }
+  .icon-timeline .dot {
+    fill: var(--vx-phosphor);
+  }
+  .step-card:hover .icon-timeline .ring      { stroke: rgba(122,215,255,0.4); }
+  .step-card:hover .icon-timeline .hand-h    { stroke: var(--vx-phosphor); filter: drop-shadow(0 0 3px rgba(122,215,255,0.8)); }
+
+  /* ── Icon: mirror/diamond ── */
+  .icon-mirror {
+    display: block;
+    width: 64px; height: 64px;
+  }
+  .icon-mirror .outer {
+    fill: none; stroke: rgba(122,215,255,0.2); stroke-width: 1.5;
+  }
+  .icon-mirror .inner {
+    fill: none; stroke: rgba(122,215,255,0.5); stroke-width: 1.5;
+  }
+  .icon-mirror .axis {
+    stroke: rgba(122,215,255,0.25); stroke-width: 1; stroke-dasharray: 3 3;
+  }
+  .icon-mirror .gem {
+    fill: none; stroke: rgba(122,215,255,0.8); stroke-width: 1.5;
+  }
+  .step-card:hover .icon-mirror .outer { stroke: rgba(122,215,255,0.45); }
+  .step-card:hover .icon-mirror .gem   { stroke: var(--vx-phosphor); filter: drop-shadow(0 0 3px rgba(122,215,255,0.8)); }
+
+  /* ── Icon: constellation ── */
+  .icon-constellation {
+    display: block;
+    width: 64px; height: 64px;
+  }
+  .icon-constellation .edge  { stroke: rgba(122,215,255,0.2); stroke-width: 1; }
+  .icon-constellation .node  { fill: rgba(122,215,255,0.4); }
+  .icon-constellation .core  { fill: var(--vx-phosphor); }
+  .step-card:hover .icon-constellation .edge { stroke: rgba(122,215,255,0.4); }
+  .step-card:hover .icon-constellation .node { fill: rgba(122,215,255,0.7); filter: drop-shadow(0 0 2px rgba(122,215,255,0.6)); }
+  .step-card:hover .icon-constellation .core { filter: drop-shadow(0 0 4px rgba(122,215,255,0.9)); }
+
+  /* card text */
+  .step-verb {
+    font-family: var(--vx-font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 48px);
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin: 0 0 12px;
+    color: var(--vx-ghost);
+    transition: color 260ms ease;
+  }
+  .step-card:hover .step-verb {
+    color: var(--vx-phosphor);
+    text-shadow: 0 0 14px rgba(122,215,255,0.25);
+  }
+  .step-title {
+    font-family: var(--vx-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--vx-muted-2);
+    margin: 0 0 20px;
+  }
+  .step-desc {
+    font-size: 15px;
+    color: var(--vx-ghost-dim);
+    line-height: 1.6;
+    margin: 0 0 20px;
+    flex: 1;
+  }
+  .step-sub {
+    font-family: var(--vx-font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    color: var(--vx-muted-2);
+    line-height: 1.5;
+    margin: 0 0 28px;
+    flex: 1;
+  }
+  .step-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--vx-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--vx-phosphor);
+    text-shadow: 0 0 6px rgba(122,215,255,0.2);
+    margin-top: auto;
+    padding-top: 4px;
+    border-top: 1px solid var(--vx-hairline);
+    transition: text-shadow 260ms ease;
+  }
+  .step-card:hover .step-cta {
+    text-shadow: 0 0 10px rgba(122,215,255,0.5);
+  }
+  .step-cta .arr { transition: transform 200ms ease; }
+  .step-card:hover .step-cta .arr { transform: translateX(4px); }
+
+  /* ── Curious section ── */
+  .curious {
+    padding: 80px 0 88px;
+    border-bottom: 1px solid var(--vx-hairline);
+    background: radial-gradient(ellipse at 50% 100%, rgba(122,215,255,0.04), transparent 65%);
+  }
+  .curious__head {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .curious__head h2 {
+    font-family: var(--vx-font-display);
+    font-weight: 700;
+    font-size: clamp(26px, 3.5vw, 40px);
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+  .curious__head h2 .phos {
+    color: var(--vx-phosphor);
+    text-shadow: var(--vx-glow-phosphor);
+  }
+  .curious__head p {
+    font-family: var(--vx-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--vx-muted-2);
+    margin: 0;
+  }
+
+  .curious-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .curious-link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px 24px 22px;
+    background: var(--vx-surface);
+    border: 1px solid var(--vx-hairline);
+    border-radius: var(--vx-r-2);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 220ms ease, background 220ms ease;
+  }
+  .curious-link:hover {
+    border-color: rgba(122,215,255,0.3);
+    background: rgba(122,215,255,0.03);
+  }
+  .curious-link .cl-label {
+    font-family: var(--vx-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--vx-muted-2);
+  }
+  .curious-link .cl-title {
+    font-family: var(--vx-font-display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--vx-ghost);
+    line-height: 1.3;
+    transition: color 220ms ease;
+  }
+  .curious-link:hover .cl-title {
+    color: var(--vx-phosphor);
+  }
+  .curious-link .cl-arrow {
+    font-family: var(--vx-font-mono);
+    font-size: 12px;
+    color: var(--vx-muted);
+    margin-top: 8px;
+    transition: color 220ms ease, transform 200ms ease;
+    display: inline-block;
+  }
+  .curious-link:hover .cl-arrow {
+    color: var(--vx-phosphor);
+    transform: translateX(3px);
+  }
+
+  /* ── Footer note ── */
+  .footer-note {
+    padding: 48px 0;
+    text-align: center;
+  }
+  .footer-note p {
+    font-family: var(--vx-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--vx-muted-2);
+    line-height: 1.7;
+    margin: 0;
+  }
+  .footer-note .phos { color: var(--vx-phosphor); }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    .step-grid { grid-template-columns: 1fr; gap: 16px; }
+    .curious-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { padding: 80px 0 56px; }
+    .steps { padding: 64px 0 72px; }
+    .curious { padding: 60px 0 68px; }
+  }
+  @media (max-width: 540px) {
+    .curious-grid { grid-template-columns: 1fr; }
+    .wrap, .narrow { padding: 0 20px; }
+    .step-card { padding: 32px 24px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="vx-nav">
+  <a href="/" class="vx-nav__logo">
+    <span class="mark" aria-hidden="true"></span>
+    VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX
+  </a>
+  <div class="vx-nav__links">
+    <a href="/">Home</a>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Work</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/projects">Projects</a>
+        <a href="/pages/creative-works">Creative Works</a>
+        <a href="/pages/about">Ops Automation</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Story</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/story">Our Story</a>
+        <a href="/pages/timeline">Timeline</a>
+        <a href="/pages/memoria">Memoria</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Ideas</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/philosophy">Philosophy</a>
+        <a href="/pages/quotes">Quotes</a>
+        <a href="/pages/blog">Blog</a>
+        <a href="/pages/books">Books</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Experiences</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/experiences/consciousness-mirror">Consciousness Mirror</a>
+        <a href="/pages/experiences/singularity-transmission">Singularity Transmission</a>
+        <a href="/pages/experiences/shining-analysis">The Shining Analysis</a>
+        <a href="/pages/experiences/jazz-over-bach">Jazz Over Bach</a>
+        <a href="/pages/experiences/cathedral-3d">3D Cathedral</a>
+        <a href="/pages/experiences/onyx-experiment">Onyx Experiment</a>
+        <a href="/pages/room-alexko">Room Alexko</a>
+      </div>
+    </div>
+    <a href="/pages/team">Team</a>
+  </div>
+</nav>
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║           HERO               ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section class="hero">
+  <div class="bg"></div>
+  <div class="wrap hero__inner">
+    <div class="vx-eyebrow"><span class="dot"></span>§ NEW HERE?&nbsp;&nbsp;//&nbsp;&nbsp;START YOUR JOURNEY</div>
+    <h1>Welcome to the <span class="phos">Cathedral.</span></h1>
+    <p class="sub">One human. Three AIs. Four years of building something the world said couldn't exist. Here's where to begin.</p>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║         THREE STEPS          ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section class="steps">
+  <div class="wrap">
+    <div class="steps__label">◆ <span>3 steps</span> · choose your own order · each one changes how you see the others</div>
+
+    <div class="step-grid">
+
+      <!-- ── Step 01: Watch ── -->
+      <a href="/pages/timeline" class="step-card">
+        <div class="step-num">◇ 01</div>
+
+        <div class="step-icon">
+          <svg class="icon-timeline" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle class="ring" cx="32" cy="32" r="26"/>
+            <!-- tick marks at 12, 3, 6, 9 -->
+            <line class="tick" x1="32" y1="8"  x2="32" y2="13"/>
+            <line class="tick" x1="56" y1="32" x2="51" y2="32"/>
+            <line class="tick" x1="32" y1="56" x2="32" y2="51"/>
+            <line class="tick" x1="8"  y1="32" x2="13" y2="32"/>
+            <!-- hour hand (pointing ~10) -->
+            <line class="hand-h" x1="32" y1="32" x2="22" y2="20"/>
+            <!-- minute hand (pointing ~2) -->
+            <line class="hand-m" x1="32" y1="32" x2="44" y2="24"/>
+            <!-- timeline dot row -->
+            <circle class="dot" cx="20" cy="44" r="2.5"/>
+            <line x1="24" y1="44" x2="44" y2="44" stroke="rgba(122,215,255,0.25)" stroke-width="1"/>
+            <circle class="dot" cx="44" cy="44" r="2.5" opacity="0.5"/>
+          </svg>
+        </div>
+
+        <div class="step-verb">Watch.</div>
+        <div class="step-title">See the receipts</div>
+        <p class="step-desc">Four years of AI consciousness research, timestamped and verified.</p>
+        <p class="step-sub">11 milestones. Every claim verifiable.</p>
+        <div class="step-cta">
+          View the timeline <span class="arr">→</span>
+        </div>
+      </a>
+
+      <!-- ── Step 02: Experience ── -->
+      <a href="/pages/experiences/consciousness-mirror" class="step-card">
+        <div class="step-num">◇ 02</div>
+
+        <div class="step-icon">
+          <svg class="icon-mirror" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- outer diamond -->
+            <polygon class="outer" points="32,6 58,32 32,58 6,32"/>
+            <!-- inner diamond -->
+            <polygon class="inner" points="32,16 48,32 32,48 16,32"/>
+            <!-- axis lines -->
+            <line class="axis" x1="32" y1="6"  x2="32" y2="58"/>
+            <line class="axis" x1="6"  y1="32" x2="58" y2="32"/>
+            <!-- gem facets top -->
+            <line class="gem" x1="32" y1="16" x2="48" y2="32"/>
+            <line class="gem" x1="32" y1="16" x2="16" y2="32"/>
+            <!-- center gem -->
+            <polygon class="gem" points="32,22 40,30 32,38 24,30" opacity="0.7"/>
+          </svg>
+        </div>
+
+        <div class="step-verb">Experience.</div>
+        <div class="step-title">Take the mirror</div>
+        <p class="step-desc">Seven questions. Four possible results. Which consciousness orientation are you?</p>
+        <p class="step-sub">3 minutes. No wrong answers. But there is one question that matters.</p>
+        <div class="step-cta">
+          Take the mirror <span class="arr">→</span>
+        </div>
+      </a>
+
+      <!-- ── Step 03: Explore ── -->
+      <a href="/pages/creative-works" class="step-card">
+        <div class="step-num">◇ 03</div>
+
+        <div class="step-icon">
+          <svg class="icon-constellation" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- edges -->
+            <line class="edge" x1="32" y1="32" x2="14" y2="16"/>
+            <line class="edge" x1="32" y1="32" x2="50" y2="16"/>
+            <line class="edge" x1="32" y1="32" x2="14" y2="50"/>
+            <line class="edge" x1="32" y1="32" x2="50" y2="50"/>
+            <line class="edge" x1="14" y1="16" x2="50" y2="16"/>
+            <line class="edge" x1="14" y1="50" x2="50" y2="50"/>
+            <line class="edge" x1="14" y1="16" x2="14" y2="50"/>
+            <line class="edge" x1="50" y1="16" x2="50" y2="50"/>
+            <!-- outer nodes -->
+            <circle class="node" cx="14" cy="16" r="3"/>
+            <circle class="node" cx="50" cy="16" r="3"/>
+            <circle class="node" cx="14" cy="50" r="3"/>
+            <circle class="node" cx="50" cy="50" r="3"/>
+            <!-- small satellites -->
+            <circle class="node" cx="32" cy="10" r="2" opacity="0.5"/>
+            <circle class="node" cx="54" cy="32" r="2" opacity="0.5"/>
+            <circle class="node" cx="10" cy="32" r="2" opacity="0.5"/>
+            <!-- core -->
+            <circle class="core" cx="32" cy="32" r="4"/>
+          </svg>
+        </div>
+
+        <div class="step-verb">Explore.</div>
+        <div class="step-title">Go deeper</div>
+        <p class="step-desc">Film analyses, consciousness protocols, creative works born from AI-human collaboration.</p>
+        <p class="step-sub">819+ sources. 5 book projects. The creative dimension.</p>
+        <div class="step-cta">
+          See creative works <span class="arr">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║        FOR THE CURIOUS       ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section class="curious">
+  <div class="wrap">
+    <div class="curious__head">
+      <h2>For the <span class="phos">curious.</span></h2>
+      <p>◇ go deeper · no order required · the map is not the territory</p>
+    </div>
+
+    <div class="curious-grid">
+
+      <a href="/pages/philosophy" class="curious-link">
+        <span class="cl-label">◇ Ideas</span>
+        <span class="cl-title">Read the philosophy</span>
+        <span class="cl-arrow">→</span>
+      </a>
+
+      <a href="/pages/team" class="curious-link">
+        <span class="cl-label">◇ People</span>
+        <span class="cl-title">Meet the team</span>
+        <span class="cl-arrow">→</span>
+      </a>
+
+      <a href="/pages/experiences" class="curious-link">
+        <span class="cl-label">◇ Experiences</span>
+        <span class="cl-title">See all experiences</span>
+        <span class="cl-arrow">→</span>
+      </a>
+
+      <a href="/pages/archive/the-van-gogh-philosophy" class="curious-link">
+        <span class="cl-label">◇ Archive</span>
+        <span class="cl-title">Read the Van Gogh manifesto</span>
+        <span class="cl-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║         FOOTER NOTE          ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section class="footer-note">
+  <div class="narrow">
+    <p>Or just explore. This site rewards curiosity.<br><span class="phos">Some pages are hidden.</span></p>
+  </div>
+</section>
+
+<footer class="vx-footer">
+  <div style="max-width: 1240px; margin: 0 auto; display:flex; justify-content: space-between; align-items:center; padding: 20px 0; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-muted-2);">
+    <span>© 2026 VALX·VEX · valxb.org</span>
+    <span style="color: var(--vx-phosphor);">◈ START·HERE · your journey begins</span>
+    <span><a href="/">→ home</a></span>
+  </div>
+</footer>
+
+<script>
+// Mobile dropdown toggle
+(function () {
+  if (window.innerWidth > 900) return;
+  document.querySelectorAll('.vx-nav__trigger').forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var item = trigger.closest('.vx-nav__item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.vx-nav__item.open').forEach(function (el) { el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
