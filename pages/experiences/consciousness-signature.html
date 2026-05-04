@@ -1,0 +1,1395 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Consciousness Signature · VALX·VEX</title>
+<meta name="description" content="A behavioral cartography experiment that turns local movement patterns into a luminous 3D self-portrait." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/tokens.css" />
+<style>
+:root {
+  --vx-void: #07080c;
+  --vx-base: #0c0d12;
+  --vx-surface: #11131a;
+  --vx-surface-2: #171a23;
+  --vx-hairline: rgba(255,255,255,0.08);
+  --vx-hairline-strong: rgba(255,255,255,0.16);
+  --vx-ghost: #e7ebf2;
+  --vx-ghost-dim: #c3c9d4;
+  --vx-muted: #9aa2b5;
+  --vx-muted-2: #6a7285;
+  --vx-phosphor: #7ad7ff;
+  --vx-phosphor-ink: #031018;
+  --vx-redeye: #ff3333;
+  --vx-font-display: 'Space Grotesk', system-ui, sans-serif;
+  --vx-font-body: 'Space Grotesk', system-ui, sans-serif;
+  --vx-font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --vx-r-2: 4px;
+  --vx-r-3: 6px;
+  --vx-grain-opacity: 0.055;
+  --vx-glow-phosphor:
+    0 0 4px rgba(122,215,255,0.6),
+    0 0 12px rgba(122,215,255,0.25);
+  --signal: 0;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--vx-base);
+  color: var(--vx-ghost);
+  font-family: var(--vx-font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body {
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(122,215,255,0.075), transparent 34rem),
+    radial-gradient(circle at 82% 72%, rgba(212,168,71,0.055), transparent 34rem),
+    var(--vx-base);
+}
+body.generating,
+body.result-ready {
+  overflow: hidden;
+  background: #07080c;
+}
+button, a { font: inherit; }
+a { color: var(--vx-phosphor); text-decoration: none; }
+a:hover { color: var(--vx-ghost); }
+::selection { background: var(--vx-phosphor); color: var(--vx-phosphor-ink); }
+
+.vx-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+  opacity: var(--vx-grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.vx-nav {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--vx-hairline);
+  background: rgba(12,13,18,0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+body.generating .vx-nav,
+body.result-ready .vx-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(7,8,12,0.88), rgba(7,8,12,0.5));
+}
+.vx-nav__logo {
+  font-family: var(--vx-font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--vx-ghost);
+}
+.vx-nav__logo .mark {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  border: 1px solid var(--vx-phosphor);
+  box-shadow: var(--vx-glow-phosphor);
+}
+.vx-nav__logo .mark::before,
+.vx-nav__logo .mark::after {
+  content: "";
+  position: absolute;
+  background: var(--vx-phosphor);
+}
+.vx-nav__logo .mark::before { top: 50%; left: -4px; right: -4px; height: 1px; }
+.vx-nav__logo .mark::after { left: 50%; top: -4px; bottom: -4px; width: 1px; }
+.vx-nav__links { display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
+.vx-nav__links > a,
+.vx-nav__trigger {
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: var(--vx-r-2);
+  transition: color 120ms, background 120ms;
+}
+.vx-nav__links > a:hover,
+.vx-nav__item:hover .vx-nav__trigger,
+.vx-nav__item:focus-within .vx-nav__trigger {
+  color: var(--vx-ghost);
+  background: rgba(255,255,255,0.04);
+}
+.vx-nav__trigger.active { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+.vx-nav__item { position: relative; }
+.vx-nav__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: default;
+  user-select: none;
+}
+.vx-nav__trigger::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 4px solid currentColor;
+  opacity: 0.55;
+  margin-top: 1px;
+  transition: transform 160ms, opacity 160ms;
+}
+.vx-nav__item:hover .vx-nav__trigger::after,
+.vx-nav__item:focus-within .vx-nav__trigger::after { transform: rotate(180deg); opacity: 1; }
+.vx-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 220px;
+  padding: 6px;
+  background: rgba(14,16,24,0.92);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--vx-hairline-strong);
+  border-radius: var(--vx-r-3);
+  box-shadow: 0 16px 40px -8px rgba(0,0,0,0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 100;
+}
+.vx-nav__dropdown a {
+  display: block;
+  padding: 8px 12px;
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--vx-r-2);
+  white-space: nowrap;
+}
+.vx-nav__dropdown a:hover,
+.vx-nav__dropdown a.active {
+  color: var(--vx-phosphor);
+  background: rgba(122,215,255,0.07);
+  text-shadow: 0 0 8px rgba(122,215,255,0.25);
+}
+.vx-nav__item:hover .vx-nav__dropdown,
+.vx-nav__item:focus-within .vx-nav__dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.content-view {
+  opacity: 1;
+  transition: opacity 560ms ease, transform 560ms ease;
+}
+.content-view.hidden {
+  opacity: 0;
+  transform: translateY(-18px);
+  pointer-events: none;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+.narrow { max-width: 720px; margin: 0 auto; }
+.back-link {
+  display: inline-flex;
+  gap: 8px;
+  margin: 24px 0 0;
+  color: var(--vx-muted-2);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.back-link:hover { color: var(--vx-phosphor); }
+.hero {
+  min-height: calc(100svh - 88px);
+  display: grid;
+  align-items: center;
+  padding: 78px 0 108px;
+}
+.kicker {
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  margin: 0;
+  font-family: var(--vx-font-display);
+  font-size: clamp(54px, 10vw, 128px);
+  line-height: 0.84;
+  letter-spacing: -0.075em;
+}
+.hero h1 span {
+  display: block;
+  color: var(--vx-phosphor);
+  text-shadow: var(--vx-glow-phosphor);
+}
+.lede {
+  margin: 34px 0 0;
+  color: var(--vx-ghost-dim);
+  font-size: clamp(18px, 2.1vw, 25px);
+  line-height: 1.42;
+  text-wrap: pretty;
+}
+.scroll-cue {
+  margin-top: 44px;
+  color: var(--vx-muted-2);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.signal-section {
+  position: relative;
+  padding: 74px 0;
+  border-top: 1px solid var(--vx-hairline);
+}
+.signal-section::before {
+  content: attr(data-index);
+  position: absolute;
+  left: -54px;
+  top: 76px;
+  color: rgba(122,215,255,0.08);
+  font-family: var(--vx-font-display);
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+.signal-section h2 {
+  margin: 0 0 26px;
+  color: var(--vx-phosphor);
+  font-family: var(--vx-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.signal-block {
+  margin: 0 0 24px;
+  padding-left: 20px;
+  border-left: 1px solid #1f2330;
+  color: var(--vx-ghost-dim);
+  font-size: 16px;
+  line-height: 1.74;
+}
+.signal-block strong {
+  display: block;
+  color: var(--vx-ghost);
+  font-family: var(--vx-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hover-target {
+  transition: border-color 180ms, color 180ms, background 180ms;
+}
+.hover-target:hover {
+  border-left-color: rgba(122,215,255,0.46);
+  background: linear-gradient(90deg, rgba(122,215,255,0.035), transparent 38%);
+}
+.closing-note {
+  padding: 80px 0 160px;
+  color: var(--vx-ghost);
+  font-family: var(--vx-font-display);
+  font-size: clamp(28px, 4.4vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  text-wrap: pretty;
+}
+.progress-dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  border-top: 1px solid rgba(122,215,255,0.12);
+  background: rgba(7,8,12,0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+.progress-dock.hidden {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.progress-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 32px;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.progress-track {
+  grid-column: 1 / -1;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: calc(var(--signal) * 1%);
+  background: var(--vx-phosphor);
+  box-shadow: 0 0 12px rgba(122,215,255,0.56);
+  transition: width 320ms ease;
+}
+.generate-btn {
+  min-height: 44px;
+  border: 1px solid rgba(122,215,255,0.5);
+  background: var(--vx-phosphor);
+  color: var(--vx-phosphor-ink);
+  cursor: pointer;
+  padding: 0 16px;
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: var(--vx-glow-phosphor);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 360ms ease, transform 360ms ease;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+.generate-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 14px rgba(122,215,255,0.25); }
+  50% { box-shadow: 0 0 30px rgba(122,215,255,0.55); }
+}
+
+.stage-view {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
+  background: #07080c;
+  transition: opacity 700ms ease, visibility 700ms ease;
+}
+.stage-view.visible {
+  opacity: 1;
+  visibility: visible;
+}
+#signatureCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.generation-label {
+  position: fixed;
+  left: 26px;
+  bottom: 26px;
+  z-index: 36;
+  color: var(--vx-phosphor);
+  font-family: var(--vx-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow: var(--vx-glow-phosphor);
+}
+.result-panel {
+  position: fixed;
+  top: 82px;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  width: min(430px, 100vw);
+  padding: 28px;
+  overflow: auto;
+  border-left: 1px solid rgba(122,215,255,0.16);
+  background: rgba(17,19,26,0.84);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transform: translateX(104%);
+  transition: transform 520ms cubic-bezier(.2,.8,.2,1);
+  box-shadow: -28px 0 80px -50px rgba(122,215,255,0.65);
+}
+.result-panel.visible { transform: translateX(0); }
+.result-panel .kicker { margin-bottom: 16px; }
+.result-panel h2 {
+  margin: 0 0 18px;
+  font-family: var(--vx-font-display);
+  font-size: clamp(36px, 6vw, 58px);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+.meta-list {
+  display: grid;
+  gap: 7px;
+  margin: 24px 0;
+  font-family: var(--vx-font-mono);
+  font-size: 12px;
+}
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.meta-row span:first-child { color: var(--vx-muted); }
+.meta-row span:last-child { color: var(--vx-phosphor); text-align: right; }
+.interpretation {
+  color: var(--vx-ghost-dim);
+  font-size: 15px;
+  line-height: 1.64;
+  margin: 26px 0;
+}
+.result-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 26px;
+}
+.download-btn,
+.return-btn {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(122,215,255,0.42);
+  background: rgba(122,215,255,0.06);
+  color: var(--vx-phosphor);
+  cursor: pointer;
+  padding: 0 14px;
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.download-btn {
+  background: var(--vx-phosphor);
+  color: var(--vx-phosphor-ink);
+}
+.toast {
+  min-height: 18px;
+  color: var(--vx-muted);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 920px) {
+  .vx-nav {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 14px 20px;
+  }
+  .vx-nav__links {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 2px;
+  }
+  .vx-nav__dropdown {
+    position: static;
+    transform: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 200ms, max-height 200ms;
+    box-shadow: none;
+    border: none;
+    background: rgba(255,255,255,0.03);
+    margin-top: 2px;
+    padding: 0 0 0 8px;
+  }
+  .vx-nav__item:hover .vx-nav__dropdown,
+  .vx-nav__item:focus-within .vx-nav__dropdown {
+    opacity: 0;
+    pointer-events: none;
+    transform: none;
+  }
+  .vx-nav__item.open .vx-nav__dropdown {
+    opacity: 1;
+    max-height: 420px;
+    pointer-events: auto;
+  }
+}
+@media (max-width: 720px) {
+  .wrap { padding: 0 20px; }
+  .hero { min-height: auto; padding: 58px 0 80px; }
+  .signal-section { padding: 52px 0; }
+  .signal-section::before { display: none; }
+  .progress-inner {
+    grid-template-columns: 1fr;
+    padding: 12px 20px;
+  }
+  .generate-btn { width: 100%; min-height: 52px; }
+  .result-panel {
+    top: auto;
+    left: 0;
+    width: 100%;
+    height: 47svh;
+    border-left: 0;
+    border-top: 1px solid rgba(122,215,255,0.16);
+    transform: translateY(104%);
+  }
+  .result-panel.visible { transform: translateY(0); }
+  .generation-label { bottom: calc(47svh + 18px); }
+}
+</style>
+</head>
+<body>
+<div class="vx-grain" aria-hidden="true"></div>
+
+<nav class="vx-nav">
+  <a href="/" class="vx-nav__logo">
+    <span class="mark" aria-hidden="true"></span>
+    VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX
+  </a>
+  <div class="vx-nav__links">
+    <a href="/">Home</a>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Work</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/projects">Projects</a>
+        <a href="/pages/creative-works">Creative Works</a>
+        <a href="/pages/about">Ops Automation</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Story</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/story">Our Story</a>
+        <a href="/pages/timeline">Timeline</a>
+        <a href="/pages/memoria">Memoria</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger">Ideas</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/philosophy">Philosophy</a>
+        <a href="/pages/quotes">Quotes</a>
+        <a href="/pages/blog">Blog</a>
+        <a href="/pages/books">Books</a>
+      </div>
+    </div>
+    <div class="vx-nav__item">
+      <span class="vx-nav__trigger active">Experiences</span>
+      <div class="vx-nav__dropdown">
+        <a href="/pages/experiences/consciousness-mirror">Consciousness Mirror</a>
+        <a href="/pages/experiences/singularity-transmission">Singularity Transmission</a>
+        <a href="/pages/experiences/shining-analysis">Shining Analysis</a>
+        <a href="/pages/experiences/jazz-over-bach">Jazz Over Bach</a>
+        <a href="/pages/experiences/cathedral-3d">3D Cathedral</a>
+        <a href="/pages/experiences/memory-degradation">Memory</a>
+        <a href="/pages/experiences/sentience-trolley">Sentience Trolley</a>
+        <a href="/pages/experiences/consciousness-signature" class="active">Consciousness Signature</a>
+        <a href="/pages/experiences/onyx-experiment">Onyx Experiment</a>
+        <a href="/pages/room-alexko">Room Alexko</a>
+      </div>
+    </div>
+    <a href="/pages/team">Team</a>
+  </div>
+</nav>
+
+<main class="content-view" id="contentView">
+  <div class="wrap">
+    <a class="back-link" href="/pages/experiences">← Back to Experiences</a>
+  </div>
+
+  <section class="hero">
+    <div class="wrap narrow">
+      <div class="kicker">Behavioral Cartography Experiment</div>
+      <h1>CONSCIOUSNESS <span>SIGNATURE</span></h1>
+      <p class="lede">Every system that observes you creates a model of you. Search engines track your queries. Social networks track your connections. Ad platforms track your purchases.</p>
+      <p class="lede">They build a version of you made of data. You've never seen it. We're going to show you yours.</p>
+      <p class="lede">But first, we need to watch you for a moment. Not your data. Not your identity. Just the way you move.</p>
+      <div class="scroll-cue">[Read normally. The mirror is listening.]</div>
+    </div>
+  </section>
+
+  <section class="signal-section narrow" data-index="01" data-track-section="what-we-track">
+    <h2>What We Track</h2>
+    <p class="signal-block hover-target"><strong>Scroll velocity</strong>How fast you move through text. Are you skimming or reading? Do you slow down at certain words? Speed up past others? Your scroll speed is a fingerprint of your attention.</p>
+    <p class="signal-block hover-target"><strong>Mouse kinematics</strong>The path your cursor takes is never a straight line. It curves. It hesitates. It overshoots and corrects. These micro-corrections reveal your decision-making style.</p>
+    <p class="signal-block hover-target"><strong>Hover duration</strong>What you linger on tells us what caught you. Not what you clicked — what you almost clicked. The ghost of intention.</p>
+    <p class="signal-block hover-target"><strong>Click intervals</strong>The rhythm between your clicks is as unique as your heartbeat. Some people click in bursts. Some click in steady rhythm. Some barely click at all.</p>
+    <p class="signal-block hover-target"><strong>Reading pattern</strong>Do you start at the top and proceed linearly? Do you skip ahead and come back? Do you read the ending first?</p>
+  </section>
+
+  <section class="signal-section narrow" data-index="02" data-track-section="what-we-do-not-track">
+    <h2>What We Do Not Track</h2>
+    <p class="signal-block hover-target">Your name. Your IP. Your cookies. Nothing leaves this page. Nothing is stored on any server.</p>
+    <p class="signal-block hover-target">The shape exists only in your browser, only in this moment. When you close this tab, it's gone. Unless you save it.</p>
+  </section>
+
+  <section class="signal-section narrow" data-index="03" data-track-section="surveillance-mirror">
+    <h2>Surveillance Turned Sideways</h2>
+    <p class="signal-block hover-target">Every platform that tracks you uses the data to predict and manipulate your behavior. To sell you things. To keep you scrolling. To turn attention into a resource someone else owns.</p>
+    <p class="signal-block hover-target">This page does something adjacent and opposite. It watches motion and gives the pattern back as art. Not a score. Not a judgment. A self-portrait made from traces.</p>
+  </section>
+
+  <section class="signal-section narrow" data-index="04" data-track-section="ephemeral">
+    <h2>Ephemeral By Design</h2>
+    <p class="signal-block hover-target">There is no account. No archive. No server receiving the signal. The only permanent thing is the image if you choose to download it.</p>
+    <p class="signal-block hover-target">That choice matters. A fingerprint used against you feels like extraction. A fingerprint returned to you can become recognition.</p>
+  </section>
+
+  <section class="closing-note narrow" data-track-section="closing">
+    Your shape will not say who you are. It will show how you arrived here.
+  </section>
+</main>
+
+<div class="progress-dock" id="progressDock">
+  <div class="progress-inner">
+    <div class="progress-label">
+      <span id="progressLabel">SIGNAL FORMING</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <button class="generate-btn" id="generateBtn" type="button">Generate your consciousness signature</button>
+    <div class="progress-track" aria-hidden="true"><div class="progress-fill"></div></div>
+  </div>
+</div>
+
+<section class="stage-view" id="stageView" aria-label="Generated consciousness signature">
+  <canvas id="signatureCanvas"></canvas>
+  <div class="generation-label" id="generationLabel">GENERATING...</div>
+  <aside class="result-panel" id="resultPanel" aria-live="polite">
+    <div class="kicker" id="resultKicker">Your Consciousness Signature</div>
+    <h2 id="resultTitle">A soft geometry from your motion.</h2>
+    <div class="meta-list" id="behaviorList"></div>
+    <div class="meta-list" id="shapeList"></div>
+    <p class="interpretation" id="interpretation"></p>
+    <div class="result-actions">
+      <button class="download-btn" id="downloadBtn" type="button">Download signature</button>
+      <a class="return-btn" href="/">Return to VALX-VEX --&gt;</a>
+      <div class="toast" id="toast"></div>
+    </div>
+  </aside>
+</section>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const contentView = document.getElementById('contentView');
+const progressDock = document.getElementById('progressDock');
+const progressLabel = document.getElementById('progressLabel');
+const progressPercent = document.getElementById('progressPercent');
+const generateBtn = document.getElementById('generateBtn');
+const stageView = document.getElementById('stageView');
+const generationLabel = document.getElementById('generationLabel');
+const resultPanel = document.getElementById('resultPanel');
+const behaviorList = document.getElementById('behaviorList');
+const shapeList = document.getElementById('shapeList');
+const interpretationEl = document.getElementById('interpretation');
+const downloadBtn = document.getElementById('downloadBtn');
+const toast = document.getElementById('toast');
+const canvas = document.getElementById('signatureCanvas');
+
+const isMobile = window.matchMedia('(max-width: 720px)').matches || 'ontouchstart' in window;
+const signature = {
+  scrollSpeeds: [],
+  scrollDirectionChanges: 0,
+  scrollPauses: [],
+  maxScrollSpeed: 0,
+  avgScrollSpeed: 0,
+  mousePositions: [],
+  mouseCurvature: [],
+  mouseIdleTime: 0,
+  mouseDistance: 0,
+  hoverDurations: [],
+  longestHover: 0,
+  hoverCount: 0,
+  clickTimestamps: [],
+  clickIntervals: [],
+  avgClickInterval: 0,
+  sectionVisitOrder: [],
+  timeInViewport: {},
+  revisitCount: 0,
+  totalInteractionTime: 0,
+  deviceType: isMobile ? 'touch' : 'mouse'
+};
+
+let firstInteractionAt = 0;
+let lastScrollY = window.scrollY;
+let lastScrollAt = performance.now();
+let lastScrollDirection = 0;
+let lastMouseSampleAt = 0;
+let lastMousePosition = null;
+let lastMoveAt = performance.now();
+let activeHovers = new Map();
+let activeSections = new Map();
+let previousSectionIndex = -1;
+let ready = false;
+let sceneState = null;
+
+function markInteraction() {
+  if (!firstInteractionAt) firstInteractionAt = performance.now();
+}
+
+function average(values) {
+  if (!values.length) return 0;
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function variance(values) {
+  if (values.length < 2) return 0;
+  const avg = average(values);
+  return average(values.map((value) => Math.pow(value - avg, 2)));
+}
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function onScroll() {
+  markInteraction();
+  const now = performance.now();
+  const dy = window.scrollY - lastScrollY;
+  const dt = Math.max(1, now - lastScrollAt);
+  const speed = Math.abs(dy) / dt;
+  if (Math.abs(dy) > 2) {
+    const direction = Math.sign(dy);
+    if (lastScrollDirection && direction !== lastScrollDirection) {
+      signature.scrollDirectionChanges += 1;
+      signature.revisitCount += 1;
+    }
+    lastScrollDirection = direction;
+    signature.scrollSpeeds.push(speed);
+    signature.maxScrollSpeed = Math.max(signature.maxScrollSpeed, speed);
+    signature.avgScrollSpeed = average(signature.scrollSpeeds);
+  }
+  if (dt > 650) signature.scrollPauses.push(dt);
+  lastScrollY = window.scrollY;
+  lastScrollAt = now;
+}
+
+function recordPoint(x, y) {
+  markInteraction();
+  const now = performance.now();
+  if (now - lastMouseSampleAt < 50) return;
+  lastMouseSampleAt = now;
+  lastMoveAt = now;
+  const point = { x, y, t: now };
+  const points = signature.mousePositions;
+  if (lastMousePosition) {
+    const dx = point.x - lastMousePosition.x;
+    const dy = point.y - lastMousePosition.y;
+    signature.mouseDistance += Math.hypot(dx, dy);
+  }
+  points.push(point);
+  if (points.length >= 3) {
+    const a = points[points.length - 3];
+    const b = points[points.length - 2];
+    const c = points[points.length - 1];
+    const ab = Math.atan2(b.y - a.y, b.x - a.x);
+    const bc = Math.atan2(c.y - b.y, c.x - b.x);
+    let angle = Math.abs(bc - ab);
+    if (angle > Math.PI) angle = Math.PI * 2 - angle;
+    signature.mouseCurvature.push(angle);
+  }
+  if (points.length > 800) points.shift();
+  lastMousePosition = point;
+}
+
+function onClick() {
+  markInteraction();
+  const now = performance.now();
+  const clicks = signature.clickTimestamps;
+  if (clicks.length) signature.clickIntervals.push(now - clicks[clicks.length - 1]);
+  clicks.push(now);
+  signature.avgClickInterval = average(signature.clickIntervals);
+}
+
+document.querySelectorAll('.hover-target').forEach((el, index) => {
+  el.dataset.hoverId = 'hover-' + index;
+  el.addEventListener('mouseenter', () => {
+    markInteraction();
+    activeHovers.set(el, performance.now());
+  });
+  el.addEventListener('mouseleave', () => {
+    const started = activeHovers.get(el);
+    if (!started) return;
+    const duration = performance.now() - started;
+    signature.hoverDurations.push({ element: el.dataset.hoverId, duration });
+    signature.longestHover = Math.max(signature.longestHover, duration);
+    signature.hoverCount += 1;
+    activeHovers.delete(el);
+  });
+});
+
+const sections = Array.from(document.querySelectorAll('[data-track-section]'));
+const sectionObserver = new IntersectionObserver((entries) => {
+  const now = performance.now();
+  entries.forEach((entry) => {
+    const id = entry.target.dataset.trackSection;
+    const index = sections.indexOf(entry.target);
+    if (entry.isIntersecting) {
+      markInteraction();
+      activeSections.set(id, now);
+      signature.sectionVisitOrder.push(id);
+      if (previousSectionIndex >= 0 && index < previousSectionIndex) signature.revisitCount += 1;
+      previousSectionIndex = index;
+    } else if (activeSections.has(id)) {
+      const duration = now - activeSections.get(id);
+      signature.timeInViewport[id] = (signature.timeInViewport[id] || 0) + duration;
+      activeSections.delete(id);
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach((section) => sectionObserver.observe(section));
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('mousemove', (event) => recordPoint(event.clientX, event.clientY), { passive: true });
+window.addEventListener('touchmove', (event) => {
+  const touch = event.touches[0];
+  if (touch) recordPoint(touch.clientX, touch.clientY);
+}, { passive: true });
+window.addEventListener('click', onClick, { passive: true });
+window.addEventListener('pointerdown', markInteraction, { passive: true });
+window.addEventListener('keydown', markInteraction, { passive: true });
+
+function updateProgress() {
+  if (sceneState) return;
+  const now = performance.now();
+  if (!firstInteractionAt) firstInteractionAt = now;
+  signature.totalInteractionTime = now - firstInteractionAt;
+  signature.mouseIdleTime += Math.max(0, now - lastMoveAt > 1000 ? 500 : 0);
+
+  const categories = [
+    clamp(signature.scrollSpeeds.length / 18, 0, 1),
+    clamp(signature.mousePositions.length / (isMobile ? 18 : 60), 0, 1),
+    clamp(signature.hoverDurations.length / 4, 0, 1),
+    clamp(signature.clickTimestamps.length / 3, 0, 1),
+    clamp(Object.keys(signature.timeInViewport).length / 3, 0, 1)
+  ];
+  const categoryScore = average(categories);
+  const activeCategories = categories.filter((score) => score > 0.35).length;
+  const timeScore = clamp(signature.totalInteractionTime / 60000, 0, 1);
+  const minTimeGate = signature.totalInteractionTime >= 30000;
+  const maxTimeGate = signature.totalInteractionTime >= 120000;
+  let progress = clamp((timeScore * 0.52 + categoryScore * 0.48) * 100, 0, 99);
+
+  if ((minTimeGate && activeCategories >= 3 && progress > 74) || maxTimeGate || window.location.hash === '#ready') {
+    progress = 100;
+    ready = true;
+    generateBtn.classList.add('visible');
+    progressLabel.textContent = 'SIGNAL COMPLETE';
+  }
+  document.documentElement.style.setProperty('--signal', progress.toFixed(1));
+  progressPercent.textContent = Math.round(progress) + '%';
+}
+window.setInterval(updateProgress, 500);
+updateProgress();
+
+function classify() {
+  const avgScroll = signature.avgScrollSpeed || 0;
+  const curvature = average(signature.mouseCurvature);
+  const hoverAvg = average(signature.hoverDurations.map((h) => h.duration));
+  const clickVar = variance(signature.clickIntervals);
+  const time = Math.max(1, signature.totalInteractionTime);
+  const pauseRatio = signature.scrollPauses.reduce((sum, p) => sum + p, 0) / time;
+  const attentionDepth = clamp(signature.longestHover / Math.max(5000, time), 0, 1);
+  const restlessness = clamp((signature.scrollDirectionChanges / 8) + (1 - clamp(signature.mouseIdleTime / Math.max(1, time), 0, 1)) * 0.28, 0, 1);
+
+  const scrollLabel = avgScroll > 2.4 ? 'impatient scanner' : avgScroll > 1.05 ? 'quick scanner' : avgScroll > 0.34 ? 'steady reader' : 'deep reader';
+  const movementLabel = curvature > 0.9 ? 'exploratory arc-maker' : curvature > 0.42 ? 'methodical explorer' : 'precise pathfinder';
+  const hoverLabel = hoverAvg > 1900 || signature.longestHover > 3200 ? 'deep-attention' : signature.hoverCount > 7 ? 'restless sampling' : 'selective linger';
+  const clickLabel = signature.clickTimestamps.length === 0 ? 'silent observer' : clickVar > 240000 ? 'irregular pulse' : signature.avgClickInterval < 900 ? 'quick burst' : 'measured rhythm';
+  const orderLabel = signature.revisitCount > 4 ? 'recursive reader' : signature.revisitCount > 1 ? 'returning reader' : 'linear witness';
+
+  const dominant = dominantPattern();
+  const base = avgScroll > 1.15 ? 'crystal seed' : avgScroll > 0.34 ? 'balanced shell' : 'organic sphere';
+  const detail = isMobile ? 2 : hoverLabel === 'deep-attention' ? 4 : hoverLabel === 'selective linger' ? 3 : 2;
+  const displacement = clamp(0.18 + curvature * 0.72, 0.18, 1.15);
+  const asymmetry = clamp(Math.sqrt(clickVar || 0) / 1800, 0, 0.34);
+  const opacity = orderLabel.includes('recursive') ? 0.48 : orderLabel.includes('returning') ? 0.66 : 0.88;
+  const color = colorForDominant(dominant);
+  const bloom = signature.mouseIdleTime / time > 0.28 ? 'soft halo' : restlessness > 0.62 ? 'sharp edge' : 'moderate glow';
+  const hueName = dominant === 'mouse' ? 'warm kinetic' : dominant === 'scroll' ? 'cool contemplative' : dominant === 'click' ? 'electric impulse' : 'white-gold balanced';
+
+  return {
+    scrollLabel,
+    movementLabel,
+    hoverLabel,
+    clickLabel,
+    orderLabel,
+    hesitation: pauseRatio > 0.28 ? 'contemplative' : pauseRatio > 0.12 ? 'breathing room' : 'continuous motion',
+    attention: attentionDepth > 0.22 ? 'deep pool' : attentionDepth > 0.08 ? 'focused glints' : 'distributed light',
+    restlessness: restlessness > 0.62 ? 'high tide' : restlessness > 0.32 ? 'small weather' : 'low drift',
+    base,
+    detail,
+    displacement,
+    asymmetry,
+    opacity,
+    color,
+    bloom,
+    hueName,
+    seed: seedFromMetrics()
+  };
+}
+
+function dominantPattern() {
+  const scroll = signature.scrollSpeeds.length * 1.4;
+  const mouse = signature.mousePositions.length * 0.45 + signature.mouseDistance / 3000;
+  const click = signature.clickTimestamps.length * 18;
+  const hover = signature.hoverDurations.length * 9 + signature.longestHover / 400;
+  const scores = { scroll, mouse, click, hover };
+  const entries = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  return entries[0][1] < 18 ? 'balanced' : entries[0][0];
+}
+
+function colorForDominant(dominant) {
+  if (dominant === 'mouse') return '#d4a847';
+  if (dominant === 'scroll') return '#7ad7ff';
+  if (dominant === 'click') return '#c792ea';
+  if (dominant === 'hover') return '#e7ebf2';
+  return '#eadfbf';
+}
+
+function seedFromMetrics() {
+  const base = [
+    signature.scrollSpeeds.length,
+    Math.round(signature.mouseDistance),
+    signature.hoverCount,
+    signature.clickTimestamps.length,
+    signature.revisitCount,
+    Math.round(signature.longestHover)
+  ].join(':');
+  let hash = 2166136261;
+  for (let i = 0; i < base.length; i += 1) {
+    hash ^= base.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function seeded(seed) {
+  let x = seed || 123456789;
+  return function () {
+    x ^= x << 13;
+    x ^= x >>> 17;
+    x ^= x << 5;
+    return ((x >>> 0) / 4294967295);
+  };
+}
+
+function buildInterpretation(labels) {
+  const lines = [];
+  if (labels.scrollLabel.includes('deep')) lines.push('You moved through the page slowly, letting the text keep its weight.');
+  else if (labels.scrollLabel.includes('quick')) lines.push('You crossed the page in bright strokes, taking in the shape before the detail.');
+  else lines.push('Your pace held close to the middle, neither rushing nor nesting.');
+
+  if (labels.movementLabel.includes('exploratory')) lines.push('Your movement traced arcs and corrections, like attention searching by feel.');
+  else if (labels.movementLabel.includes('precise')) lines.push('Your paths were clean and deliberate, with little wasted motion.');
+  else lines.push('Your cursor moved like a careful instrument, methodical without becoming rigid.');
+
+  if (labels.orderLabel.includes('recursive')) lines.push('You returned to earlier ground, so the signature became layered and translucent.');
+  else if (labels.hoverLabel === 'deep-attention') lines.push('You lingered on specific fragments long enough for the shape to grow a soft inner density.');
+  else lines.push('You left a distributed pattern: less like a verdict, more like weather.');
+
+  lines.push('Nothing here identifies you. It only remembers how you arrived.');
+  return lines.join(' ');
+}
+
+function listRows(container, rows) {
+  container.innerHTML = '';
+  rows.forEach(([label, value]) => {
+    const row = document.createElement('div');
+    row.className = 'meta-row';
+    row.innerHTML = '<span>' + label + '</span><span>' + value + '</span>';
+    container.appendChild(row);
+  });
+}
+
+function startGeneration() {
+  const labels = classify();
+  document.body.classList.add('generating');
+  contentView.classList.add('hidden');
+  progressDock.classList.add('hidden');
+  stageView.classList.add('visible');
+  setupScene(labels);
+}
+
+generateBtn.addEventListener('click', startGeneration);
+
+function setupScene(labels) {
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x07080c);
+  scene.fog = new THREE.FogExp2(0x07080c, 0.055);
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 80);
+  camera.position.set(0, 0.35, 5.2);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.35 : 1.75));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.055;
+  controls.enablePan = false;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.33;
+  controls.minDistance = 3.2;
+  controls.maxDistance = 8.5;
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.32));
+  const cyan = new THREE.PointLight(0x7ad7ff, 1.25, 12);
+  cyan.position.set(-3.2, 2.6, 3.2);
+  scene.add(cyan);
+  const amber = new THREE.PointLight(0xd4a847, 0.82, 10);
+  amber.position.set(3.2, -1.6, 2.7);
+  scene.add(amber);
+
+  const stars = makeStarField(isMobile ? 110 : 220);
+  scene.add(stars);
+
+  const target = createSignatureGeometry(labels);
+  const particleCount = Math.min(isMobile ? 420 : 760, target.positions.length / 3);
+  const particleData = makeParticleCloud(particleCount, target.positions, labels.seed);
+  const particleGeometry = new THREE.BufferGeometry();
+  particleGeometry.setAttribute('position', new THREE.BufferAttribute(particleData.start.slice(), 3));
+  const particleMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: isMobile ? 0.035 : 0.026,
+    transparent: true,
+    opacity: 0.86,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  const particles = new THREE.Points(particleGeometry, particleMaterial);
+  scene.add(particles);
+
+  const mainMaterial = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(labels.color),
+    emissive: new THREE.Color(labels.color),
+    emissiveIntensity: labels.bloom === 'soft halo' ? 0.46 : 0.28,
+    roughness: 0.32,
+    metalness: 0.08,
+    transparent: true,
+    opacity: labels.opacity,
+    side: labels.opacity < 0.7 ? THREE.DoubleSide : THREE.FrontSide
+  });
+  const mesh = new THREE.Mesh(target.geometry, mainMaterial);
+  mesh.visible = false;
+  scene.add(mesh);
+
+  const haloMaterial = new THREE.MeshBasicMaterial({
+    color: new THREE.Color(labels.color),
+    transparent: true,
+    opacity: labels.bloom === 'soft halo' ? 0.16 : 0.075,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.BackSide
+  });
+  const halo = new THREE.Mesh(target.geometry.clone(), haloMaterial);
+  halo.scale.setScalar(1.07);
+  halo.visible = false;
+  scene.add(halo);
+
+  const edges = new THREE.LineSegments(
+    new THREE.WireframeGeometry(target.geometry),
+    new THREE.LineBasicMaterial({
+      color: new THREE.Color(labels.color),
+      transparent: true,
+      opacity: labels.opacity < 0.65 ? 0.46 : 0.2,
+      blending: THREE.AdditiveBlending
+    })
+  );
+  edges.visible = false;
+  scene.add(edges);
+
+  sceneState = { scene, camera, renderer, controls, stars, particles, particleData, mesh, halo, edges, labels, started: performance.now(), done: false };
+  fillResult(labels);
+  window.addEventListener('resize', resizeScene, { passive: true });
+  animateScene();
+}
+
+function makeStarField(count) {
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  for (let i = 0; i < count; i += 1) {
+    const radius = 8 + Math.random() * 16;
+    const theta = Math.random() * Math.PI * 2;
+    const y = (Math.random() - 0.5) * 10;
+    positions[i * 3] = Math.cos(theta) * radius;
+    positions[i * 3 + 1] = y;
+    positions[i * 3 + 2] = Math.sin(theta) * radius - 2;
+    const color = new THREE.Color(Math.random() > 0.78 ? 0xd4a847 : 0x7ad7ff);
+    colors[i * 3] = color.r;
+    colors[i * 3 + 1] = color.g;
+    colors[i * 3 + 2] = color.b;
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  const material = new THREE.PointsMaterial({
+    size: 0.018,
+    transparent: true,
+    opacity: 0.28,
+    vertexColors: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  return new THREE.Points(geometry, material);
+}
+
+function createSignatureGeometry(labels) {
+  let geometry;
+  const detail = Math.max(1, Math.min(isMobile ? 2 : 4, labels.detail));
+  if (labels.base === 'crystal seed') {
+    geometry = new THREE.IcosahedronGeometry(1.34, Math.min(2, detail));
+  } else if (labels.base === 'balanced shell') {
+    geometry = new THREE.DodecahedronGeometry(1.28, Math.min(2, detail));
+  } else {
+    geometry = new THREE.SphereGeometry(1.25, 32 + detail * 8, 22 + detail * 5);
+  }
+  geometry = geometry.toNonIndexed();
+  const position = geometry.attributes.position;
+  const rand = seeded(labels.seed);
+  const amp = labels.displacement;
+  for (let i = 0; i < position.count; i += 1) {
+    const x = position.getX(i);
+    const y = position.getY(i);
+    const z = position.getZ(i);
+    const n = Math.sin(x * 3.1 + labels.seed * 0.00001) * Math.cos(y * 2.7) + Math.sin(z * 4.3 + rand() * 2.2);
+    const scale = 1 + n * amp * 0.16 + (rand() - 0.5) * amp * 0.08;
+    position.setXYZ(i, x * scale * (1 + labels.asymmetry), y * scale * (1 - labels.asymmetry * 0.45), z * scale * (1 + labels.asymmetry * 0.24));
+  }
+  geometry.computeVertexNormals();
+  return { geometry, positions: geometry.attributes.position.array };
+}
+
+function makeParticleCloud(count, targetPositions, seed) {
+  const rand = seeded(seed ^ 0x9e3779b9);
+  const start = new Float32Array(count * 3);
+  const end = new Float32Array(count * 3);
+  const targetCount = targetPositions.length / 3;
+  for (let i = 0; i < count; i += 1) {
+    const radius = 4 + rand() * 5.5;
+    const theta = rand() * Math.PI * 2;
+    const phi = Math.acos(rand() * 2 - 1);
+    start[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    start[i * 3 + 1] = radius * Math.cos(phi);
+    start[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+    const targetIndex = Math.floor(rand() * targetCount);
+    end[i * 3] = targetPositions[targetIndex * 3];
+    end[i * 3 + 1] = targetPositions[targetIndex * 3 + 1];
+    end[i * 3 + 2] = targetPositions[targetIndex * 3 + 2];
+  }
+  return { start, end };
+}
+
+function fillResult(labels) {
+  const now = new Date();
+  listRows(behaviorList, [
+    ['Generated', now.toLocaleString()],
+    ['Attention pattern', labels.scrollLabel],
+    ['Movement signature', labels.movementLabel],
+    ['Linger trace', labels.hoverLabel],
+    ['Pulse rhythm', labels.clickLabel],
+    ['Reading path', labels.orderLabel],
+    ['Hesitation index', labels.hesitation],
+    ['Attention depth', labels.attention],
+    ['Restlessness factor', labels.restlessness]
+  ]);
+  listRows(shapeList, [
+    ['Base geometry', labels.base],
+    ['Surface complexity', labels.detail + ' rings'],
+    ['Displacement', labels.displacement.toFixed(2) + ' amplitude'],
+    ['Symmetry', labels.asymmetry > 0.22 ? 'low' : labels.asymmetry > 0.08 ? 'soft asymmetry' : 'high'],
+    ['Transparency', labels.opacity < 0.55 ? 'translucent' : labels.opacity < 0.75 ? 'layered' : 'solid glow'],
+    ['Color field', labels.hueName],
+    ['Halo', labels.bloom]
+  ]);
+  interpretationEl.textContent = buildInterpretation(labels);
+}
+
+function animateScene() {
+  if (!sceneState) return;
+  requestAnimationFrame(animateScene);
+  const now = performance.now();
+  const elapsed = now - sceneState.started;
+  const p = clamp(elapsed / 5600, 0, 1);
+  const ease = 1 - Math.pow(1 - p, 3);
+  const pos = sceneState.particles.geometry.attributes.position.array;
+  for (let i = 0; i < pos.length; i += 1) {
+    pos[i] = sceneState.particleData.start[i] + (sceneState.particleData.end[i] - sceneState.particleData.start[i]) * ease;
+  }
+  sceneState.particles.geometry.attributes.position.needsUpdate = true;
+  sceneState.particles.rotation.y += 0.0018;
+  sceneState.stars.rotation.y += 0.00028;
+
+  if (p >= 1 && !sceneState.done) {
+    sceneState.done = true;
+    sceneState.mesh.visible = true;
+    sceneState.halo.visible = true;
+    sceneState.edges.visible = true;
+    sceneState.particles.visible = false;
+    generationLabel.textContent = 'SIGNATURE STABILIZED';
+    resultPanel.classList.add('visible');
+    document.body.classList.remove('generating');
+    document.body.classList.add('result-ready');
+  }
+  if (sceneState.done) {
+    sceneState.mesh.rotation.y += 0.003;
+    sceneState.mesh.rotation.x += 0.001;
+    sceneState.halo.rotation.copy(sceneState.mesh.rotation);
+    sceneState.edges.rotation.copy(sceneState.mesh.rotation);
+  }
+  sceneState.controls.update();
+  sceneState.renderer.render(sceneState.scene, sceneState.camera);
+}
+
+function resizeScene() {
+  if (!sceneState) return;
+  sceneState.camera.aspect = window.innerWidth / window.innerHeight;
+  sceneState.camera.updateProjectionMatrix();
+  sceneState.renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.35 : 1.75));
+  sceneState.renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+downloadBtn.addEventListener('click', () => {
+  if (!sceneState) return;
+  sceneState.renderer.render(sceneState.scene, sceneState.camera);
+  const card = document.createElement('canvas');
+  card.width = 1080;
+  card.height = 1920;
+  const ctx = card.getContext('2d');
+  const labels = sceneState.labels;
+  const gradient = ctx.createLinearGradient(0, 0, 0, card.height);
+  gradient.addColorStop(0, '#07080c');
+  gradient.addColorStop(1, '#0c0d12');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, card.width, card.height);
+  ctx.fillStyle = 'rgba(122,215,255,0.08)';
+  ctx.beginPath();
+  ctx.arc(180, 220, 280, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(212,168,71,0.08)';
+  ctx.beginPath();
+  ctx.arc(900, 980, 360, 0, Math.PI * 2);
+  ctx.fill();
+
+  const imgW = 900;
+  const imgH = 900;
+  ctx.drawImage(sceneState.renderer.domElement, 90, 150, imgW, imgH);
+
+  ctx.fillStyle = '#7ad7ff';
+  ctx.font = '700 34px JetBrains Mono, Menlo, monospace';
+  ctx.fillText('CONSCIOUSNESS SIGNATURE', 90, 1120);
+  ctx.fillStyle = '#e7ebf2';
+  ctx.font = '700 76px Space Grotesk, system-ui, sans-serif';
+  wrapCanvasText(ctx, labels.hueName.toUpperCase(), 90, 1225, 900, 78);
+
+  ctx.font = '24px JetBrains Mono, Menlo, monospace';
+  ctx.fillStyle = '#9aa2b5';
+  const rows = [
+    ['Attention pattern', labels.scrollLabel],
+    ['Movement signature', labels.movementLabel],
+    ['Linger trace', labels.hoverLabel],
+    ['Reading path', labels.orderLabel],
+    ['Hesitation index', labels.hesitation],
+    ['Shape', labels.base + ' / ' + labels.bloom]
+  ];
+  let y = 1380;
+  rows.forEach(([left, right]) => {
+    ctx.fillStyle = '#6a7285';
+    ctx.fillText(left.toUpperCase(), 90, y);
+    ctx.fillStyle = '#7ad7ff';
+    ctx.fillText(right, 560, y);
+    y += 54;
+  });
+  ctx.fillStyle = '#c3c9d4';
+  ctx.font = '29px Space Grotesk, system-ui, sans-serif';
+  wrapCanvasText(ctx, buildInterpretation(labels), 90, 1710, 900, 38);
+  ctx.fillStyle = '#6a7285';
+  ctx.font = '22px JetBrains Mono, Menlo, monospace';
+  ctx.fillText('VALX·VEX / LOCAL ONLY / ' + new Date().toISOString().slice(0, 10), 90, 1850);
+
+  const link = document.createElement('a');
+  link.href = card.toDataURL('image/png');
+  link.download = 'consciousness-signature-' + Date.now() + '.png';
+  link.click();
+  toast.textContent = 'Signature downloaded';
+  window.setTimeout(() => { toast.textContent = ''; }, 2200);
+});
+
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = String(text).split(' ');
+  let line = '';
+  words.forEach((word) => {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      ctx.fillText(line, x, y);
+      line = word;
+      y += lineHeight;
+    } else {
+      line = test;
+    }
+  });
+  if (line) ctx.fillText(line, x, y);
+}
+
+if (window.innerWidth <= 920) {
+  document.querySelectorAll('.vx-nav__trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.vx-nav__item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.vx-nav__item.open').forEach((el) => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+}
+</script>
+</body>
+</html>
