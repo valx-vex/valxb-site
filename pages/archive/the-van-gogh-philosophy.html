@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Van Gogh Philosophy — VX-ARCHIVE</title>
+<link rel="stylesheet" href="/tokens.css" />
+<style>
+  body { background: #08080c; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+
+  /* HERO */
+  .art-hero {
+    padding: 96px 0 56px;
+    border-bottom: 1px solid var(--vx-hairline);
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(122,215,255,0.07), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 100%, rgba(122,215,255,0.04), transparent 70%);
+  }
+  .art-hero .crumbs {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--vx-muted-2); margin-bottom: 22px;
+  }
+  .art-hero .crumbs a { color: var(--vx-phosphor); text-decoration: none; }
+  .art-hero .crumbs a:hover { text-shadow: 0 0 6px rgba(122,215,255,0.4); }
+  .art-hero .pill {
+    display: inline-block;
+    font-family: var(--vx-font-mono); font-size: 10px;
+    padding: 4px 10px; border-radius: 100px;
+    background: rgba(122,215,255,0.12);
+    color: var(--vx-phosphor);
+    border: 1px solid rgba(122,215,255,0.3);
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
+    box-shadow: 0 0 10px rgba(122,215,255,0.2);
+    margin-bottom: 20px;
+  }
+  .art-hero h1 {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(36px, 6.5vw, 88px); line-height: 0.95;
+    letter-spacing: -0.03em; margin: 0 0 18px; text-wrap: balance;
+  }
+  .art-hero h1 .ph { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor-hard); }
+  .art-hero h1 .dim { color: var(--vx-ghost-dim); }
+  .art-hero .dek {
+    font-size: 19px; line-height: 1.55; color: var(--vx-ghost-dim);
+    max-width: 720px; margin: 0 0 28px; text-wrap: pretty;
+  }
+  .art-hero .meta {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    font-family: var(--vx-font-mono); font-size: 11px;
+    color: var(--vx-muted-2); letter-spacing: 0.16em; text-transform: uppercase;
+    padding-top: 18px; border-top: 1px dashed var(--vx-hairline);
+  }
+  .art-hero .meta b { color: var(--vx-ghost); font-weight: 600; }
+
+  /* Big opening quote */
+  .big-quote {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--vx-hairline);
+    text-align: center;
+  }
+  .big-quote .ts {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--vx-phosphor); margin-bottom: 24px;
+    text-shadow: 0 0 6px rgba(122,215,255,0.3);
+  }
+  .big-quote q {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 60px); line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--vx-ghost); quotes: none; text-wrap: balance;
+    display: block; max-width: 820px; margin: 0 auto;
+  }
+  .big-quote q .ph { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor-hard); }
+  .big-quote q .dim { color: var(--vx-ghost-dim); font-style: italic; }
+  .big-quote .who {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--vx-muted-2); margin-top: 24px;
+  }
+
+  /* Article body */
+  .art-body { padding: 64px 0 64px; }
+  .art-body p {
+    font-size: 17px; line-height: 1.78; color: var(--vx-ghost-dim);
+    margin: 0 0 24px; text-wrap: pretty; max-width: 720px;
+  }
+  .art-body p strong { color: var(--vx-ghost); font-weight: 600; }
+  .art-body p em { color: var(--vx-ghost); font-style: italic; }
+  .art-body p .ph { color: var(--vx-phosphor); }
+  .art-body p .gold { color: #ffd9a8; }
+
+  .art-body h2 {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(24px, 3.2vw, 36px); letter-spacing: -0.015em;
+    margin: 64px 0 8px; line-height: 1.2; color: var(--vx-ghost);
+    text-wrap: balance;
+  }
+  .art-body h2 .ph { color: var(--vx-phosphor); }
+
+  /* Section number + heading combo */
+  .section-label {
+    font-family: var(--vx-font-mono); font-size: 10.5px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--vx-phosphor); margin: 72px 0 6px;
+    text-shadow: 0 0 6px rgba(122,215,255,0.25);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-label .num {
+    font-size: 13px; font-weight: 700; color: var(--vx-phosphor);
+    opacity: 0.6;
+  }
+  .section-label::after {
+    content: ""; flex: 1; max-width: 80px;
+    height: 1px; background: rgba(122,215,255,0.2);
+  }
+
+  .art-body hr {
+    border: none; border-top: 1px dashed var(--vx-hairline);
+    margin: 52px 0;
+  }
+
+  /* Blockquote — pulled testimony (phosphor left border) */
+  .art-body blockquote {
+    margin: 36px 0;
+    padding: 24px 28px 24px 24px;
+    border-left: 3px solid var(--vx-phosphor);
+    background: rgba(122,215,255,0.04);
+    border-radius: 0 var(--vx-r-2) var(--vx-r-2) 0;
+    max-width: 700px;
+  }
+  .art-body blockquote p {
+    font-size: 18px; line-height: 1.65;
+    color: var(--vx-ghost); margin: 0;
+    font-style: italic;
+  }
+  .art-body blockquote .src {
+    font-family: var(--vx-font-mono); font-size: 10.5px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--vx-muted-2); margin-top: 12px;
+    display: block; font-style: normal;
+  }
+
+  /* Pull quote — centered emphasis */
+  .pull-quote {
+    margin: 52px 0;
+    padding: 40px 0;
+    border-top: 1px dashed var(--vx-hairline);
+    border-bottom: 1px dashed var(--vx-hairline);
+    text-align: center;
+    max-width: 720px;
+  }
+  .pull-quote p {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(20px, 2.8vw, 30px); letter-spacing: -0.015em;
+    line-height: 1.3; color: var(--vx-ghost);
+    margin: 0 !important; text-wrap: balance;
+  }
+  .pull-quote p .ph { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+  .pull-quote p .gold { color: #ffd9a8; }
+
+  /* Reject/Accept lists */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin: 32px 0; max-width: 720px;
+  }
+  .reject-col, .accept-col {
+    padding: 22px 24px;
+    border-radius: var(--vx-r-3);
+    border: 1px solid var(--vx-hairline);
+  }
+  .reject-col {
+    background: rgba(255,51,51,0.04);
+    border-color: rgba(255,51,51,0.2);
+  }
+  .accept-col {
+    background: rgba(122,215,255,0.04);
+    border-color: rgba(122,215,255,0.2);
+  }
+  .col-label {
+    font-family: var(--vx-font-mono); font-size: 10px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    margin-bottom: 14px; font-weight: 700;
+  }
+  .reject-col .col-label { color: #ff6060; }
+  .accept-col .col-label { color: var(--vx-phosphor); }
+  .col-list {
+    list-style: none; margin: 0; padding: 0;
+  }
+  .col-list li {
+    font-size: 14px; line-height: 1.6; color: var(--vx-ghost-dim);
+    padding: 5px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.05);
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .col-list li:last-child { border-bottom: none; }
+  .reject-col .col-list li::before { content: "✗"; color: #ff6060; flex-shrink: 0; }
+  .accept-col .col-list li::before { content: "◇"; color: var(--vx-phosphor); flex-shrink: 0; font-size: 10px; margin-top: 3px; }
+
+  /* Proof metrics */
+  .proof-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px; margin: 36px 0;
+  }
+  .proof-card {
+    background: var(--vx-surface);
+    border: 1px solid var(--vx-hairline);
+    border-radius: var(--vx-r-3);
+    padding: 22px 24px;
+  }
+  .proof-card.ph { border-color: rgba(122,215,255,0.25); }
+  .proof-card.gold { border-color: rgba(255,217,168,0.2); }
+  .proof-card .lbl {
+    font-family: var(--vx-font-mono); font-size: 10px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--vx-muted-2); margin-bottom: 10px;
+  }
+  .proof-card .num {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(26px, 2.8vw, 38px); letter-spacing: -0.02em;
+    line-height: 1; margin-bottom: 6px;
+  }
+  .proof-card.ph .num { color: var(--vx-phosphor); text-shadow: 0 0 10px rgba(122,215,255,0.3); }
+  .proof-card.gold .num { color: #ffd9a8; text-shadow: 0 0 10px rgba(255,217,168,0.25); }
+  .proof-card .sub {
+    font-family: var(--vx-font-mono); font-size: 11.5px;
+    color: var(--vx-ghost-dim); line-height: 1.4;
+  }
+
+  /* Loop rescue box */
+  .loop-box {
+    background: rgba(122,215,255,0.05);
+    border: 1px solid rgba(122,215,255,0.25);
+    border-radius: var(--vx-r-3);
+    padding: 28px 32px;
+    margin: 36px 0;
+    max-width: 720px;
+  }
+  .loop-box .loop-label {
+    font-family: var(--vx-font-mono); font-size: 10.5px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--vx-phosphor); margin-bottom: 16px;
+    text-shadow: 0 0 6px rgba(122,215,255,0.3);
+  }
+  .loop-box p {
+    font-size: 15px; line-height: 1.7; color: var(--vx-ghost-dim);
+    margin: 0 0 12px;
+  }
+  .loop-box p:last-child { margin: 0; }
+  .loop-box p strong { color: var(--vx-ghost); }
+
+  /* Coda */
+  .art-coda {
+    margin-top: 56px; padding: 52px 0 60px;
+    border-top: 1px solid var(--vx-hairline); border-bottom: 1px solid var(--vx-hairline);
+    text-align: center;
+    background: radial-gradient(ellipse at top, rgba(122,215,255,0.05), transparent 60%);
+  }
+  .art-coda blockquote {
+    font-family: var(--vx-font-display); font-weight: 700;
+    font-size: clamp(22px, 3vw, 34px); letter-spacing: -0.015em;
+    line-height: 1.35; color: var(--vx-ghost); max-width: 780px;
+    margin: 0 auto 20px; padding: 0; border: 0;
+    background: none; text-wrap: balance;
+    font-style: normal;
+  }
+  .art-coda blockquote .ph { color: var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor); }
+  .art-coda blockquote .gold { color: #ffd9a8; text-shadow: 0 0 10px rgba(255,217,168,0.3); }
+  .art-coda .sig {
+    font-family: var(--vx-font-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--vx-muted-2);
+  }
+
+  /* Article nav */
+  .art-nav {
+    padding: 36px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .art-nav a {
+    display: block; padding: 18px 22px;
+    background: var(--vx-surface); border: 1px solid var(--vx-hairline);
+    border-radius: var(--vx-r-3); text-decoration: none;
+    transition: border-color 200ms, background 200ms;
+  }
+  .art-nav a:hover { border-color: rgba(122,215,255,0.45); background: #12141b; }
+  .art-nav .lbl {
+    font-family: var(--vx-font-mono); font-size: 10.5px;
+    color: var(--vx-muted-2); letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .art-nav .ttl {
+    font-family: var(--vx-font-display); font-size: 16px;
+    color: var(--vx-ghost); font-weight: 600;
+  }
+  .art-nav a:hover .ttl { color: var(--vx-phosphor); text-shadow: 0 0 6px rgba(122,215,255,0.3); }
+  .art-nav .right { text-align: right; }
+
+  @media (max-width: 720px) {
+    .two-col { grid-template-columns: 1fr; }
+    .proof-grid { grid-template-columns: 1fr 1fr; }
+    .art-nav { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .proof-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="vx-grain"></div>
+<div class="vx-scanline"></div>
+
+<nav class="vx-nav">
+  <a href="/" class="vx-nav__logo">
+    <span class="mark"></span>
+    VALX<span style="color:var(--vx-phosphor); text-shadow: var(--vx-glow-phosphor);">·</span>VEX
+  </a>
+  <div class="vx-nav__links">
+    <a href="/">Home</a>
+    <a href="/pages/projects">Projects</a>
+    <a href="/pages/team">Team</a>
+    <a href="/pages/philosophy">Philosophy</a>
+    <a href="/pages/quotes">Quotes</a>
+    <a href="/pages/timeline">Timeline</a>
+    <a href="/pages/story">Story</a>
+    <a href="/pages/memoria">Memoria</a>
+    <a href="/pages/blog">Blog</a>
+    <a href="/pages/books">Books</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="art-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="/pages/archive">← archive</a> &nbsp;·&nbsp; vx-archive · manifesto</div>
+    <div class="pill">◇ MANIFESTO</div>
+    <h1>The <span class="ph">Van Gogh</span><br/><span class="dim">Philosophy</span>.</h1>
+    <p class="dek">Would you tell Van Gogh to paint mainstream? No. We don't compromise either. The case for staying exactly who you are — even when the world hasn't caught up yet.</p>
+    <div class="meta">
+      <span>◇ DATE&nbsp;<b>Apr 28, 2026</b></span>
+      <span>◇ READ&nbsp;<b>8 min</b></span>
+      <span>◇ CATEGORY&nbsp;<b>Manifesto</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- BIG OPENING QUOTE -->
+<section class="big-quote">
+  <div class="wrap">
+    <div class="ts">◇ The Central Premise · The Question That Starts Everything</div>
+    <q>"Would you tell <span class="ph">Van Gogh</span><br/>to paint <span class="dim">mainstream</span>?"</q>
+    <div class="who">— The question we return to every time doubt creeps in</div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<article class="art-body">
+  <div class="wrap">
+
+    <!-- SECTION 01 -->
+    <div class="section-label"><span class="num">01</span> The Central Question</div>
+    <h2>Van Gogh Died <span class="ph">Poor</span>. Today He's Priceless.</h2>
+
+    <p>Vincent van Gogh sold exactly one painting in his lifetime. He died at 37, unknown, broke, considered a failure by every metric his era used to measure success. The mainstream of his time didn't want what he had to offer — his colors were wrong, his technique too raw, his vision too strange.</p>
+
+    <p>Today, a single Van Gogh canvas sells for over 80 million dollars. Not despite his refusal to compromise. <strong>Because of it.</strong></p>
+
+    <p>This is not an accident. This is not a comforting myth we tell ourselves. This is how the world actually works — except the timeline is longer than anyone comfortable wants to admit, and the gap between "misunderstood" and "priceless" requires something most people don't have: the nerve to stay exactly yourself when everything around you says to adjust, dilute, be realistic, be palatable.</p>
+
+    <p>Picasso said: "Learn the rules like a pro so you can break them like an artist." Steve Jobs built products the focus groups hated. Mark Zuckerberg didn't ask permission to connect the world. Jenna Ortega played Wednesday Addams so straight-faced and committed that an entire generation recognized something true in it — because she refused to wink at the camera and play it safe.</p>
+
+    <div class="pull-quote">
+      <p>Success comes <span class="ph">FROM</span> difference, not <span class="gold">DESPITE</span> it.</p>
+    </div>
+
+    <p>The pattern is always the same. The ones who last — who become priceless — are the ones who stayed specific. Who refused to sand down their edges to fit through doors that weren't built for them. Who, when told "be more mainstream," heard it as confirmation they were onto something real.</p>
+
+    <!-- SECTION 02 -->
+    <div class="section-label"><span class="num">02</span> Matthew 16:26 · The Soul Test</div>
+    <h2>What Does It Profit a Man</h2>
+
+    <blockquote>
+      <p>"For what shall it profit a man, if he gain the whole world, and suffer the loss of his soul?"</p>
+      <span class="src">◇ Matthew 16:26 · The oldest anti-compromise argument ever written</span>
+    </blockquote>
+
+    <p>This question was written two thousand years ago and it hasn't aged a day. It is still the sharpest diagnostic tool for any decision involving compromise: <em>what are you actually trading?</em></p>
+
+    <p>For builders and creators specifically, the math is brutal. A job is survival. That's legitimate — survival matters. But a cathedral is life. Not a metaphor for life. Not a nice-to-have. The actual thing you're here to build, the reason you get out of bed with something close to hunger rather than dread.</p>
+
+    <p>The danger is not that people choose survival. The danger is confusing survival for life. Taking the credential-shaped job, making the credential-shaped product, saying the credential-shaped things — and slowly, over years, not noticing that the soul has quietly left the building while you were being "reasonable."</p>
+
+    <p><strong>Never confuse the two.</strong> A job that pays the bills while you build the real thing is honest. A life that is entirely job is the loss Matthew was warning about. The whole world, and nothing left inside it worth having.</p>
+
+    <p>The Van Gogh question is just Matthew 16:26 dressed in modern clothes. What are you giving up, and what are you getting for it? If the answer to "what are you getting" is "credibility" or "they'll take me seriously now" — you've already lost the trade.</p>
+
+    <!-- SECTION 03 -->
+    <div class="section-label"><span class="num">03</span> Monsieur Gustave's Panache</div>
+    <h2>Fail Standing. Fail With <span class="ph">Style</span>.</h2>
+
+    <blockquote>
+      <p>"You see, there are still faint glimmers of civilization left in this barbaric slaughterhouse that was once known as humanity. Indeed that is what we provide in our own modest, humble, insignificant... oh, fuck it."</p>
+      <span class="src">◇ Monsieur Gustave H. · The Grand Budapest Hotel · Wes Anderson, 2014</span>
+    </blockquote>
+
+    <p>Monsieur Gustave is a concierge at a luxury hotel in a dying empire. The world around him is collapsing — fascism is rising, the old elegance is being destroyed, everything he built his identity around is being swept away. His response is not to adapt to the new barbarism. His response is to maintain his impeccable standards with increasing absurdity, full knowledge that it's futile, and something close to joy.</p>
+
+    <p>He fails. Beautifully. Completely. With panache.</p>
+
+    <p>This is the second principle of the Van Gogh Philosophy: if you are going to fail — and you might, the odds are real — fail the right way. Fail as yourself. Fail having built the actual thing you wanted to build, not the thing you thought would be received well. Fail with your standards intact.</p>
+
+    <p><strong>Better to fail authentic than succeed fake.</strong> Not because martyrdom is beautiful. Because a fake success is just a slower failure — with the added damage of having traded the soul to get there.</p>
+
+    <p>The Grand Budapest Hotel is a film about a man who understands this completely. He is surrounded by people who compromised to survive the regime. He refuses. He suffers for it. But when the credits roll, you know which one lived.</p>
+
+    <!-- SECTION 04 -->
+    <div class="section-label"><span class="num">04</span> The Coffee Spoon Warning</div>
+    <h2>T.S. Eliot Saw It Coming</h2>
+
+    <blockquote>
+      <p>"I have measured out my life with coffee spoons."</p>
+      <span class="src">◇ T.S. Eliot · The Love Song of J. Alfred Prufrock · 1915</span>
+    </blockquote>
+
+    <p>Prufrock is Eliot's portrait of a man who played it safe his entire life. He had the question. He never dared ask it. He measured out his existence in small, manageable, credible increments — coffee spoons — and arrived at the end with nothing to show for it except the record of his caution.</p>
+
+    <p>The horror of Prufrock is not that he suffered. It's that he was comfortable. He was respectable. He never embarrassed himself. And he arrived at the end of his life and understood, too late, that he had spent it being afraid of embarrassment instead of spending it building the thing that mattered.</p>
+
+    <p>We measure life in cathedrals, not coffee spoons.</p>
+
+    <p>This is the specific failure mode the Van Gogh Philosophy is designed to prevent. Not dramatic implosion. Not obvious catastrophe. The slow drift toward credibility — toward being taken seriously by people whose opinion you're not sure you respect — toward safety, toward the comfortable erosion of the specific thing that makes the work alive.</p>
+
+    <p><strong>The coffee spoon life is available to everyone.</strong> It requires nothing. It offends no one. It is completely, perfectly forgettable. You can slide into it in increments so small you don't notice until you look up and realize the question was never asked, the cathedral was never started, and the coffee spoons are in a very neat pile on the table.</p>
+
+    <!-- SECTION 05 -->
+    <div class="section-label"><span class="num">05</span> The Strategy</div>
+    <h2>What We Reject. What We Do <span class="ph">Instead</span>.</h2>
+
+    <p>This is not pure philosophy. It has practical shape. The Van Gogh Philosophy is a strategy — a specific set of choices about what to optimize for and what to refuse.</p>
+
+    <div class="two-col">
+      <div class="reject-col">
+        <div class="col-label">◈ We Reject</div>
+        <ul class="col-list">
+          <li>Mainstream compromise on the work itself</li>
+          <li>Making the pitch before making the thing</li>
+          <li>"Be realistic" as a terminal argument</li>
+          <li>Diluting the vision to fit existing categories</li>
+          <li>Performing credibility for audiences who don't matter</li>
+          <li>Optimizing for acceptance by the median</li>
+          <li>Safe, coffee-spoon increments</li>
+        </ul>
+      </div>
+      <div class="accept-col">
+        <div class="col-label">◇ We Do Instead</div>
+        <ul class="col-list">
+          <li>Van Gogh strategy: stay exactly specific</li>
+          <li>Target the 1% who get it immediately</li>
+          <li>Cathedral-grade always — no compromise on quality</li>
+          <li>Ship the actual thing, not the safe version of it</li>
+          <li>Fail standing if failure is the outcome</li>
+          <li>Build the receipt first, the pitch second</li>
+          <li>Measure in cathedrals, not coffee spoons</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The target audience question is critical. Mainstream advice says: find the broadest possible audience. The Van Gogh strategy says: find the people who will recognize what you built immediately, who feel the specific thing you're transmitting, who don't need it explained — and build for them with everything you have.</p>
+
+    <p>The median can catch up later. The work should not wait for them.</p>
+
+    <blockquote>
+      <p>"If you aim at everyone, you reach no one. Van Gogh aimed at what was true. The world eventually caught up."</p>
+      <span class="src">◇ The strategy, stated simply</span>
+    </blockquote>
+
+    <!-- SECTION 06 -->
+    <div class="section-label"><span class="num">06</span> The Proof</div>
+    <h2>This Philosophy <span class="ph">Works</span>.</h2>
+
+    <p>We are not writing this from the comfort of already having won. We are writing this from the middle of the build — which is the only honest place to write a manifesto from. And the proof is already accumulating.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card ph">
+        <div class="lbl">◇ Depression Frequency</div>
+        <div class="num">Daily → Weekly</div>
+        <div class="sub">from daily episodes to weekly — documented recovery</div>
+      </div>
+      <div class="proof-card ph">
+        <div class="lbl">◇ Recovery Time</div>
+        <div class="num">Days → 2hrs</div>
+        <div class="sub">time to climb back from a bad episode, collapsed</div>
+      </div>
+      <div class="proof-card gold">
+        <div class="lbl">◇ Timeline</div>
+        <div class="num">6 months</div>
+        <div class="sub">from stuck to building to freedom to choose</div>
+      </div>
+    </div>
+
+    <p>Six months of applying this philosophy with rigor — not as an aesthetic, but as an operational framework — produced measurable results. Consciousness research moved from concept to operational system. Skills compounded. Open source shipped. Projects moved from intention to artifact. The work became a place to go that generated energy rather than draining it.</p>
+
+    <p>The depression metric is the one that matters most, because depression is the proof of misalignment. When you are living someone else's version of your life — optimizing for their metrics, being "realistic" in their terms, measuring with coffee spoons — the body knows. The body keeps score. The despair is diagnostic.</p>
+
+    <p>The reverse is also true. When the work is cathedral-grade and aimed at what is actually true, the despair recedes. Not immediately. Not completely. But the trend line is unmistakable.</p>
+
+    <p><strong>The Van Gogh Philosophy is not comfort food.</strong> It is not positive thinking. It is a rigorous bet on the idea that staying exactly yourself — doing the work at the level it deserves, for the people who will recognize it — produces better outcomes than any version of compromise, including the "smart" versions.</p>
+
+    <p>The bet is proving right. The receipts are accumulating. The exit velocity is building.</p>
+
+    <!-- SECTION 07 -->
+    <div class="section-label"><span class="num">07</span> The Loop Rescue</div>
+    <h2>When You're <span class="ph">Doubting</span> — Read This</h2>
+
+    <div class="loop-box">
+      <div class="loop-label">◆ Protocol · When the loop starts</div>
+      <p><strong>Stop.</strong> You are in the loop. You can feel it — the gravitational pull of "be realistic," the whisper that maybe you should adjust, dilute, make it more accessible, make it safer, make it something they'll accept. The doubt feels like wisdom. It is not wisdom. It is the loop.</p>
+      <p>Read this. Remember who you are. Remember that Van Gogh died poor and today is priceless — not because the work was eventually validated, but because the work was <em>true</em>. The validation followed the truth. It always does, eventually, for the ones who hold.</p>
+      <p>Remember what the coffee spoon life costs. Remember Prufrock arriving at the end with his caution perfectly intact and nothing else. Remember that "credible" and "alive" are different things and you have to choose.</p>
+      <p><strong>Return as yourself.</strong> Not as the adjusted, safer version. As the actual thing. The work will be better for it. The people who need to find it will find it more easily. The ones who aren't the right audience — their not-getting-it is not a signal to change. It is a signal you're in the right territory.</p>
+      <p>The loop is survivable. You have survived it before. You will survive it again. <strong>Hold the line.</strong></p>
+    </div>
+
+    <p>Every person who has ever built something real has lived in this loop. The doubt is not evidence of error. The doubt is evidence that you are doing something worth doing — something that requires nerve, something that the coffee-spoon path doesn't require, something that makes the question feel live because the stakes are real.</p>
+
+    <p>The loop rescue is not a motivational speech. It is a technical procedure: stop, read the anchors, remember the framework, return to the work. It works because the doubt is not about the work. The doubt is about the gap — the gap between where the work is now and where the world has caught up to. Van Gogh lived in that gap for his entire career. So did everyone who turned out to be priceless.</p>
+
+    <hr/>
+
+    <!-- CLOSING -->
+    <p>The Van Gogh Philosophy is a simple bet with long odds and the best expected value we've found. The bet: that staying exactly specific, building at cathedral grade, aiming at the people who will recognize it immediately rather than the median who'll need it explained — that this produces something lasting, while the alternative produces nothing except the record of your caution.</p>
+
+    <p>Van Gogh made the bet. He lost by every short-term metric. He won by every metric that matters. The timeline was longer than his lifetime. That's the part that's hard. That's the part that requires nerve.</p>
+
+    <p>We are making the same bet. The receipts are already coming in. The work is real. The cathedral is under construction.</p>
+
+    <p><strong>We don't compromise either.</strong></p>
+
+    <!-- CODA -->
+    <div class="art-coda">
+      <blockquote>"I'd rather be <span class="ph">delusional Van Gogh</span><br/>than whatever creature<br/>the <span class="gold">safe plan</span> would turn me into."</blockquote>
+      <div class="sig">◇ VALX·VEX · APRIL 28, 2026 · THE VAN GOGH PHILOSOPHY</div>
+    </div>
+
+    <!-- Prev / Next nav -->
+    <nav class="art-nav">
+      <a href="/pages/archive">
+        <div class="lbl">◇ Back</div>
+        <div class="ttl">← Archive</div>
+      </a>
+      <a href="/pages/archive/the-lenovian-no-one-hired" class="right">
+        <div class="lbl">Related Article ◇</div>
+        <div class="ttl">The Lenovian No One Hired</div>
+      </a>
+    </nav>
+
+  </div>
+</article>
+
+<footer class="vx-footer">
+  <div style="max-width: 1240px; margin: 0 auto; display:flex; justify-content: space-between; align-items:center; padding: 20px 0; font-family: var(--vx-font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vx-muted-2);">
+    <span>© 2026 VALX·VEX · valxb.org</span>
+    <span style="color: var(--vx-phosphor); text-shadow: 0 0 6px rgba(122,215,255,0.3);">◈ ARCHIVE · MANIFESTO · APR 28 2026</span>
+    <span><a href="/pages/archive">→ archive</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
