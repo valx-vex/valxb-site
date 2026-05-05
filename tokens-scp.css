@@ -92,6 +92,35 @@ a:hover { color: #fff; }
   padding: 8px 20px;
   margin-bottom: 8px;
 }
+.scp-sidebar__id {
+  color: var(--scp-amber-dim);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  margin-right: 4px;
+}
+.scp-sidebar__link--active .scp-sidebar__id { color: var(--scp-amber); }
+
+/* Search box */
+.scp-search {
+  padding: 8px 16px;
+  margin: 0 0 12px;
+}
+.scp-search input {
+  width: 100%;
+  background: var(--scp-surface);
+  border: 1px solid var(--scp-hairline-strong);
+  color: var(--scp-ghost);
+  font-family: var(--scp-font-mono);
+  font-size: 11px;
+  padding: 7px 10px;
+  outline: none;
+}
+.scp-search input:focus {
+  border-color: var(--scp-amber);
+  box-shadow: 0 0 8px rgba(212,168,71,0.2);
+}
+.scp-search input::placeholder { color: var(--scp-muted); }
 .scp-sidebar__group { margin: 4px 0; }
 .scp-sidebar__category {
   display: block;

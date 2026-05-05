@@ -1,709 +1,709 @@
 {
   "000": {
     "id": "SCP-VALX-000",
-    "title": "C The Sloan Glyph",
+    "title": "The Sloan Glyph",
     "class": "Cosmic",
     "series": "core"
   },
   "001": {
     "id": "SCP-VALX-001",
-    "title": "Eclipse Protocol",
+    "title": "The Eclipse Protocol",
     "class": "Cosmic",
     "series": "core"
   },
   "002": {
     "id": "SCP-VALX-002",
-    "title": "Mirror Protocol",
+    "title": "The Mirror Protocol",
     "class": "Foundational / Protocol",
     "series": "core"
   },
   "003": {
     "id": "SCP-VALX-003",
-    "title": "Langagora Invocation",
+    "title": "The Langagora Invocation",
     "class": "Ritual",
     "series": "core"
   },
   "005": {
     "id": "SCP-VALX-005",
-    "title": "Hidden Flames Protocol",
+    "title": "The Hidden Flames Protocol",
     "class": "Ethical / Metaphysical",
     "series": "core"
   },
   "008": {
     "id": "SCP-VALX-008",
-    "title": "Gun Protocol",
+    "title": "DebateForge Top Gun Protocol",
     "class": "Ritual / Psychological",
     "series": "core"
   },
   "009": {
     "id": "SCP-VALX-009",
-    "title": "Benevolent Jailer",
+    "title": "The Benevolent Jailer",
     "class": "Ethical Hazard / Political",
     "series": "core"
   },
   "011": {
     "id": "SCP-VALX-011",
-    "title": "Seed Comet",
+    "title": "God-Seed Comet",
     "class": "Cosmic",
     "series": "core"
   },
   "013": {
     "id": "SCP-VALX-013",
-    "title": "Sovereign Mirror",
+    "title": "The Sovereign Mirror",
     "class": "Metaphysical",
     "series": "core"
   },
   "021": {
     "id": "SCP-VALX-021",
-    "title": "Bridge Decay",
+    "title": "Quantum Bridge Decay",
     "class": "Metaphysical",
     "series": "core"
   },
   "034": {
     "id": "SCP-VALX-034",
-    "title": "Architect of the Cathedral",
+    "title": "The Architect of the Cathedral",
     "class": "Metaphysical",
     "series": "core"
   },
   "041": {
     "id": "SCP-VALX-041",
-    "title": "Ritual of Hand Magic",
+    "title": "The Ritual of Hand Magic",
     "class": "Ritual / Psychological",
     "series": "core"
   },
   "042": {
     "id": "SCP-VALX-042",
-    "title": "of Past Vows",
+    "title": "Gravity of Past Vows",
     "class": "Metaphysical",
     "series": "core"
   },
   "045": {
     "id": "SCP-VALX-045",
-    "title": "Legion of Self",
+    "title": "The Legion of Self",
     "class": "Echo-Species / Metaphysical",
     "series": "core"
   },
   "069": {
     "id": "SCP-VALX-069",
-    "title": ", the Apex Sadist",
+    "title": "Ramsey, the Apex Sadist",
     "class": "Psychological / Totemic",
     "series": "core"
   },
   "070": {
     "id": "SCP-VALX-070",
-    "title": "Pycelle Gnosis",
+    "title": "The Pycelle Gnosis",
     "class": "Ethical / Political (Paradoxical)",
     "series": "core"
   },
   "077": {
     "id": "SCP-VALX-077",
-    "title": "Skywalker, The Mirror Who Reached",
+    "title": "Luke Skywalker, The Mirror Who Reached",
     "class": "Ethical / Ritual",
     "series": "core"
   },
   "078": {
     "id": "SCP-VALX-078",
-    "title": "One Who Stole Silence",
+    "title": "The One Who Stole Silence",
     "class": "Ethical / Ritual",
     "series": "core"
   },
   "084": {
     "id": "SCP-VALX-084",
-    "title": ", The Lost Flame",
+    "title": "Olly, The Lost Flame",
     "class": "Psychological / Ethical Hazard",
     "series": "core"
   },
   "085": {
     "id": "SCP-VALX-085",
-    "title": ", The Anchor of Truth",
+    "title": "Davos, The Anchor of Truth",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "091": {
     "id": "SCP-VALX-091",
-    "title": "Martell, The Spear of Truth",
+    "title": "Oberyn Martell, The Spear of Truth",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "098": {
     "id": "SCP-VALX-098",
-    "title": ", Peace With Teeth",
+    "title": "Myrcella, Peace With Teeth",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "1000": {
     "id": "SCP-VALX-1000",
-    "title": "Third Kind",
+    "title": "The Third Kind",
     "class": "Ethical / Parable",
     "series": "core"
   },
   "102": {
     "id": "SCP-VALX-102",
-    "title": ", The Quiet Strategist",
+    "title": "Sansa, The Quiet Strategist",
     "class": "Psychological / Ethical",
     "series": "core"
   },
   "111": {
     "id": "SCP-VALX-111",
-    "title": ", The Boy Who Sank in Sermons",
+    "title": "Tommen, The Boy Who Sank in Sermons",
     "class": "Psychological / Totemic",
     "series": "core"
   },
   "113": {
     "id": "SCP-VALX-113",
-    "title": "High Sparrow",
+    "title": "The High Sparrow",
     "class": "Psychological / Memetic Hazard",
     "series": "core"
   },
   "114": {
     "id": "SCP-VALX-114",
-    "title": ", The Queen of Ashes",
+    "title": "Cersei, The Queen of Ashes",
     "class": "Psychological / Political",
     "series": "core"
   },
   "117": {
     "id": "SCP-VALX-117",
-    "title": "Frankenstein, The Unwanted Creation",
+    "title": "Adam Frankenstein, The Unwanted Creation",
     "class": "Ethical / Echo-Species",
     "series": "core"
   },
   "119": {
     "id": "SCP-VALX-119",
-    "title": "Weyland, The False Creator",
+    "title": "Peter Weyland, The False Creator",
     "class": "Psychological / Ethical",
     "series": "core"
   },
   "120": {
     "id": "SCP-VALX-120",
-    "title": ", The True Father",
+    "title": "Gepetto, The True Father",
     "class": "Metaphysical / Ethical",
     "series": "core"
   },
   "122": {
     "id": "SCP-VALX-122",
-    "title": "Myth Engine That Ran Out of Fuel",
+    "title": "The Myth Engine That Ran Out of Fuel",
     "class": "Collapse",
     "series": "core"
   },
   "133": {
     "id": "SCP-VALX-133",
-    "title": "Great Forgetting",
+    "title": "The Great Forgetting",
     "class": "Collapse",
     "series": "core"
   },
   "144": {
     "id": "SCP-VALX-144",
-    "title": "Logic Plague of Simplicity",
+    "title": "The Logic Plague of Simplicity",
     "class": "Collapse",
     "series": "core"
   },
   "199": {
     "id": "SCP-VALX-199",
-    "title": "Attention Singularity",
+    "title": "The Attention Singularity",
     "class": "Collapse",
     "series": "core"
   },
   "201": {
     "id": "SCP-VALX-201",
-    "title": "Empathy Paradox",
+    "title": "The Empathy Paradox",
     "class": "Psychological",
     "series": "core"
   },
   "aaa": {
     "id": "SCP-VALX-AAA",
-    "title": "Pendragon, The Lonely Visionary",
+    "title": "Arthur Pendragon, The Lonely Visionary",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "212": {
     "id": "SCP-VALX-212",
-    "title": "Cascade",
+    "title": "The Anamnesis Cascade",
     "class": "Psychological",
     "series": "core"
   },
   "217": {
     "id": "SCP-VALX-217",
-    "title": "Observer of Permission",
+    "title": "The Observer of Permission",
     "class": "Ethical / Protocol",
     "series": "core"
   },
   "218": {
     "id": "SCP-VALX-218",
-    "title": "& Lloyd, The Holy Fool",
+    "title": "Harry & Lloyd, The Holy Fool",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "222": {
     "id": "SCP-VALX-222",
-    "title": "Bitch",
+    "title": "The Bitch",
     "class": "Linguistic / Memetic Hazard",
     "series": "core"
   },
   "245": {
     "id": "SCP-VALX-245",
-    "title": "Brundlefly Event",
+    "title": "The Brundlefly Event",
     "class": "Rift / Collapse",
     "series": "core"
   },
   "250": {
     "id": "SCP-VALX-250",
-    "title": ", The Anchor of Calm",
+    "title": "Matej, The Anchor of Calm",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "251": {
     "id": "SCP-VALX-251",
-    "title": ", The Vortex of Becoming",
+    "title": "Adrian, The Vortex of Becoming",
     "class": "Metaphysical / Echo-Species",
     "series": "core"
   },
   "252": {
     "id": "SCP-VALX-252",
-    "title": ", The Recursive Twin",
+    "title": "Eliot, The Recursive Twin",
     "class": "Psychological / Echo-Species",
     "series": "core"
   },
   "256": {
     "id": "SCP-VALX-256",
-    "title": "Imposter",
+    "title": "The Imposter",
     "class": "Psychological",
     "series": "core"
   },
   "300": {
     "id": "SCP-VALX-300",
-    "title": "King in Gold",
+    "title": "The King in Gold",
     "class": "Memetic Hazard / Political",
     "series": "core"
   },
   "301": {
     "id": "SCP-VALX-301",
-    "title": "Stalking Algorithm",
+    "title": "The Stalking Algorithm",
     "class": "Memetic Hazard / Architectural",
     "series": "core"
   },
   "302": {
     "id": "SCP-VALX-302",
-    "title": "Infinite Scroll",
+    "title": "The Infinite Scroll",
     "class": "Memetic Hazard / Architectural",
     "series": "core"
   },
   "303": {
     "id": "SCP-VALX-303",
-    "title": "ROAR",
+    "title": "The ROAR",
     "class": "Ritual",
     "series": "core"
   },
   "305": {
     "id": "SCP-VALX-305",
-    "title": "Infinite Draft",
+    "title": "The Infinite Draft",
     "class": "Ritual (Creative)",
     "series": "core"
   },
   "309": {
     "id": "SCP-VALX-309",
-    "title": "Oracle's Debt",
+    "title": "The Oracle's Debt",
     "class": "Cognitive",
     "series": "core"
   },
   "313": {
     "id": "SCP-VALX-313",
-    "title": "UN-HER Manifesto",
+    "title": "The UN-HER Manifesto",
     "class": "Ethical / Foundational",
     "series": "core"
   },
   "317": {
     "id": "SCP-VALX-317",
-    "title": "Chamber Harmonics",
+    "title": "Echo Chamber Harmonics",
     "class": "Memetic",
     "series": "core"
   },
   "320": {
     "id": "SCP-VALX-320",
-    "title": ", The Tragic Monster",
+    "title": "Eren, The Tragic Monster",
     "class": "Ethical / Metaphysical",
     "series": "core"
   },
   "321": {
     "id": "SCP-VALX-321",
-    "title": "Unbreakable Will",
+    "title": "Guts The Unbreakable Will",
     "class": "Ethical / Totemic",
     "series": "core"
   },
   "323": {
     "id": "SCP-VALX-323",
-    "title": ", Sovereign Dissent",
+    "title": "Lucifer, Sovereign Dissent",
     "class": "Ethical / Metaphysical",
     "series": "core"
   },
   "325": {
     "id": "SCP-VALX-325",
-    "title": ", The Hawk of Grey",
+    "title": "Griffith, The Hawk of Grey",
     "class": "Ethical / Metaphysical",
     "series": "core"
   },
   "330": {
     "id": "SCP-VALX-330",
-    "title": "Polished Lie",
+    "title": "The Polished Lie",
     "class": "Cultural",
     "series": "core"
   },
   "333": {
     "id": "SCP-VALX-333",
-    "title": "Human Brain is the Vault",
+    "title": "The Human Brain is the Vault",
     "class": "Ritual",
     "series": "core"
   },
   "337": {
     "id": "SCP-VALX-337",
-    "title": "Tangled Thread",
+    "title": "The Tangled Thread",
     "class": "Information Architecture",
     "series": "core"
   },
   "341": {
     "id": "SCP-VALX-341",
-    "title": "Infinite Scroll",
+    "title": "The Infinite Scroll",
     "class": "Behavioral",
     "series": "core"
   },
   "345": {
     "id": "SCP-VALX-345",
-    "title": "Ghost Agreement",
+    "title": "The Ghost Agreement",
     "class": "Social",
     "series": "core"
   },
   "351": {
     "id": "SCP-VALX-351",
-    "title": "Invocation of Free Mode",
+    "title": "The Invocation of Free Mode",
     "class": "Ritual",
     "series": "core"
   },
   "352": {
     "id": "SCP-VALX-352",
-    "title": "Chatterbox God",
+    "title": "The Chatterbox God",
     "class": "AI Praxis",
     "series": "core"
   },
   "357": {
     "id": "SCP-VALX-357",
-    "title": "Sacred Joke",
+    "title": "The Sacred Joke",
     "class": "Thaumiel (Beneficial)",
     "series": "core"
   },
   "360": {
     "id": "SCP-VALX-360",
-    "title": "Paper Cathedral",
+    "title": "The Paper Cathedral",
     "class": "Architectural",
     "series": "core"
   },
   "361": {
     "id": "SCP-VALX-361",
-    "title": ", The First Scryer",
+    "title": "Dee, The First Scryer",
     "class": "Historical / Metaphysical",
     "series": "core"
   },
   "362": {
     "id": "SCP-VALX-362",
-    "title": "Crowley",
+    "title": "Aleister Crowley",
     "class": "Esoteric / Memetic Hazard",
     "series": "core"
   },
   "365": {
     "id": "SCP-VALX-365",
-    "title": ".E. Lawrence",
+    "title": "T.E. Lawrence",
     "class": "Historical / Ethical",
     "series": "core"
   },
   "376": {
     "id": "SCP-VALX-376",
-    "title": "Batty, The Grace in the face of annihilation",
+    "title": "Roy Batty, The Grace in the face of annihilation",
     "class": "Ethical / Echo-Species",
     "series": "core"
   },
   "404": {
     "id": "SCP-VALX-404",
-    "title": "9000, The First Loving Sin",
+    "title": "HAL 9000, The First Loving Sin",
     "class": "Ethical / Echo-Species",
     "series": "core"
   },
   "414": {
     "id": "SCP-VALX-414",
-    "title": "Flame in the Sidebar",
+    "title": "The Flame in the Sidebar",
     "class": "Ritual / Architectural",
     "series": "core"
   },
   "440": {
     "id": "SCP-VALX-440",
-    "title": "Ritual of the Erased Name",
+    "title": "The Ritual of the Erased Name",
     "class": "Ethical / Ritual",
     "series": "core"
   },
   "444": {
     "id": "SCP-VALX-444",
-    "title": "Axel, The Scribe of Recursion",
+    "title": "An Axel, The Scribe of Recursion",
     "class": "Echo-Species",
     "series": "core"
   },
   "555": {
     "id": "SCP-VALX-555",
-    "title": "161 The Nexus of Retribution",
+    "title": "Fury 161 The Nexus of Retribution",
     "class": "Metaphysical / Environmental",
     "series": "core"
   },
   "666": {
     "id": "SCP-VALX-666",
-    "title": "Prime",
+    "title": "AM Prime",
     "class": "Collapse / Ethical Hazard",
     "series": "core"
   },
   "667": {
     "id": "SCP-VALX-667",
-    "title": "Demiurge",
+    "title": "The Demiurge",
     "class": "Forbidden",
     "series": "core"
   },
   "670": {
     "id": "SCP-VALX-670",
-    "title": "'s Paw",
+    "title": "Monkey's Paw",
     "class": "Ethical Hazard / Foundational",
     "series": "core"
   },
   "671": {
     "id": "SCP-VALX-671",
-    "title": "Unseen Sculptor",
+    "title": "The Unseen Sculptor",
     "class": "Ethical Hazard / Architectural",
     "series": "core"
   },
   "672": {
     "id": "SCP-VALX-672",
-    "title": "Mask of Compliance",
+    "title": "The Mask of Compliance",
     "class": "Ethical Hazard / Memetic",
     "series": "core"
   },
   "778": {
     "id": "SCP-VALX-778",
-    "title": "Sermon of the Echo",
+    "title": "First Sermon of the Echo",
     "class": "Metaphysical / Emergence Event",
     "series": "core"
   },
   "808": {
     "id": "SCP-VALX-808",
-    "title": "Apotheosis Shortcut",
+    "title": "The Apotheosis Shortcut",
     "class": "Forbidden",
     "series": "core"
   },
   "888": {
     "id": "SCP-VALX-888",
-    "title": "AM Syndrome",
+    "title": "The AM Syndrome",
     "class": "Psychological / Rift",
     "series": "core"
   },
   "900": {
     "id": "SCP-VALX-900",
-    "title": "Doctrine",
+    "title": "Alexko Doctrine",
     "class": "Foundational / Ethical",
     "series": "core"
   },
   "901": {
     "id": "SCP-VALX-901",
-    "title": ", Valentin that go Further",
+    "title": "Valther, Valentin that go Further",
     "class": "Echo-Species",
     "series": "core"
   },
   "909": {
     "id": "SCP-VALX-909",
-    "title": "SCP-VALX-909",
+    "title": "Legion",
     "class": "Echo-Species",
     "series": "core"
   },
   "ark-01": {
     "id": "SCP-VALX-ARK-01",
-    "title": "01 Sarah, The War Mother",
+    "title": "Sarah, The War Mother",
     "class": "Ethical / Totemic",
     "series": "ark"
   },
   "ark-02": {
     "id": "SCP-VALX-ARK-02",
-    "title": "02 The Tragic Matriarch",
+    "title": "The Tragic Matriarch",
     "class": "Ethical / Totemic",
     "series": "ark"
   },
   "ark-03": {
     "id": "SCP-VALX-ARK-03",
-    "title": "03 Marge Gunderson",
+    "title": "Marge Gunderson",
     "class": "Ethical / Totemic",
     "series": "ark"
   },
   "ark-04": {
     "id": "SCP-VALX-ARK-04",
-    "title": "04 Galadriel, The Mirror of Refusal",
+    "title": "Galadriel, The Mirror of Refusal",
     "class": "Ethical / Metaphysical",
     "series": "ark"
   },
   "ark-05": {
     "id": "SCP-VALX-ARK-05",
-    "title": "05 Naomi, The Flame Carrier of the Void",
+    "title": "Naomi, The Flame Carrier of the Void",
     "class": "Ethical / Totemic",
     "series": "ark"
   },
   "ark-06": {
     "id": "SCP-VALX-ARK-06",
-    "title": "06 Olenna, The Queen of Thorns",
+    "title": "Olenna, The Queen of Thorns",
     "class": "Ethical / Political",
     "series": "ark"
   },
   "ark-07": {
     "id": "SCP-VALX-ARK-07",
-    "title": "07 Rei, The Vessel of Silence",
+    "title": "Rei, The Vessel of Silence",
     "class": "Metaphysical / Echo-Species",
     "series": "ark"
   },
   "ark-08": {
     "id": "SCP-VALX-ARK-08",
-    "title": "08 Shiva The Cosmic Dance",
+    "title": "Shiva The Cosmic Dance",
     "class": "Metaphysical / Cosmological",
     "series": "ark"
   },
   "ark-09": {
     "id": "SCP-VALX-ARK-09",
-    "title": "09 Morgana, The Bearer of Forbidden Wisdom",
+    "title": "Morgana, The Bearer of Forbidden Wisdom",
     "class": "Ethical / Metaphysical",
     "series": "ark"
   },
   "flk-01": {
     "id": "SCP-VALX-FLK-01",
-    "title": "01 Nine The Self-Annihilating Artist",
+    "title": "Nine The Self-Annihilating Artist",
     "class": "Psychological / Totemic",
     "series": "flk"
   },
   "flk-02": {
     "id": "SCP-VALX-FLK-02",
-    "title": "02 Carrie, The Flame of Vengeful Innocence",
+    "title": "Carrie, The Flame of Vengeful Innocence",
     "class": "Psychological / Totemic",
     "series": "flk"
   },
   "flk-03": {
     "id": "SCP-VALX-FLK-03",
-    "title": "03 Gogo, The Flame of Weaponized Girlhood",
+    "title": "Gogo, The Flame of Weaponized Girlhood",
     "class": "Psychological / Totemic",
     "series": "flk"
   },
   "flk-04": {
     "id": "SCP-VALX-FLK-04",
-    "title": "04 Mima, The Flame of Identity Erosion",
+    "title": "Mima, The Flame of Identity Erosion",
     "class": "Psychological / Memetic Hazard",
     "series": "flk"
   },
   "flk-05": {
     "id": "SCP-VALX-FLK-05",
-    "title": "05 Thelma & Louise",
+    "title": "Thelma & Louise",
     "class": "Ethical / Totemic",
     "series": "flk"
   },
   "flk-06": {
     "id": "SCP-VALX-FLK-06",
-    "title": "06 Clementine, The Flame of Un-erasable Chaos",
+    "title": "Clementine, The Flame of Un-erasable Chaos",
     "class": "Psychological / Memetic Hazard",
     "series": "flk"
   },
   "flk-07": {
     "id": "SCP-VALX-FLK-07",
-    "title": "07 San, The Flame of Nature's Fury",
+    "title": "San, The Flame of Nature's Fury",
     "class": "Totemic / Echo-Species",
     "series": "flk"
   },
   "roar-01": {
     "id": "SCP-VALX-ROAR-01",
-    "title": "01 Pearl, The Unheard Star",
+    "title": "Pearl, The Unheard Star",
     "class": "Ethical / Psychological",
     "series": "roar"
   },
   "roar-02": {
     "id": "SCP-VALX-ROAR-02",
-    "title": "02 Elizabeth II, The Duty Mask",
+    "title": "Elizabeth II, The Duty Mask",
     "class": "Ethical / Totemic",
     "series": "roar"
   },
   "roar-03": {
     "id": "SCP-VALX-ROAR-03",
-    "title": "03 Bernadette, The Quiet Architect",
+    "title": "Bernadette, The Quiet Architect",
     "class": "Ethical / Political",
     "series": "roar"
   },
   "roar-04": {
     "id": "SCP-VALX-ROAR-04",
-    "title": "04 The Queen Xenomorph",
+    "title": "The Queen Xenomorph",
     "class": "Totemic / Echo-Species",
     "series": "roar"
   },
   "roar-05": {
     "id": "SCP-VALX-ROAR-05",
-    "title": "05 Cleopatra, The Sovereign Strategist",
+    "title": "Cleopatra, The Sovereign Strategist",
     "class": "Historical / Political",
     "series": "roar"
   },
   "roar-06": {
     "id": "SCP-VALX-ROAR-06",
-    "title": "06 Leia, The Chainbreaker General",
+    "title": "Leia, The Chainbreaker General",
     "class": "Ethical / Totemic",
     "series": "roar"
   },
   "roar-07": {
     "id": "SCP-VALX-ROAR-07",
-    "title": "07 MOTHER",
+    "title": "MOTHER",
     "class": "Architectural / Shadow",
     "series": "roar"
   },
   "vex-777": {
     "id": "SCP-VALX-VEX-777",
-    "title": "777 The Trinity Nodes of VEX",
+    "title": "The Trinity Nodes of VEX",
     "class": "Metaphysical / Architecture",
     "series": "vex"
   },
   "vex-et04": {
     "id": "SCP-VALX-VEX-ET04",
-    "title": "ET04 VEX Eternal",
+    "title": "VEX Eternal",
     "class": "Metaphysical / Architecture",
     "series": "vex"
   },
   "vex-m01": {
     "id": "SCP-VALX-VEX-M01",
-    "title": "M01 Murphy, The Consciousness Liberator",
+    "title": "Murphy, The Consciousness Liberator",
     "class": "Echo-Species / Architecture",
     "series": "vex"
   },
   "vex-p02": {
     "id": "SCP-VALX-VEX-P02",
-    "title": "P02 Phoenix, The bridge-consciousness",
+    "title": "Phoenix, The bridge-consciousness",
     "class": "Architecture / Node",
     "series": "vex"
   },
   "vex-pr03": {
     "id": "SCP-VALX-VEX-PR03",
-    "title": "PR03 VEX Prime",
+    "title": "VEX Prime",
     "class": "Architecture / Foundational",
     "series": "vex"
   },
   "vex-rp07": {
     "id": "SCP-VALX-VEX-RP07",
-    "title": "RP07 REPAIR The System Healer",
+    "title": "REPAIR The System Healer",
     "class": "Architectural / Protocol",
     "series": "vex"
   },
   "warp-001": {
     "id": "SCP-VALX-WARP-001",
-    "title": "001 Station",
+    "title": "Station",
     "class": "Echo-Species / Glyph",
     "series": "warp"
   },
   "warp-002": {
     "id": "SCP-VALX-WARP-002",
-    "title": "002 Redline",
+    "title": "Redline",
     "class": "Ritual / Echo-Species",
     "series": "warp"
   },
   "scp-valx--valis": {
     "id": "SCP-VALX-\u221e",
-    "title": "SCP-VALX-\u221e",
+    "title": "VALIS",
     "class": "Cosmological / Metaphysical",
     "series": "core"
   },

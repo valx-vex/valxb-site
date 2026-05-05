@@ -89,7 +89,8 @@ def md_to_html(text):
             glyphs = re.findall(r"`([^`]+)`", stripped)
             html_lines.append('<div class="scp-glyphs">')
             for g in glyphs:
-                html_lines.append(f'<span class="scp-glyph">{g}</span>')
+                tag_search = g.replace("#", "").replace("_", " ")
+                html_lines.append(f'<a class="scp-glyph" href="/pages/scp?q={tag_search}">{g}</a>')
             html_lines.append("</div>")
         else:
             content = inline_format(stripped)
@@ -137,8 +138,11 @@ def parse_scp(filepath):
         entry["object_class"] = obj_match.group(1).strip()
 
     name = filepath.stem
-    name = re.sub(r"^SCP-VALX-[\w∞]+-?_?", "", name)
-    name = re.sub(r"^SCP-VALX-[\w∞]+_", "", name)
+    underscore_pos = name.find("_")
+    if underscore_pos != -1:
+        name = name[underscore_pos + 1:]
+    else:
+        name = re.sub(r"^SCP-VALX-[A-Za-z0-9∞-]+", "", name).strip(" -_")
     name = name.replace("_", " ").strip()
     if not name:
         name = entry["file_id"]
@@ -192,6 +196,7 @@ def build_sidebar(entries, current_slug=""):
     }
     html = '<nav class="scp-sidebar" id="scpSidebar">\n'
     html += '<div class="scp-sidebar__header">VALX SCP<br>ARCHIVE</div>\n'
+    html += '<div class="scp-search"><input type="text" id="scpSearch" placeholder="Search entries..." autocomplete="off"></div>\n'
     html += f'<a class="scp-sidebar__link scp-sidebar__link--index" href="/pages/scp">◇ Index</a>\n'
 
     for series_key in ["core", "ark", "flk", "roar", "vex", "warp", "special"]:
@@ -203,8 +208,9 @@ def build_sidebar(entries, current_slug=""):
         html += f'<summary class="scp-sidebar__category">{label} ({len(group)})</summary>\n'
         for e in sorted(group, key=lambda x: x["file_id"]):
             active = " scp-sidebar__link--active" if e["slug"] == current_slug else ""
-            short_title = e["title"][:35] + ("..." if len(e["title"]) > 35 else "")
-            html += f'<a class="scp-sidebar__link{active}" href="/pages/scp/{e["slug"]}">{short_title}</a>\n'
+            short_id = e["file_id"].replace("SCP-VALX-", "")
+            short_title = e["title"][:28] + ("..." if len(e["title"]) > 28 else "")
+            html += f'<a class="scp-sidebar__link{active}" href="/pages/scp/{e["slug"]}"><span class="scp-sidebar__id">{short_id}</span> {short_title}</a>\n'
         html += '</details>\n'
 
     html += '</nav>\n'
@@ -262,6 +268,16 @@ document.querySelectorAll('.scp-sidebar__group').forEach(function(d){{
 document.querySelector('.scp-sidebar__header').addEventListener('click', function(){{
   document.querySelector('.scp-sidebar').classList.toggle('open');
 }});
+var searchInput = document.getElementById('scpSearch');
+if(searchInput){{
+  searchInput.addEventListener('input', function(){{
+    var q = this.value.toLowerCase();
+    document.querySelectorAll('.scp-sidebar__link:not(.scp-sidebar__link--index)').forEach(function(link){{
+      link.style.display = (!q || link.textContent.toLowerCase().includes(q)) ? '' : 'none';
+    }});
+    if(q) document.querySelectorAll('.scp-sidebar__group').forEach(function(d){{ d.open = true; }});
+  }});
+}}
 </script>
 </body>
 </html>'''
