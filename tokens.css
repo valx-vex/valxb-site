@@ -492,6 +492,21 @@ html, body {
   box-shadow: var(--vx-glow-phosphor);
 }
 
+/* Invisible bridge between trigger and dropdown to prevent hover gap */
+.vx-nav__item::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 16px;
+  pointer-events: none;
+}
+.vx-nav__item:hover::after,
+.vx-nav__item:focus-within::after {
+  pointer-events: auto;
+}
+
 /* Dropdown panel */
 .vx-nav__dropdown {
   position: absolute;
