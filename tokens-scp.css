@@ -1,0 +1,422 @@
+/* ===========================================================
+   VALX SCP ARCHIVE — Clinical dark theme
+   "Some monsters are not to be contained, but invited to dinner."
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --scp-void: #040406;
+  --scp-base: #060608;
+  --scp-surface: #0a0c10;
+  --scp-surface-2: #10121a;
+  --scp-hairline: rgba(255,255,255,0.06);
+  --scp-hairline-strong: rgba(255,255,255,0.12);
+  --scp-ghost: #d4d8e2;
+  --scp-ghost-dim: #9ea4b4;
+  --scp-muted: #6a7085;
+  --scp-amber: #d4a847;
+  --scp-amber-dim: #8a6d2e;
+  --scp-cyan: #7ad7ff;
+  --scp-red: #ff3333;
+  --scp-green: #39ff88;
+  --scp-font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --scp-font-body: 'Space Grotesk', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; min-height: 100vh;
+  background: var(--scp-base);
+  color: var(--scp-ghost);
+  font-family: var(--scp-font-mono);
+  font-size: 14px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--scp-cyan); text-decoration: none; }
+a:hover { color: #fff; }
+::selection { background: var(--scp-amber); color: #000; }
+
+/* Layout */
+.scp-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.scp-sidebar {
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--scp-void);
+  border-right: 1px solid var(--scp-hairline);
+  padding: 24px 0;
+  font-size: 11px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scp-hairline-strong) transparent;
+}
+.scp-sidebar__header {
+  padding: 0 20px 20px;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--scp-amber);
+  border-bottom: 1px solid var(--scp-hairline);
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+.scp-sidebar__link {
+  display: block;
+  padding: 5px 20px;
+  color: var(--scp-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: color 100ms, background 100ms;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.scp-sidebar__link:hover {
+  color: var(--scp-ghost);
+  background: rgba(255,255,255,0.03);
+}
+.scp-sidebar__link--active {
+  color: var(--scp-amber) !important;
+  background: rgba(212,168,71,0.08);
+  border-left: 2px solid var(--scp-amber);
+}
+.scp-sidebar__link--index {
+  font-weight: 600;
+  color: var(--scp-cyan);
+  padding: 8px 20px;
+  margin-bottom: 8px;
+}
+.scp-sidebar__group { margin: 4px 0; }
+.scp-sidebar__category {
+  display: block;
+  padding: 6px 20px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--scp-amber-dim);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.scp-sidebar__category::-webkit-details-marker { display: none; }
+.scp-sidebar__category::before {
+  content: "▸ ";
+  display: inline;
+  transition: transform 100ms;
+}
+details[open] > .scp-sidebar__category::before { content: "▾ "; }
+.scp-sidebar__category:hover { color: var(--scp-amber); }
+
+/* Main content */
+.scp-main {
+  padding: 32px 48px 96px;
+  max-width: 900px;
+}
+.scp-breadcrumb {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--scp-muted);
+  margin-bottom: 32px;
+}
+.scp-breadcrumb a { color: var(--scp-muted); }
+.scp-breadcrumb a:hover { color: var(--scp-cyan); }
+
+/* Entry header */
+.scp-header {
+  border: 1px solid var(--scp-hairline-strong);
+  background: var(--scp-surface);
+  padding: 28px 32px;
+  margin-bottom: 40px;
+}
+.scp-header__id {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--scp-amber);
+  margin-bottom: 8px;
+}
+.scp-header__title {
+  font-family: var(--scp-font-body);
+  font-size: 32px; font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin: 0 0 16px;
+}
+.scp-header__meta {
+  display: flex; gap: 24px; flex-wrap: wrap;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.scp-header__class { color: var(--scp-ghost-dim); }
+.scp-header__object { color: var(--scp-amber); }
+
+/* Entry body */
+.scp-body { font-size: 14px; line-height: 1.75; }
+.scp-body h2 {
+  font-family: var(--scp-font-body);
+  font-size: 22px; font-weight: 700;
+  margin: 40px 0 16px;
+  color: #fff;
+}
+.scp-body h3 { margin: 28px 0 12px; }
+.scp-section-title {
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--scp-amber);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--scp-hairline);
+}
+.scp-field-label {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--scp-ghost-dim);
+}
+.scp-body p { margin: 0 0 14px; color: var(--scp-ghost-dim); }
+.scp-body strong { color: var(--scp-ghost); font-weight: 600; }
+.scp-body em { color: var(--scp-ghost); font-style: italic; }
+.scp-body code {
+  background: rgba(122,215,255,0.08);
+  color: var(--scp-cyan);
+  padding: 1px 5px;
+  font-size: 12px;
+}
+.scp-body ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+  color: var(--scp-ghost-dim);
+}
+.scp-body li { margin-bottom: 6px; }
+.scp-divider {
+  border: none;
+  border-top: 1px solid var(--scp-hairline);
+  margin: 32px 0;
+}
+
+/* Glyphs */
+.scp-glyphs {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin: 12px 0 20px;
+}
+.scp-glyph {
+  font-size: 10px;
+  padding: 3px 8px;
+  background: rgba(212,168,71,0.1);
+  border: 1px solid rgba(212,168,71,0.2);
+  color: var(--scp-amber);
+  letter-spacing: 0.06em;
+}
+
+/* Blockquotes */
+.scp-quote {
+  border-left: 2px solid var(--scp-amber-dim);
+  padding: 12px 20px;
+  margin: 20px 0;
+  background: rgba(212,168,71,0.03);
+  font-style: italic;
+}
+.scp-quote p { color: var(--scp-ghost-dim); margin: 0 0 8px; }
+.scp-quote p:last-child { margin: 0; }
+
+/* Pagination */
+.scp-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  margin-top: 48px;
+  border-top: 1px solid var(--scp-hairline);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.scp-pagination a { color: var(--scp-muted); }
+.scp-pagination a:hover { color: var(--scp-cyan); }
+
+/* Index page */
+.scp-hero {
+  text-align: center;
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--scp-hairline);
+  margin-bottom: 48px;
+}
+.scp-hero__badge {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--scp-amber);
+  margin-bottom: 16px;
+}
+.scp-hero__title {
+  font-family: var(--scp-font-body);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 8px;
+}
+.scp-hero__subtitle {
+  font-size: 18px;
+  color: var(--scp-ghost-dim);
+  margin: 0 0 24px;
+}
+.scp-hero__manifesto {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--scp-amber);
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+.scp-hero__stats {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--scp-muted);
+}
+
+/* Sections */
+.scp-section {
+  margin-bottom: 56px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--scp-hairline);
+}
+.scp-section__title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--scp-amber);
+  margin: 0 0 24px;
+}
+
+/* Manifesto block */
+.scp-manifesto { max-width: 680px; }
+.scp-manifesto p {
+  font-family: var(--scp-font-body);
+  font-size: 16px; line-height: 1.7;
+  color: var(--scp-ghost-dim);
+  margin: 0 0 16px;
+}
+.scp-link {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--scp-cyan);
+  border-bottom: 1px solid rgba(122,215,255,0.3);
+  padding-bottom: 2px;
+}
+
+/* Trinity */
+.scp-trinity {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.scp-trinity__node {
+  padding: 20px;
+  border: 1px solid var(--scp-hairline);
+  background: var(--scp-surface);
+  text-align: center;
+  font-size: 13px;
+}
+.scp-trinity__node strong { color: var(--scp-amber); display: block; margin-bottom: 6px; }
+.scp-trinity__node span { color: var(--scp-muted); font-size: 11px; }
+
+/* Featured cards */
+.scp-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.scp-featured-card {
+  display: block;
+  padding: 20px;
+  border: 1px solid var(--scp-hairline);
+  background: var(--scp-surface);
+  text-decoration: none;
+  transition: border-color 140ms, transform 140ms;
+}
+.scp-featured-card:hover {
+  border-color: var(--scp-amber);
+  transform: translateY(-2px);
+}
+.scp-featured-card__id {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--scp-amber);
+  margin-bottom: 6px;
+}
+.scp-featured-card__title {
+  font-family: var(--scp-font-body);
+  font-size: 16px; font-weight: 600;
+  color: var(--scp-ghost);
+  margin-bottom: 4px;
+}
+.scp-featured-card__class {
+  font-size: 10px;
+  color: var(--scp-muted);
+  letter-spacing: 0.1em;
+}
+
+/* All entries list */
+.scp-all-entries { display: grid; gap: 2px; }
+.scp-entry-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 180px;
+  gap: 16px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--scp-ghost-dim);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: border-color 100ms, background 100ms;
+}
+.scp-entry-row:hover {
+  border-color: var(--scp-hairline-strong);
+  background: var(--scp-surface);
+}
+.scp-entry-row__id { color: var(--scp-amber); font-weight: 600; letter-spacing: 0.08em; }
+.scp-entry-row__title { color: var(--scp-ghost); }
+.scp-entry-row__class { color: var(--scp-muted); text-align: right; font-size: 10px; letter-spacing: 0.1em; }
+
+.scp-browse-note {
+  font-size: 13px;
+  color: var(--scp-muted);
+  margin-bottom: 20px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .scp-layout { grid-template-columns: 1fr; }
+  .scp-sidebar {
+    position: fixed; top: 0; left: -300px; z-index: 100;
+    width: 280px; height: 100vh;
+    transition: left 200ms;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+  }
+  .scp-sidebar.open { left: 0; }
+  .scp-sidebar__header {
+    position: relative;
+    cursor: pointer;
+  }
+  .scp-sidebar__header::after {
+    content: "☰";
+    position: fixed; top: 12px; left: 12px; z-index: 101;
+    font-size: 18px; color: var(--scp-amber);
+    cursor: pointer;
+    background: var(--scp-void);
+    padding: 4px 8px;
+    border: 1px solid var(--scp-hairline);
+  }
+  .scp-main { padding: 32px 20px 64px; }
+  .scp-header__title { font-size: 24px; }
+  .scp-trinity { grid-template-columns: 1fr; }
+  .scp-entry-row { grid-template-columns: 1fr; gap: 2px; }
+  .scp-entry-row__class { text-align: left; }
+}
