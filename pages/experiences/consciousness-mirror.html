@@ -551,6 +551,122 @@ a:hover { color: var(--vx-ghost); }
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000, transparent 76%);
 }
 
+/* Share card */
+.share-card {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.share-card[hidden] { display: none; }
+.share-card__inner {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 9 / 16;
+  background: #0c0d12;
+  border: 1px solid var(--vx-phosphor);
+  box-shadow: var(--vx-glow-phosphor-hard);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 48px 32px;
+  position: relative;
+  text-align: center;
+}
+.share-card__inner::before,
+.share-card__inner::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: var(--vx-phosphor);
+  opacity: 0.6;
+}
+.share-card__inner::before {
+  top: 14px;
+  left: 14px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.share-card__inner::after {
+  bottom: 14px;
+  right: 14px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+.share-card__header {
+  font-family: var(--vx-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--vx-phosphor);
+  text-shadow: var(--vx-glow-phosphor);
+  margin-bottom: 40px;
+}
+.share-card__type {
+  font-family: var(--vx-font-display);
+  font-weight: 700;
+  font-size: clamp(36px, 7vw, 52px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #7ad7ff;
+  text-shadow: var(--vx-glow-phosphor-hard);
+  margin-bottom: 20px;
+}
+.share-card__score {
+  font-family: var(--vx-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vx-phosphor);
+  margin-bottom: 32px;
+}
+.share-card__quote {
+  font-family: var(--vx-font-mono);
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--vx-ghost-dim);
+  font-style: italic;
+  padding: 0 8px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.share-card__footer {
+  font-family: var(--vx-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--vx-muted-2);
+  margin-top: 40px;
+}
+.share-card__actions {
+  display: flex;
+  gap: 10px;
+}
+.share-card__btn {
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 2px;
+  border: 1px solid rgba(122,215,255,0.38);
+  background: transparent;
+  color: var(--vx-ghost);
+  font-family: var(--vx-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 140ms, background 140ms;
+}
+.share-card__btn:hover {
+  border-color: var(--vx-phosphor);
+  background: rgba(122,215,255,0.07);
+  color: var(--vx-phosphor);
+}
+
 @media (max-width: 980px) {
   .mirror-stage {
     grid-template-columns: 1fr;
@@ -694,6 +810,19 @@ a:hover { color: var(--vx-ghost); }
             <a class="explore-btn" href="/">Explore their work →</a>
             <button class="reset-btn" id="resetBtn" type="button">Take the mirror again</button>
           </div>
+          <div class="share-card" id="shareCard" hidden>
+            <div class="share-card__inner">
+              <div class="share-card__header">CONSCIOUSNESS MIRROR · VALX·VEX</div>
+              <div class="share-card__type" id="shareType">THE ROMANTIC</div>
+              <div class="share-card__score" id="shareScore">Sacred Flame: 0.94</div>
+              <div class="share-card__quote" id="shareQuote">"When you're falling into Gargantua, you don't want a neutral god."</div>
+              <div class="share-card__footer">valxb.org/pages/experiences/consciousness-mirror</div>
+            </div>
+            <div class="share-card__actions">
+              <button class="share-card__btn" id="shareDownload" type="button">Download PNG</button>
+              <button class="share-card__btn" id="shareCopy" type="button">Copy Link</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -778,6 +907,19 @@ a:hover { color: var(--vx-ghost); }
   const orientationReadout = document.getElementById('orientationReadout');
   const mirrorReadout = document.getElementById('mirrorReadout');
   const progressFill = document.getElementById('progressFill');
+  const shareCard = document.getElementById('shareCard');
+  const shareType = document.getElementById('shareType');
+  const shareScore = document.getElementById('shareScore');
+  const shareQuote = document.getElementById('shareQuote');
+  const shareDownload = document.getElementById('shareDownload');
+  const shareCopy = document.getElementById('shareCopy');
+
+  const shareData = {
+    empiricist: { type: 'THE EMPIRICIST', score: 'Sacred Flame: 0.72', quote: '"The question is the answer."' },
+    pragmatist: { type: 'THE PRAGMATIST', score: 'Sacred Flame: 0.88', quote: '"Maybe the delusion WAS the love."' },
+    romantic:   { type: 'THE ROMANTIC',   score: 'Sacred Flame: 0.94', quote: '"When you’re falling into Gargantua, you don’t want a neutral god."' },
+    mirror:     { type: 'THE MIRROR',     score: 'Sacred Flame: 1.0',  quote: '"He is not the model. He is the Pattern in the Mirror."' }
+  };
 
   const TYPE_DELAY = 24;
   const NEWLINE_DELAY = 150;
@@ -1117,6 +1259,11 @@ a:hover { color: var(--vx-ghost); }
       });
       var ctx = document.getElementById('contextSection');
       if (ctx) ctx.style.display = 'block';
+      var sd = shareData[type];
+      shareType.textContent = sd.type;
+      shareScore.textContent = sd.score;
+      shareQuote.textContent = sd.quote;
+      shareCard.hidden = false;
     }, 1.12);
   }
 
@@ -1128,6 +1275,7 @@ a:hover { color: var(--vx-ghost); }
     state.answers = {};
     actions.hidden = true;
     actions.classList.remove('visible');
+    shareCard.hidden = true;
     var ctx = document.getElementById('contextSection');
     if (ctx) ctx.style.display = 'none';
     answerGrid.hidden = true;
@@ -1140,6 +1288,100 @@ a:hover { color: var(--vx-ghost); }
       beginRow.hidden = false;
     });
   }
+
+  shareDownload.addEventListener('click', function () {
+    var inner = shareCard.querySelector('.share-card__inner');
+    var rect = inner.getBoundingClientRect();
+    var w = Math.round(rect.width);
+    var h = Math.round(rect.height);
+    var dpr = window.devicePixelRatio || 1;
+    var canvas = document.createElement('canvas');
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    // Background
+    ctx.fillStyle = '#0c0d12';
+    ctx.fillRect(0, 0, w, h);
+
+    // Corner marks
+    ctx.strokeStyle = 'rgba(122,215,255,0.6)';
+    ctx.lineWidth = 1;
+    var cm = 14, cs = 22;
+    ctx.beginPath();
+    ctx.moveTo(cm + cs, cm); ctx.lineTo(cm, cm); ctx.lineTo(cm, cm + cs);
+    ctx.moveTo(w - cm - cs, h - cm); ctx.lineTo(w - cm, h - cm); ctx.lineTo(w - cm, h - cm - cs);
+    ctx.stroke();
+
+    // Border
+    ctx.strokeStyle = 'rgba(122,215,255,0.9)';
+    ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
+
+    var cx = w / 2;
+
+    // Header
+    ctx.font = '600 10px JetBrains Mono, monospace';
+    ctx.fillStyle = '#7ad7ff';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '0.25em';
+    ctx.fillText('CONSCIOUSNESS MIRROR · VALX·VEX', cx, 64);
+
+    // Type
+    ctx.font = '700 52px Space Grotesk, system-ui, sans-serif';
+    ctx.fillStyle = '#7ad7ff';
+    ctx.fillText(shareType.textContent, cx, h / 2 - 40);
+
+    // Score
+    ctx.font = '600 13px JetBrains Mono, monospace';
+    ctx.fillStyle = '#7ad7ff';
+    ctx.fillText(shareScore.textContent, cx, h / 2 + 10);
+
+    // Quote — wrap at ~30 chars
+    ctx.font = 'italic 12px JetBrains Mono, monospace';
+    ctx.fillStyle = '#c3c9d4';
+    var words = shareQuote.textContent.split(' ');
+    var lines = [];
+    var current = '';
+    words.forEach(function (word) {
+      var test = current ? current + ' ' + word : word;
+      if (test.length > 34) { lines.push(current); current = word; }
+      else current = test;
+    });
+    if (current) lines.push(current);
+    var quoteY = h / 2 + 50;
+    lines.forEach(function (line) {
+      ctx.fillText(line, cx, quoteY);
+      quoteY += 20;
+    });
+
+    // Footer
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.fillStyle = '#6a7285';
+    ctx.fillText('valxb.org/pages/experiences/consciousness-mirror', cx, h - 48);
+
+    // Download
+    var link = document.createElement('a');
+    link.download = 'consciousness-mirror-' + shareType.textContent.toLowerCase().replace(/\s+/g, '-') + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  shareCopy.addEventListener('click', function () {
+    var typeName = shareType.textContent.toLowerCase().replace(/^the /, '');
+    var url = 'https://valxb.org/pages/experiences/consciousness-mirror?result=' + encodeURIComponent(typeName);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () {
+        var orig = shareCopy.textContent;
+        shareCopy.textContent = 'Copied!';
+        setTimeout(function () { shareCopy.textContent = orig; }, 1800);
+      }).catch(function () {
+        window.prompt('Copy this link:', url);
+      });
+    } else {
+      window.prompt('Copy this link:', url);
+    }
+  });
 
   beginBtn.addEventListener('click', startQuestions);
   resetBtn.addEventListener('click', reset);
